@@ -21,39 +21,39 @@ args = parse_args()
 
 def main():
 
-	env = gym.make('CustomHopper-source-v0')
-	# env = gym.make('CustomHopper-target-v0')
+    env = gym.make('CustomHopper-source-v0')
+    # env = gym.make('CustomHopper-target-v0')
 
-	print('Action space:', env.action_space)
-	print('State space:', env.observation_space)
-	print('Dynamics parameters:', env.get_parameters())
-	
-	observation_space_dim = env.observation_space.shape[-1]
-	action_space_dim = env.action_space.shape[-1]
+    print('Action space:', env.action_space)
+    print('State space:', env.observation_space)
+    print('Dynamics parameters:', env.get_parameters())
+    
+    observation_space_dim = env.observation_space.shape[-1]
+    action_space_dim = env.action_space.shape[-1]
 
-	policy = Policy(observation_space_dim, action_space_dim)
-	policy.load_state_dict(torch.load(args.model), strict=True)
+    policy = Policy(observation_space_dim, action_space_dim)
+    policy.load_state_dict(torch.load(args.model), strict=True)
 
-	agent = Agent(policy, device=args.device)
+    agent = Agent(policy, device=args.device)
 
-	for episode in range(args.episodes):
-	    done = False
-	    test_reward = 0
-	    state = env.reset()
+    for episode in range(args.episodes):
+        done = False
+        test_reward = 0
+        state = env.reset()
 
-	    while (not done):
+        while (not done):
 
-	        action, _ = agent.get_action(state, evaluation=True)
-	        
-	        state, reward, done, info = env.step(action.detach().cpu().numpy())
+            action, _ = agent.get_action(state, evaluation=True)
+            
+            state, reward, done, info = env.step(action.detach().cpu().numpy())
 
-	        if args.render:
-	            env.render()
+            if args.render:
+                env.render()
 
-	        test_reward += reward
+            test_reward += reward
 
-		print(f"Episode: {episode} | Return: {test_reward}")
-	
+        print(f"Episode: {episode} | Return: {test_reward}")
+    
 
 if __name__ == '__main__':
-	main()
+    main()
