@@ -7,7 +7,8 @@ from utils import discount_rewards
 
 class Policy(torch.nn.Module):
 
-    def __init__(self, state_space, action_space, hidden_layers, hidden_neurons, activation_function, output_activation):
+    def __init__(self, state_space, action_space, hidden_layers, hidden_neurons, \
+                activation_function, output_activation, init_sigma):
         """
         This constructor initializes a DNN with given parameters. 
         Parameters: 
@@ -19,9 +20,15 @@ class Policy(torch.nn.Module):
             activation_function: np.array of shape(hidden_layers - 1,) in which the i-th element corresponds to the i-th/i+1-th 
                                  activation function 
             output_activation: activation function to use on the output layer
+            init_sigma: scalar used as variance for exploration of the action space
+
+        Returns: 
+            nn.Sequential() object
         """
         # init of the super class
         super().__init__()
+        self.init_weights()
+
         # init for Policy
         self.state_space = state_space
         self.action_space = action_space
@@ -29,34 +36,27 @@ class Policy(torch.nn.Module):
         self.hidden_neurons = hidden_neurons
         self.activation_function = activation_function
         self.output_activation = output_activation
-
-        # ACTOR NETWORK
-        # state-space to first layer
-        layers = [nn.Linear(self.state_space, self.hidden_neurons[0]) self.activation_function[0])]
-        layers = []
-        for j in range(self.hidden_layers)-1):
-            act = self.activation_function[j] if j < self.hidden_layers)-2 else output_activation
-            layers += [nn.Linear(sizes[j], sizes[j+1]), act()]
-        return nn.Sequential(*layers)
-
-        
-        self.fc1_actor = torch.nn.Linear(state_space, self.hidden)
-        self.fc2_actor = torch.nn.Linear(self.hidden, self.hidden)
-        self.fc3_actor_mean = torch.nn.Linear(self.hidden, action_space)
         
         # Learned standard deviation for exploration at training time 
         self.sigma_activation = F.softplus
-        init_sigma = 0.5
+        self.init_sigma = init_sigma
         self.sigma = torch.nn.Parameter(torch.zeros(self.action_space)+init_sigma)
 
+        # ACTOR NETWORK
+        # state-space to first hidden layer
+        layers = [nn.Linear(self.state_space, self.hidden_neurons[0]), self.activation_function[0]()]
 
-        """
-            Critic network
-        """
-        # TODO 2.2.b: critic network for actor-critic algorithm
-
-
-        self.init_weights()
+        # first layer to last hidden layer
+        for j in range(self.hidden_layers-1):
+            act = self.activation_function[j]
+            layers += [nn.Linear(self.hidden_neurons[j], self.hidden_neurons[j+1]), act()]
+        
+        # last hidden layer to output layer
+        layers += [nn.Linear(self.hidden_neurons[-1], self.action_space), self.output_activation]
+        
+        ### CRITIC PART OF THE NETWORK FROM HERE ON ###
+        
+        return nn.Sequential(*layers)
 
     def init_weights(self):
         for m in self.modules():
