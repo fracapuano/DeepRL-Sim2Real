@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 import numpy as np
-from utils import discount_rewards
+from utils import Rewards
 
 class Policy(torch.nn.Module):
 
@@ -17,13 +17,13 @@ class Policy(torch.nn.Module):
             hidden_layers: integer representing the number of hidden layers
             hidden_neurons: np.array of shape(hidden_layers,) in which the i-th element corresponds to the number of neurons
                             in the i-th layer
-            activation_function: np.array of shape(hidden_layers - 1,) in which the i-th element corresponds to the i-th/i+1-th 
+            activation_function: np.array of shape(hidden_layers,) in which the i-th element corresponds to the i-th/i+1-th 
                                  activation function 
             output_activation: activation function to use on the output layer
             init_sigma: scalar used as variance for exploration of the action space
 
         Returns: 
-            nn.Sequential() object
+            None
         """
         # init of the super class
         super().__init__()
@@ -36,28 +36,44 @@ class Policy(torch.nn.Module):
         self.hidden_neurons = hidden_neurons
         self.activation_function = activation_function
         self.output_activation = output_activation
+
+        # number of hidden layers must be consistent with hidden neurons array 
+        if len(self.hidden_neurons) != self.hidden_layers: 
+            raise ValueError("The number of layers is inconsistent with the hidden neurons array!")
         
+        # number of activation function must be consistent with number of hidden layers
+        if len(self.activation_function) != self.hidden_layers: 
+            raise ValueError("The number of activation functions is inconsistent with the number of hidden layers!")
+
         # Learned standard deviation for exploration at training time 
         self.sigma_activation = F.softplus
         self.init_sigma = init_sigma
-        self.sigma = torch.nn.Parameter(torch.zeros(self.action_space)+init_sigma)
+        self.sigma = nn.Parameter(torch.zeros(self.action_space)+init_sigma)
 
-        # ACTOR NETWORK
+    def actor_network(self): 
+        """
+        This function builds the neural network with respect to the initializations on the parameters previously
+        declared. 
+        Paramethers: 
+            None
+        Returns: 
+            nn.Sequential() object
+        """
         # state-space to first hidden layer
-        layers = [nn.Linear(self.state_space, self.hidden_neurons[0]), self.activation_function[0]()]
+        layers = [nn.Linear(int(self.state_space), int(self.hidden_neurons[0])), self.activation_function[0]()]
 
         # first layer to last hidden layer
         for j in range(self.hidden_layers-1):
             act = self.activation_function[j]
-            layers += [nn.Linear(self.hidden_neurons[j], self.hidden_neurons[j+1]), act()]
+            layers += [nn.Linear(int(self.hidden_neurons[j]), int(self.hidden_neurons[j+1])), act()]
         
         # last hidden layer to output layer
-        layers += [nn.Linear(self.hidden_neurons[-1], self.action_space), self.output_activation]
+        layers += [nn.Linear(int(self.hidden_neurons[-1]), self.action_space), self.output_activation()]
+        
+        return nn.Sequential(*layers)
         
         ### CRITIC PART OF THE NETWORK FROM HERE ON ###
         
-        return nn.Sequential(*layers)
-
     def init_weights(self):
         for m in self.modules():
             if type(m) is torch.nn.Linear:
