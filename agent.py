@@ -1,20 +1,45 @@
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 import numpy as np
 from utils import discount_rewards
 
 class Policy(torch.nn.Module):
-    def __init__(self, state_space, action_space):
+
+    def __init__(self, state_space, action_space, hidden_layers, hidden_neurons, activation_function, output_activation):
+        """
+        This constructor initializes a DNN with given parameters. 
+        Parameters: 
+            state_space: integer representing the cardinality of the state space
+            action space: integer representing the cardinality of the action space
+            hidden_layers: integer representing the number of hidden layers
+            hidden_neurons: np.array of shape(hidden_layers,) in which the i-th element corresponds to the number of neurons
+                            in the i-th layer
+            activation_function: np.array of shape(hidden_layers - 1,) in which the i-th element corresponds to the i-th/i+1-th 
+                                 activation function 
+            output_activation: activation function to use on the output layer
+        """
+        # init of the super class
         super().__init__()
+        # init for Policy
         self.state_space = state_space
         self.action_space = action_space
-        self.hidden = 64
-        self.tanh = torch.nn.Tanh()
+        self.hidden_layers = hidden_layers
+        self.hidden_neurons = hidden_neurons
+        self.activation_function = activation_function
+        self.output_activation = output_activation
 
-        """
-            Actor network
-        """
+        # ACTOR NETWORK
+        # state-space to first layer
+        layers = [nn.Linear(self.state_space, self.hidden_neurons[0]) self.activation_function[0])]
+        layers = []
+        for j in range(self.hidden_layers)-1):
+            act = self.activation_function[j] if j < self.hidden_layers)-2 else output_activation
+            layers += [nn.Linear(sizes[j], sizes[j+1]), act()]
+        return nn.Sequential(*layers)
+
+        
         self.fc1_actor = torch.nn.Linear(state_space, self.hidden)
         self.fc2_actor = torch.nn.Linear(self.hidden, self.hidden)
         self.fc3_actor_mean = torch.nn.Linear(self.hidden, action_space)

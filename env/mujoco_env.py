@@ -34,7 +34,8 @@ def convert_observation_to_space(observation):
 
 
 class MujocoEnv(gym.Env):
-    """Interface for MuJoCo environments.
+    """
+    Interface for MuJoCo environments.
     """
 
     def __init__(self, frame_skip):
