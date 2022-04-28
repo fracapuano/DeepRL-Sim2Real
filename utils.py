@@ -25,6 +25,7 @@ class Rewards:
         G = r @ discounted_gamma
 
         self.total_reward = G
+        return G
     
     def discount_rewards_truncated(self, r, gamma):
         """
@@ -51,6 +52,7 @@ class Rewards:
         G = r @ discounted_gamma
         
         self.total_reward = G
+        return G
 
     def get_G(self): 
         return self.total_reward

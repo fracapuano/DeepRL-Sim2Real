@@ -8,7 +8,7 @@ import gym
 import argparse
 
 from env.custom_hopper import *
-from agent import Agent, Policy
+from myagent import Agent, Policy
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -37,6 +37,10 @@ def main():
     action_space_dim = env.action_space.shape[-1]
 
     policy = Policy(observation_space_dim, action_space_dim)
+
+    policy.actor_network()
+    policy.init_weights()
+    
     agent = Agent(policy, device=args.device)
 
 
@@ -49,16 +53,20 @@ def main():
 
             action, action_probabilities = agent.get_action(state)
             previous_state = state
-
+            
             state, reward, done, info = env.step(action.detach().cpu().numpy())
 
             agent.store_outcome(previous_state, state, action_probabilities, reward, done)
 
             train_reward += reward
         
+        # update the policy at the end of the episode with the parameters stored during the episode itself
+        agent.update_policy()
+        
         if (episode+1)%args.print_every == 0:
             print('Training episode:', episode)
             print('Episode return:', train_reward)
+
 
 
 

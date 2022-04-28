@@ -1,79 +1,32 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 import numpy as np
-from utils import Rewards
+
+from MLDLRL.utils import Rewards
 
 class Policy(torch.nn.Module):
-
-    def __init__(self, state_space, action_space, hidden_layers, hidden_neurons, \
-                activation_function, output_activation, init_sigma):
-        """
-        This constructor initializes a DNN with given parameters. 
-        Parameters: 
-            state_space: integer representing the cardinality of the state space
-            action space: integer representing the cardinality of the action space
-            hidden_layers: integer representing the number of hidden layers
-            hidden_neurons: np.array of shape(hidden_layers,) in which the i-th element corresponds to the number of neurons
-                            in the i-th layer
-            activation_function: np.array of shape(hidden_layers,) in which the i-th element corresponds to the i-th/i+1-th 
-                                 activation function 
-            output_activation: activation function to use on the output layer
-            init_sigma: scalar used as variance for exploration of the action space
-
-        Returns: 
-            None
-        """
-        # init of the super class
+    def __init__(self, state_space, action_space):
         super().__init__()
-        self.init_weights()
-
-        # init for Policy
         self.state_space = state_space
         self.action_space = action_space
-        self.hidden_layers = hidden_layers
-        self.hidden_neurons = hidden_neurons
-        self.activation_function = activation_function
-        self.output_activation = output_activation
+        self.hidden = 64
+        self.tanh = torch.nn.Tanh()
 
-        # number of hidden layers must be consistent with hidden neurons array 
-        if len(self.hidden_neurons) != self.hidden_layers: 
-            raise ValueError("The number of layers is inconsistent with the hidden neurons array!")
+        """
+            Actor network
+        """
+        self.fc1_actor = torch.nn.Linear(state_space, self.hidden)
+        self.fc2_actor = torch.nn.Linear(self.hidden, self.hidden)
+        self.fc3_actor_mean = torch.nn.Linear(self.hidden, action_space)
         
-        # number of activation function must be consistent with number of hidden layers
-        if len(self.activation_function) != self.hidden_layers: 
-            raise ValueError("The number of activation functions is inconsistent with the number of hidden layers!")
-
         # Learned standard deviation for exploration at training time 
         self.sigma_activation = F.softplus
-        self.init_sigma = init_sigma
-        self.sigma = nn.Parameter(torch.zeros(self.action_space)+init_sigma)
+        init_sigma = 0.5
+        self.sigma = torch.nn.Parameter(torch.zeros(self.action_space)+init_sigma)
 
-    def actor_network(self): 
-        """
-        This function builds the neural network with respect to the initializations on the parameters previously
-        declared. 
-        Paramethers: 
-            None
-        Returns: 
-            nn.Sequential() object
-        """
-        # state-space to first hidden layer
-        layers = [nn.Linear(int(self.state_space), int(self.hidden_neurons[0])), self.activation_function[0]()]
+        self.init_weights()
 
-        # first layer to last hidden layer
-        for j in range(self.hidden_layers-1):
-            act = self.activation_function[j]
-            layers += [nn.Linear(int(self.hidden_neurons[j]), int(self.hidden_neurons[j+1])), act()]
-        
-        # last hidden layer to output layer
-        layers += [nn.Linear(int(self.hidden_neurons[-1]), self.action_space), self.output_activation()]
-        
-        return nn.Sequential(*layers)
-        
-        ### CRITIC PART OF THE NETWORK FROM HERE ON ###
-        
     def init_weights(self):
         for m in self.modules():
             if type(m) is torch.nn.Linear:
@@ -84,22 +37,15 @@ class Policy(torch.nn.Module):
         """
             Actor
         """
+        x = torch.from_numpy(x).float()
         x_actor = self.tanh(self.fc1_actor(x))
         x_actor = self.tanh(self.fc2_actor(x_actor))
         action_mean = self.fc3_actor_mean(x_actor)
 
         sigma = self.sigma_activation(self.sigma)
         normal_dist = Normal(action_mean, sigma)
-
-
-        """
-            Critic
-        """
-        # TODO 2.2.b: forward in the critic network
-
-        
+    
         return normal_dist
-
 
 class Agent(object):
     def __init__(self, policy, device='cpu'):
@@ -113,6 +59,7 @@ class Agent(object):
         self.action_log_probs = []
         self.rewards = []
         self.done = []
+        self.reward_computer = Rewards()
 
     def update_policy(self):
         action_log_probs = torch.stack(self.action_log_probs, dim=0).to(self.train_device).squeeze(-1)
@@ -120,6 +67,13 @@ class Agent(object):
         next_states = torch.stack(self.next_states, dim=0).to(self.train_device).squeeze(-1)
         rewards = torch.stack(self.rewards, dim=0).to(self.train_device).squeeze(-1)
         done = torch.Tensor(self.done).to(self.train_device)
+
+        
+        for t in range(len(done)): 
+            if not done[t]: 
+                reward_array = rewards.numpy()
+                self.reward_computer.discount_rewards(reward_array[t:], self.gamma)
+                
 
         #
         # TODO 2.2.a:
@@ -161,4 +115,8 @@ class Agent(object):
         self.action_log_probs.append(action_log_prob)
         self.rewards.append(torch.Tensor([reward]))
         self.done.append(done)
-
+        
+pol = Policy(11, 3)
+print(pol)
+r_input = np.random.random(11)
+print(pol.forward(r_input))
