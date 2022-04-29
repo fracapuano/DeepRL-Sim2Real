@@ -61,7 +61,7 @@ def main():
             train_reward += reward
         
         # update the policy at the end of the episode with the parameters stored during the episode itself
-        agent.update_policy()
+        #agent.update_policy()
         
         if (episode+1)%args.print_every == 0:
             print('Training episode:', episode)
