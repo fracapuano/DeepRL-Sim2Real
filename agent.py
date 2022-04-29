@@ -3,7 +3,7 @@ import torch.nn.functional as F
 from torch.distributions import Normal
 import numpy as np
 
-from MLDLRL.utils import Rewards
+from utils import Rewards
 
 class Policy(torch.nn.Module):
     def __init__(self, state_space, action_space):
