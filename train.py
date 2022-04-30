@@ -8,8 +8,8 @@ import gym
 import argparse
 
 from env.custom_hopper import *
-from myagent import Agent, Policy
-
+from agent import Agent, Policy
+torch.autograd.set_detect_anomaly(True)
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--n-episodes', default=100000, type=int, help='Number of training episodes')
@@ -61,7 +61,7 @@ def main():
             train_reward += reward
         
         # update the policy at the end of the episode with the parameters stored during the episode itself
-        #agent.update_policy()
+        agent.update_policy()
         
         if (episode+1)%args.print_every == 0:
             print('Training episode:', episode)

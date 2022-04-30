@@ -123,7 +123,7 @@ class Agent(object):
     def __init__(self, policy, device='cpu'):
         self.train_device = device
         self.policy = policy.to(self.train_device)
-        self.optimizer = torch.optim.Adam(policy.ActorNetwork.parameters(), lr=1e-3)
+        self.optimizer = torch.optim.Adam(policy.parameters(), lr=1e-3)
 
         self.gamma = 0.99
         self.states = []
@@ -155,7 +155,7 @@ class Agent(object):
             print(pseudo_loss)
             
             self.optimizer.zero_grad()
-            pseudo_loss.backward()
+            pseudo_loss.backward(retain_graph=True)
             self.optimizer.step()
         
         #
