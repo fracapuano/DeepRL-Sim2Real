@@ -5,7 +5,7 @@ import gym
 import argparse
 
 from env.custom_hopper import *
-from agent import Agent, Policy
+from agentReinforce import Agent, Policy
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -32,7 +32,7 @@ def main():
     action_space_dim = env.action_space.shape[-1]
 
     policy = Policy(observation_space_dim, action_space_dim)
-    policy.load_state_dict(torch.load(args.model), strict=True)
+    policy.load_state_dict(torch.load(args.model), strict=False)
 
     agent = Agent(policy, device=args.device)
 

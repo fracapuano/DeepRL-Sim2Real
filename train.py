@@ -8,8 +8,12 @@ import gym
 import argparse
 
 from env.custom_hopper import *
-from agent import Agent, Policy
-torch.autograd.set_detect_anomaly(True)
+from agentReinforce import Agent, Policy
+
+# tiboni's classes
+# from agent import Agent, Policy
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--n-episodes', default=100000, type=int, help='Number of training episodes')
@@ -37,12 +41,7 @@ def main():
     action_space_dim = env.action_space.shape[-1]
 
     policy = Policy(observation_space_dim, action_space_dim)
-
-    policy.actor_network()
-    policy.init_weights()
-    
     agent = Agent(policy, device=args.device)
-
 
     for episode in range(args.n_episodes):
         done = False
@@ -61,14 +60,12 @@ def main():
             train_reward += reward
         
         # update the policy at the end of the episode with the parameters stored during the episode itself
+        
         agent.update_policy()
         
         if (episode+1)%args.print_every == 0:
             print('Training episode:', episode)
             print('Episode return:', train_reward)
-
-
-
 
     torch.save(agent.policy.state_dict(), "model.mdl")
 
