@@ -11,7 +11,7 @@ class Policy(torch.nn.Module):
 
     def __init__(self, state_space, action_space,
                 hidden_layers = 3, hidden_neurons = np.array([64, 64, 32]),
-                activation_function = np.array([torch.nn.ReLU for _ in range(3)]),
+                activation_function = np.array([torch.nn.Tanh for _ in range(3)]),
                 output_activation = torch.nn.Identity, init_sigma = 0.5):
         """
         This constructor initializes a DNN with given parameters. 
@@ -161,13 +161,13 @@ class Agent(object):
 
         # populating the sample of log(pi(A|S, theta))
         for log_prob, G in zip(action_log_probs, returns):
-            policy_loss.append(-log_prob * G)
+            policy_loss.append(log_prob * G)
 
         self.optimizer.zero_grad()
 
         # estimating log(pi(A|S, theta)) using MC procedure
         policy_loss = torch.stack(policy_loss).sum()
-        policy_loss = policy_loss / numberOfEpisodes
+        policy_loss = - policy_loss / numberOfEpisodes
 
         # backpropagating
         policy_loss.backward()

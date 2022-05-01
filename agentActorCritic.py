@@ -11,7 +11,7 @@ class Actor(torch.nn.Module):
 
     def __init__(self, state_space, action_space,
                 hidden_layers = 3, hidden_neurons = np.array([64, 64, 32]),
-                activation_function = np.array([torch.nn.ReLU for _ in range(3)]),
+                activation_function = np.array([torch.nn.Tanh for _ in range(3)]),
                 output_activation = torch.nn.Identity, init_sigma = 0.5):
         """
         This constructor initializes a DNN with given parameters. 
@@ -119,7 +119,7 @@ class Critic(torch.nn.Module):
 
     def __init__(self, state_space,
                 hidden_layers = 3, hidden_neurons = np.array([64, 64, 32]),
-                activation_function = np.array([torch.nn.ReLU for _ in range(3)]),
+                activation_function = np.array([torch.nn.Tanh for _ in range(3)]),
                 output_activation = torch.nn.Identity, init_sigma = 0.5):
         """
         This constructor initializes a DNN with given parameters. 
@@ -217,9 +217,12 @@ class Agent(object):
     def __init__(self, actor, critic, device='cpu'):
         self.train_device = device
         self.actor = actor.to(self.train_device)
+        self.actor.actor_network()
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=1e-3)
 
         self.critic = critic.to(self.train_device)
+        self.critic.critic_network()
+        self.critic = self.critic.CriticNetwork
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=1e-3)
 
         self.I = 1
@@ -236,27 +239,77 @@ class Agent(object):
         experience collected following that policy (i.e. with that specific set of 
         parameters)
         """
-        action_log_probs = torch.stack(self.action_log_probs, dim=0).to(self.train_device).squeeze(-1)
-        states = torch.stack(self.states, dim=0).to(self.train_device).squeeze(-1)
-        next_states = torch.stack(self.next_states, dim=0).to(self.train_device).squeeze(-1)
-        rewards = torch.stack(self.rewards, dim=0).to(self.train_device).squeeze(-1)
-        done = torch.Tensor(self.done).to(self.train_device)
+        self.action_log_probs = torch.stack(self.action_log_probs, dim=0).to(self.train_device).squeeze(-1)
+        self.states = torch.stack(self.states, dim=0).to(self.train_device).squeeze(-1)
+        self.next_states = torch.stack(self.next_states, dim=0).to(self.train_device).squeeze(-1)
+        self.rewards = torch.stack(self.rewards, dim=0).to(self.train_device).squeeze(-1)
+        self.done = torch.Tensor(self.done).to(self.train_device)
 
-        G = rewards[-1]
-        current_state_value = self.Critic(states[-1])
-        next_state_value = self.Critic(next_states[-1])
-        bootstrapped_state_value = self.gamma * next_state_value - current_state_value
-        delta = G + bootstrapped_state_value
+        numberOfSteps = len(self.states)
 
-        actor_loss = delta * self.I * action_log_probs.item()
-        critic_loss = delta * current_state_value
+        R = 0
+        actor_loss = []
+        critic_loss = []
+
+        returns = []
+        current_state_values = []
+        onestep_state_values = []
+        I = []
+
+        for i in range(numberOfSteps):
+            i = self.gamma**i
+            I.append(i)
+
+        I = torch.tensor(I)
+
+        for r in self.rewards:   
+            R = r + self.gamma * R
+            returns.append(R)
+        
+        returns = torch.tensor(returns)
+        #returns = (returns - returns.mean()) / (returns.std())
+    
+        """
+            CRITIC NET
+        """
+        for s in self.states: 
+            current_state_value = self.critic(s)
+            current_state_values.append(current_state_value)
+        for s in self.next_states: 
+            next_state_value = self.critic(s)
+            onestep_state_values.append(next_state_value)
+        
+        current_state_values = torch.cat(current_state_values)
+        onestep_state_values = torch.cat(onestep_state_values)
+
+        current_state_estimate = current_state_values.sum() / numberOfSteps
+        next_state_estimate = onestep_state_values.sum() / numberOfSteps
+
+        bootstrapped_state_values = self.gamma * next_state_estimate - current_state_estimate
+
+        delta = returns + bootstrapped_state_values
+        print(returns)
+        print(delta)
+        print(self.action_log_probs)
+        print(I)
+        #for log_prob, i in zip(action_log_probs, I):
+        actor_loss = self.action_log_probs * delta * I
+        print(actor_loss)
+        
+         
+        critic_loss = delta * current_state_estimate
+        print(critic_loss)
+        actor_loss = - actor_loss.sum() / numberOfSteps
+
+        #critic_loss = torch.stack(critic_loss).sum()
+        #critic_loss = critic_loss / numberOfSteps
 
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
         self.actor_optimizer.step()
 
         self.critic_optimizer.zero_grad()
-        critic_loss.backward()
+        critic_loss.backward(retain_graph=True)
         self.critic_optimizer.step()
         
         self.action_log_probs = []
@@ -264,11 +317,14 @@ class Agent(object):
         self.done = []
         self.states = []
         self.next_states = []
+        current_state_values = []
+        onestep_state_values = []
+
         self.I = self.gamma * self.I
 
     def get_action(self, state, evaluation=False):
         x = torch.from_numpy(state).float().to(self.train_device)
-        normal_dist = self.policy.forward(x)
+        normal_dist = self.actor.forward(x)
 
         if evaluation:  # Return mean
             return normal_dist.mean, None

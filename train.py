@@ -35,6 +35,7 @@ def main():
         import agentReinforce
         policy = agentReinforce.Policy(observation_space_dim, action_space_dim)
         agent = agentReinforce.Agent(policy, device=args.device)
+        actorCriticCheck=False
 
     elif args.agent_type.lower() == 'actorcritic':
 
@@ -43,10 +44,10 @@ def main():
         critic = agentActorCritic.Critic(observation_space_dim)
         agent = agentActorCritic.Agent(actor=actor, critic=critic, device=args.device)
 
-        actorCriticCheck = False
+        actorCriticCheck = True
 
     elif args.agent_type.lower() == 'ppo':
-        
+        actorCriticCheck=False
         from stable_baselines.common.policies import MlpPolicy 
         from stable_baselines import PPO1
 
@@ -56,7 +57,7 @@ def main():
         return
     
     elif args.agent_type.lower() == 'trpo':
-        
+        actorCriticCheck=False
         from stable_baselines.common.policies import MlpPolicy
         from stable_baselines import TRPO
 
@@ -80,12 +81,13 @@ def main():
             agent.store_outcome(previous_state, state, action_probabilities, reward, done)
 
             train_reward += reward
-
+            
             if actorCriticCheck:
                 agent.update_policy()
+                print(episode)
             else:
                 continue
-        
+            
         if not actorCriticCheck:
             agent.update_policy()
         else:
