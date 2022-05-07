@@ -1,11 +1,9 @@
-# from email import policy
-from multiprocessing.managers import ValueProxy
-from pickletools import optimize
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import Normal
 import numpy as np
+from utils import Rewards
 
 class Actor(torch.nn.Module):
 
@@ -222,7 +220,6 @@ class Agent(object):
 
         self.critic = critic.to(self.train_device)
         self.critic.critic_network()
-        self.critic = self.critic.CriticNetwork
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=1e-3)
 
         self.I = 1
@@ -239,87 +236,58 @@ class Agent(object):
         experience collected following that policy (i.e. with that specific set of 
         parameters)
         """
-        self.action_log_probs = torch.stack(self.action_log_probs, dim=0).to(self.train_device).squeeze(-1)
-        self.states = torch.stack(self.states, dim=0).to(self.train_device).squeeze(-1)
-        self.next_states = torch.stack(self.next_states, dim=0).to(self.train_device).squeeze(-1)
-        self.rewards = torch.stack(self.rewards, dim=0).to(self.train_device).squeeze(-1)
-        self.done = torch.Tensor(self.done).to(self.train_device)
+        action_log_probs = torch.stack(self.action_log_probs, dim=0).to(self.train_device).squeeze(-1)
+        states = torch.stack(self.states, dim=0).to(self.train_device).squeeze(-1)
+        next_states = torch.stack(self.next_states, dim=0).to(self.train_device).squeeze(-1)
+        rewards = torch.stack(self.rewards, dim=0).to(self.train_device).squeeze(-1)
+        done = torch.Tensor(self.done).to(self.train_device)
 
         numberOfSteps = len(self.states)
+        advantages = []
+        gammas = torch.tensor([self.gamma**i for i in range(numberOfSteps)])
+        G = []
+        current_state_value = []
+        next_state_value = []
+        for idx in range(numberOfSteps):
+            G.append(rewards[idx:] @ gammas[idx:])
+            current_state_value.append(self.critic(states[idx]))
+            advantages.append(G[idx] - current_state_value[idx])
+            next_state_value.append(self.critic(next_states[idx]))
 
-        R = 0
+        advantages = torch.tensor(advantages)
+        current_state_value = torch.tensor(current_state_value)
+        next_state_value = torch.tensor(next_state_value)
+        rewards = torch.tensor(rewards)
+
+        bootstrap_state_value = self.gamma*next_state_value - current_state_value
+        deltas = rewards + bootstrap_state_value
+
         actor_loss = []
         critic_loss = []
+            
+        for log_prob, advantage in zip(action_log_probs, advantages):
+            actor_loss.append(- log_prob * self.I * advantage)
 
-        returns = []
-        current_state_values = []
-        onestep_state_values = []
-        I = []
+        actor_loss = torch.tensor(actor_loss, requires_grad=True).mean()
 
-        for i in range(numberOfSteps):
-            i = self.gamma**i
-            I.append(i)
+        for value_state, delta in zip(current_state_value, deltas):
+            critic_loss.append(delta*value_state*self.I)
 
-        I = torch.tensor(I)
-
-        for r in self.rewards:   
-            R = r + self.gamma * R
-            returns.append(R)
-        
-        returns = torch.tensor(returns)
-        #returns = (returns - returns.mean()) / (returns.std())
-    
-        """
-            CRITIC NET
-        """
-        for s in self.states: 
-            current_state_value = self.critic(s)
-            current_state_values.append(current_state_value)
-        for s in self.next_states: 
-            next_state_value = self.critic(s)
-            onestep_state_values.append(next_state_value)
-        
-        current_state_values = torch.cat(current_state_values)
-        onestep_state_values = torch.cat(onestep_state_values)
-
-        current_state_estimate = current_state_values.sum() / numberOfSteps
-        next_state_estimate = onestep_state_values.sum() / numberOfSteps
-
-        bootstrapped_state_values = self.gamma * next_state_estimate - current_state_estimate
-
-        delta = returns + bootstrapped_state_values
-        print(returns)
-        print(delta)
-        print(self.action_log_probs)
-        print(I)
-        #for log_prob, i in zip(action_log_probs, I):
-        actor_loss = self.action_log_probs * delta * I
-        print(actor_loss)
-        
-         
-        critic_loss = delta * current_state_estimate
-        print(critic_loss)
-        actor_loss = - actor_loss.sum() / numberOfSteps
-
-        #critic_loss = torch.stack(critic_loss).sum()
-        #critic_loss = critic_loss / numberOfSteps
+        critic_loss = torch.tensor(critic_loss, requires_grad=True).mean()
 
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
         self.actor_optimizer.step()
 
         self.critic_optimizer.zero_grad()
-        critic_loss.backward(retain_graph=True)
+        critic_loss.backward()
         self.critic_optimizer.step()
-        
+
+        self.states = []
+        self.next_states = []
         self.action_log_probs = []
         self.rewards = []
         self.done = []
-        self.states = []
-        self.next_states = []
-        current_state_values = []
-        onestep_state_values = []
-
         self.I = self.gamma * self.I
 
     def get_action(self, state, evaluation=False):
