@@ -55,16 +55,16 @@ class Agent(object):
 
         returns = torch.tensor(returns)
         # implementing a baseline based on deviation by the mean
-        returns = returns - returns.mean()
+        #returns = returns - returns.mean()
 
         # populating the sample of log(pi(A|S, theta))
         for log_prob, G in zip(action_log_probs, returns):
-            policy_loss.append(log_prob * G)
+            policy_loss.append(-1 * log_prob * G)
 
         self.optimizer.zero_grad()
 
         # estimating log(pi(A|S, theta)) using MC procedure
-        policy_loss = -1 * torch.stack(policy_loss).mean()
+        policy_loss = torch.tensor(policy_loss, requires_grad=True).mean()
 
         # backpropagating
         policy_loss.backward()

@@ -53,6 +53,8 @@ def main():
         import agents.agentReinforce
 
         policy = ReinforcePolicy(observation_space_dim, action_space_dim)
+        if args.op == 'test':
+            policy.load_state_dict(torch.load(MODELS_PATH + str(args.model)), strict=False)
         agent = agents.agentReinforce.Agent(policy, device=args.device)
         actorCriticCheck=False
 
@@ -62,6 +64,8 @@ def main():
         
         batch_size = args.batch_size
         policy = ActorCriticPolicy(observation_space_dim, action_space_dim)
+        if args.op == 'test':
+            policy.load_state_dict(torch.load(MODELS_PATH + str(args.model)), strict=False)
         agent = agents.agentActorCriticfinal.Agent(policy, args.net_type)
         actorCriticCheck = True
 
@@ -85,11 +89,14 @@ def main():
     if args.op == 'train' and (args.agent_type != 'ppo' and args.agent_type != 'trpo'):
         trainModel.train(agent, env, actorCriticCheck, args.batch_size, args.episodes, args.print_every)
         saveModel.save_model(agent, args.agent_type, MODELS_PATH)
+
     elif args.op == 'train' and (args.agent_type == 'ppo' or args.agent_type == 'trpo'):
         agent.learn(total_timesteps=args.episodes)
         saveModel.save_model(agent, args.agent_type, MODELS_PATH)
+
     elif args.op == 'test':
-        testModel.test(agent, args.agent_type, env, args.episodes, MODELS_PATH + args.model, args.render)
+        testModel.test(agent, args.agent_type, env, args.episodes, MODELS_PATH, args.render)
+
     else:
         raise Exception("Invalid action selected! Try train or test.")
 

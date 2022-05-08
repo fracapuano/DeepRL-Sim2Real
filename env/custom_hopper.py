@@ -9,6 +9,8 @@ import gym
 from gym import utils
 from .mujoco_env import MujocoEnv
 from scipy.stats import truncnorm
+import torch
+from torch.distributions.uniform import Uniform
 
 class CustomHopper(MujocoEnv, utils.EzPickle):
     def __init__(self, domain=None):
@@ -22,16 +24,21 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
 
 
     def set_random_parameters(self):
-        """Set random masses
-        TODO
-        """
-        self.set_parameters(*self.sample_parameters())
+        #Set random masses
+
+        self.set_parameters(*np.hstack((np.array(self.sim.model.body_mass[1]), self.sample_parameters())))
 
     def sample_parameters(self):
-        """Sample masses according to a domain randomization distribution
-        TODO
         """
-        return
+        Sample masses according to a domain randomization distribution
+        -----
+        This function samples masses for a Uniform Distribution. Sampling is done independently for each component of the
+        vector. 
+        """
+        self.MassDistribution = Uniform(low = torch.tensor([self.low], dtype = float), high = torch.tensor([self.high], dtype = float))
+        
+        randomized_masses = np.array([self.MassDistribution.sample().detach().numpy() for _ in range(self.random_masses)])
+        return randomized_masses.reshape(-1,)
 
     def get_parameters(self):
         """Get value of mass for each link"""
