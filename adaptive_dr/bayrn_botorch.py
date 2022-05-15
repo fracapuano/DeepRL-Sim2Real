@@ -14,7 +14,7 @@ from torch.distributions.distribution import Uniform
 import argparse
 import numpy as np
 from tqdm import tqdm
-
+    
 """
 Since no observations are available on the noise level
 """
