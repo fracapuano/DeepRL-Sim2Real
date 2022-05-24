@@ -24,6 +24,13 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         
         self.random_masses = 3
 
+    def set_parametrization(self, bounds):
+        self.low1 = bounds[0]
+        self.high1 = bounds[1]
+        self.low2 = bounds[2]
+        self.high2 = bounds[3]
+        self.low3 = bounds[4]
+        self.high3 = bounds[5]
 
     def set_random_parameters(self):
         #Set random masses
@@ -37,9 +44,11 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         This function samples masses for a Uniform Distribution. Sampling is done independently for each component of the
         vector. 
         """
-        self.MassDistribution = Uniform(low = torch.tensor([self.low], dtype = float), high = torch.tensor([self.high], dtype = float))
+        self.MassDistribution1 = Uniform(low = torch.tensor([self.low1], dtype = float), high = torch.tensor([self.high1], dtype = float), validate_args = False)
+        self.MassDistribution2 = Uniform(low = torch.tensor([self.low2], dtype = float), high = torch.tensor([self.high2], dtype = float), validate_args = False)
+        self.MassDistribution3 = Uniform(low = torch.tensor([self.low3], dtype = float), high = torch.tensor([self.high3], dtype = float), validate_args = False)
         
-        randomized_masses = np.array([self.MassDistribution.sample().detach().numpy() for _ in range(self.random_masses)])
+        randomized_masses = np.array([self.MassDistribution1.sample().detach().numpy(), self.MassDistribution2.sample().detach().numpy(), self.MassDistribution3.sample().detach().numpy()])
         return randomized_masses.reshape(-1,)
 
     def get_parameters(self):

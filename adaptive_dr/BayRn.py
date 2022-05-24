@@ -8,50 +8,67 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
-
 from torch.distributions.uniform import Uniform
-from bayes_opt import BayesianOptimization
-from bayes_opt import SequentialDomainReductionTransformer
 from sb3_contrib.trpo.trpo import TRPO
 from env.custom_hopper import *
 import argparse
 import torch
 import numpy as np
 
+import torch
+from botorch.models import SingleTaskGP
+from botorch.fit import fit_gpytorch_model
+from botorch.utils import standardize
+from gpytorch.mlls import ExactMarginalLogLikelihood
+from botorch.acquisition import UpperConfidenceBound
+from botorch.optim import optimize_acqf
+from tqdm import tqdm
+
 def parse_args():
+
     parser = argparse.ArgumentParser()
 
     # number of interaction with target environment: the higher, the better, with the contraint
     # of not having too many since after a certain moment it would train on the target environment
-    parser.add_argument('--n-roll', default=3, type=int, help='Number of rollout on the target environment')
+    parser.add_argument('--n-roll', default=7, type=int, help='Number of rollout on the target environment')
 
     parser.add_argument('--min', default=0.5, type=float, help='lower bound to masses distribution')
     parser.add_argument('--max', default=25, type=float, help='upper bound to masses distribution')
 
-    parser.add_argument('--success reward', default=2000, type=float, help='Reward after which declaring convergence for the bayes optimization')
-    parser.add_argument('--maxit', default=100, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
+    parser.add_argument('--n-init', default=10, type=int, help='Number of initialization iterations')
+    parser.add_argument('--maxit', default=15, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
     return parser.parse_args()
+
 args = parse_args()
 
-
-def blackbox_fun(**kwargs): 
+def init_D(n_init = args.n_init, n_roll = args.n_roll):
     """
-    Random scalar function that, in the region [0,8] has one maximum only
+    This function returns an initial dataset D in which each row is D[row, :-1], D[row, -1] = target, parameters
+    Parameters: 
+        n_init: number of initialization steps to be considered
+        n_roll: number of rollout to obtain an estimate of the actual value of the unknown objective function
+    Returns: 
+        D: dataset of parameters and objective function values
     """
-    x = np.fromiter(kwargs.values(), dtype=float)
-    # if x[0] <= x[1]: 
-    #     massesDistribution = Uniform(low = torch.tensor([x[0]], dtype = float), high = torch.tensor([x[1]], dtype = float))
-    # else: 
-    #     massesDistribution = Uniform(low = torch.tensor([x[1]], dtype = float), high = torch.tensor([x[0]], dtype = float))
 
-    # m0 = massesDistribution.sample().detach().numpy().item()
-    # m1 = massesDistribution.sample().detach().numpy().item()
-    m0, m1 = x[0], x[1]
+    low = args.min
+    high = args.max
 
-    output = - m1 ** 2 + np.sin(m0)
-    return output
+    parametersDistribution = Uniform(low = torch.tensor([low], dtype = float), 
+                                 high = torch.tensor([high], dtype = float))
 
-def J_masses(**kwargs):
+    ncols = 6
+
+    D = torch.zeros(n_init, ncols+1)
+    
+    for i in range(n_init): 
+        phi_i = torch.tensor([parametersDistribution.sample() for _ in range(ncols)], dtype = float)
+        D[i, :-1] = phi_i
+        D[i, -1] = J_masses(phi_i)
+        
+    return D
+
+def J_masses(bounds):
     # lower (x[0]) and upper (x[1]) bound of the distribution
     x = np.fromiter(kwargs.values(), dtype=float)
 
@@ -59,16 +76,9 @@ def J_masses(**kwargs):
     GAMMA = 0.99
     source_env = gym.make("CustomHopper-source-v0")
     target_env = gym.make("CustomHopper-target-v0") 
-
-    # setting as parameters of the distribution the current elements in x
-    if x[1] >= x[0]:
-        source_env.env.low = x[0]
-        source_env.env.high = x[1]
-    else: 
-        source_env.env.low = x[1]
-        source_env.env.high = x[0]
     
     # sampling with respect to the parameters just passed to set random masses
+    source_env.set_parametrization(bounds)
     source_env.set_random_parameters()
 
     # istantiating an agent
@@ -99,26 +109,47 @@ def J_masses(**kwargs):
     roll_return = np.array(roll_return)
     return roll_return.mean()
 
+def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit): 
+    """
+    This function uses bayesian optimization to choose the optimal parametrization given a specific set of parameters
+    for what concerns their influence on a some blackbox function. 
+    Parameters: 
+        n_init: number of initializations iterations to be run so to collect some initial evidence. 
+                during such iterations everything is completely random
+        n_roll: number of rollout iterations to use so to estimate the actual outcome of some specific set of 
+                parameters
+        maxit: maximal number of iterations of the overall Bayesian Optimization process. 
+    """
+    D = init_D(n_init = n_init, n_roll = n_roll)
+    
+    for it in tqdm(range(maxit)):  
+        X, Y = D[:, :-1], D[:, -1].reshape(-1,1)
+        
+        gp = SingleTaskGP(X, Y)
+        mll = ExactMarginalLogLikelihood(gp.likelihood, gp)
+        fit_gpytorch_model(mll)
+        UCB = UpperConfidenceBound(gp, beta=0.1, maximize = True)
+
+        bounds = torch.stack([arg.min * torch.ones(X.shape[1]), args.max * torch.ones(X.shape[1])])
+        
+        candidate, _ = optimize_acqf(
+            UCB, bounds=bounds, q=1, num_restarts=5, raw_samples=20)
+        
+        candidate = candidate.reshape(-1,)
+        J_phi = J_masses(candidate) #qui c'era un reshape
+        
+        candidate_and_J = torch.hstack([candidate, J_phi])
+        
+        D = torch.vstack(
+            (D, candidate_and_J)
+        )
+    
+    bestCandidate = D[torch.argmax(D[:, -1]), :-1]
+    return D, bestCandidate
+
 def main():
-    
-    pbounds = {'low': (args.min, args.max), 'high': (args.min, args.max)}
-    
-    bounds_transformer = SequentialDomainReductionTransformer()
-
-    mutating_optimizer = BayesianOptimization(
-    f=J_masses,
-    pbounds=pbounds,
-    verbose=1,
-    random_state=1,
-    bounds_transformer=bounds_transformer
-    )
-
-    mutating_optimizer.maximize(
-    init_points=2,
-    n_iter=args.maxit,
-    )
-
-    print(mutating_optimizer.max)
+    D, bc = BayRN()
+    print(bc)
 
 if __name__ == '__main__':
     main()
