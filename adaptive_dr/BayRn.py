@@ -32,11 +32,11 @@ def parse_args():
     # of not having too many since after a certain moment it would train on the target environment
     parser.add_argument('--n-roll', default=7, type=int, help='Number of rollout on the target environment')
 
-    parser.add_argument('--min', default=0.5, type=float, help='lower bound to masses distribution')
-    parser.add_argument('--max', default=25, type=float, help='upper bound to masses distribution')
+    parser.add_argument('--min', default=0.25, type=float, help='lower bound to masses distribution')
+    parser.add_argument('--max', default=10, type=float, help='upper bound to masses distribution')
 
-    parser.add_argument('--n-init', default=10, type=int, help='Number of initialization iterations')
-    parser.add_argument('--maxit', default=15, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
+    parser.add_argument('--n-init', default=5, type=int, help='Number of initialization iterations')
+    parser.add_argument('--maxit', default=20, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
     return parser.parse_args()
 
 args = parse_args()
@@ -70,7 +70,7 @@ def init_D(n_init = args.n_init, n_roll = args.n_roll):
 
 def J_masses(bounds):
     # lower (x[0]) and upper (x[1]) bound of the distribution
-    x = np.fromiter(kwargs.values(), dtype=float)
+    #x = np.fromiter(kwargs.values(), dtype=float)
 
     # create the source and target environments
     GAMMA = 0.99
@@ -130,13 +130,13 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit):
         fit_gpytorch_model(mll)
         UCB = UpperConfidenceBound(gp, beta=0.1, maximize = True)
 
-        bounds = torch.stack([arg.min * torch.ones(X.shape[1]), args.max * torch.ones(X.shape[1])])
+        bounds = torch.stack([args.min * torch.ones(X.shape[1]), args.max * torch.ones(X.shape[1])])
         
         candidate, _ = optimize_acqf(
             UCB, bounds=bounds, q=1, num_restarts=5, raw_samples=20)
         
         candidate = candidate.reshape(-1,)
-        J_phi = J_masses(candidate) #qui c'era un reshape
+        J_phi = torch.tensor(J_masses(candidate)).reshape(-1) #qui c'era un reshape
         
         candidate_and_J = torch.hstack([candidate, J_phi])
         
