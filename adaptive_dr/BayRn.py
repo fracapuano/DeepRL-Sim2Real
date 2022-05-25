@@ -1,28 +1,28 @@
-"""
-Implementing Bayesian Optimisation
-"""
+##### UTILITIES #####
 import sys
 import os
 import inspect
+import argparse
+import numpy as np
+from tqdm import tqdm
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
+##### TORCH #####
+import torch
 from torch.distributions.uniform import Uniform
-from sb3_contrib.trpo.trpo import TRPO
-from env.custom_hopper import *
-import argparse
-import torch
-import numpy as np
-
-import torch
 from botorch.models import SingleTaskGP
 from botorch.fit import fit_gpytorch_model
 from botorch.utils import standardize
 from gpytorch.mlls import ExactMarginalLogLikelihood
 from botorch.acquisition import UpperConfidenceBound
 from botorch.optim import optimize_acqf
-from tqdm import tqdm
+
+##### ALGS #####
+from sb3_contrib.trpo.trpo import TRPO
+from env.custom_hopper import *
 
 def parse_args():
 
