@@ -6,7 +6,7 @@ import numpy as np
 class ActorCriticPolicy(torch.nn.Module):
 
     def __init__(self, state_space, action_space,
-                hidden_layers = 2, hidden_neurons = np.array([64, 64]),
+                hidden_layers = 2, hidden_neurons = np.array([64 for _ in range(2)]),
                 activation_function = np.array([torch.nn.Tanh for _ in range(2)]),
                 output_activation = torch.nn.Identity, init_sigma = 0.5):
         """

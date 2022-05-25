@@ -36,10 +36,9 @@ def main():
     
     # instantiating an agent
     agent = TRPO('MlpPolicy', env)
-    #MAX_TIMESTEPS = 500
-    # setting lower and upper bound to the Uniform distribution on the Hopper masses
-    env.env.low = args.low 
-    env.env.high = args.high
+
+    default_bounds = [args.low, args.high, args.low, args.high, args.low, args.high]
+    env.set_parametrization(default_bounds)
 
     episodes = tqdm(range(args.n_episodes))
 

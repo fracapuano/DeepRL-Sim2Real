@@ -1,6 +1,10 @@
-def test(agent, agent_type, env, episodes, model_info, render_bool):
+import numpy as np
+
+def test(agent, agent_type, env, episodes, model_info='/', render_bool):
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
+        episode_r = np.zeros(episodes)
         for episode in range(episodes):
+            rewards=[]
             done = False
             test_reward = 0
             state = env.reset()
@@ -10,13 +14,18 @@ def test(agent, agent_type, env, episodes, model_info, render_bool):
                 action, _ = agent.get_action(state, evaluation=True)
             
                 state, reward, done, info = env.step(action.detach().cpu().numpy())
+                rewards.append(reward)
 
                 if render_bool:
                     env.render()
 
                 test_reward += reward
 
-        print(f"Episode: {episode} | Return: {test_reward}")
+            gammas = agent.gamma**np.arange(len(rewards))
+            episode_return = gammas @ np.array(rewards)
+            episode_r[episode] = episode_return
+
+        print(f"Average return: {episode_r.mean()}")
 
     elif agent_type == 'ppo' or agent_type == 'trpo':
         model = agent.load(model_info)
@@ -27,3 +36,5 @@ def test(agent, agent_type, env, episodes, model_info, render_bool):
             env.render()
             if dones:
                 env.reset()
+                
+    return episode_r.mean()

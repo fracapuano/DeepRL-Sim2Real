@@ -8,12 +8,12 @@ from torch.distributions import Normal
 import numpy as np
 
 class Agent(object):
-    def __init__(self, policy, device='cpu'):
+    def __init__(self, policy, device='cpu', gamma=0.99, lr=1e-3):
         self.train_device = device
         self.policy = policy.to(self.train_device)
         self.policy.init_weights()
-        self.optimizer = torch.optim.Adam(policy.parameters(), lr=1e-3)
-        self.gamma = 0.99
+        self.optimizer = torch.optim.Adam(policy.parameters(), lr=lr)
+        self.gamma = gamma
         self.states = []
         self.next_states = []
         self.action_log_probs = []

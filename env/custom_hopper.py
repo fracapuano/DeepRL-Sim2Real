@@ -128,7 +128,6 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         return self.sim.get_state()
 
 
-
 """
     Registered environments
 """
