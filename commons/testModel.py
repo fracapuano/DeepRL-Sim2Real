@@ -1,9 +1,11 @@
 import numpy as np
+from tqdm import tqdm
+
 
 def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         episode_r = np.zeros(episodes)
-        for episode in range(episodes):
+        for episode in tqdm(range(episodes)):
             rewards=[]
             done = False
             test_reward = 0
@@ -25,12 +27,12 @@ def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
             episode_return = gammas @ np.array(rewards)
             episode_r[episode] = episode_return
 
-        print(f"Average return: {episode_r.mean()}")
+        #print(f"Average return: {episode_r.mean()}")
 
     elif agent_type == 'ppo' or agent_type == 'trpo':
         model = agent.load(model_info)
         obs = env.reset()
-        for episode in range(episodes):
+        for episode in tqdm(range(episodes)):
             action, _states = model.predict(obs)
             obs, rewards, dones, info = env.step(action)
             env.render()

@@ -16,7 +16,7 @@ from policies import fraNET
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--print-every', default=10, type=int, help='number of episodes to pass before printing an output')
+    parser.add_argument('--print-every', default=1, type=int, help='number of episodes to pass before printing an output')
 
     return parser.parse_args()
 
@@ -76,7 +76,7 @@ for i in tqdm(range(len(reinforce_configurations['configurations']))):
     	#hidden_layers=config['n_layers'],
     	#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
     	activation_function=act_fun,
-    	init_sigm=config['sigma']
+    	init_sigma=config['sigma']
     	)
 	agent = agents.agentReinforce.Agent(
     	policy,
@@ -88,5 +88,5 @@ for i in tqdm(range(len(reinforce_configurations['configurations']))):
 	trainModel.train(agent, target_env, actorCriticCheck=False, batch_size=config['batch_size'], episodes=config['n_episodes'], print_every=args.print_every)
 	tt_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
-	with open("reinforce_evaluation.txt", "a") as f:
+	with open("reinforce_evaluation.txt", "w") as f:
 		f.write(f"{i},{ss_return},{st_return},{tt_return}")
