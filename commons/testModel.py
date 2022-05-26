@@ -1,6 +1,6 @@
 import numpy as np
 
-def test(agent, agent_type, env, episodes, model_info='/', render_bool):
+def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         episode_r = np.zeros(episodes)
         for episode in range(episodes):

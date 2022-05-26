@@ -22,8 +22,11 @@ def parse_args():
 
 args = parse_args()
 
-reinforce_configurations = json.load("reinforce.txt")
-actorCritic_configurations = json.load("actorCritic.txt")
+with open("reinforce.txt", "r") as rf:
+	reinforce_configurations = json.load(rf)
+with open("actorCritic.txt", "r") as af:
+	actorCritic_configurations = json.load(af)
+
 # PPO
 # TRPO
 
@@ -39,50 +42,51 @@ for i in tqdm(range(len(reinforce_configurations['configurations']))):
 	import agents.agentReinforce
 
 	if config['activation_function'] == 'tanh':
-		act_fun = np.array([nn.Tanh for _ in range(config['n_layers'])])
+		act_fun = np.array([nn.Tanh for _ in range(2)])
 	elif config['activation_function'] == 'relu':
-		act_fun = np.array([nn.ReLU for _ in range(config['n_layers'])])
+		act_fun = np.array([nn.ReLU for _ in range(2)])
 
-    policy = fraNET.ReinforcePolicy(
+	policy = fraNET.ReinforcePolicy(
     	state_space=observation_space_dim,
     	action_space=action_space_dim,
-    	hidden_layers=config['n_layers'],
-    	hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
+    	#hidden_layers=config['n_layers'],
+    	#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
     	activation_function=act_fun,
-    	init_sigm=config['sigma']
+    	init_sigma=config['sigma']
     )
-    agent = agents.agentReinforce.Agent(
+
+	agent = agents.agentReinforce.Agent(
     	policy,
     	device='cpu',
     	gamma=config['gamma'],
     	lr=config['lr']
     )
 
-    trainModel.train(agent, source_env, actorCriticCheck=False, config['batch_size'], config['n_episodes'], args.print_every)
+	trainModel.train(agent, source_env, actorCriticCheck=False, batch_size=config['batch_size'], episodes=config['n_episodes'], print_every=args.print_every)
 
-    ss_return = testMode.test(agent, agent_type='reinforce', env=source_env, episodes=50, render_bool=False)
-    st_return = testMode.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
+	ss_return = testModel.test(agent, agent_type='reinforce', env=source_env, episodes=50, render_bool=False)
+	st_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
-    del policy
-    del agent
+	del policy
+	del agent
 
-    policy = ReinforcePolicy(
+	policy = fraNET.ReinforcePolicy(
     	state_space=observation_space_dim,
     	action_space=action_space_dim,
-    	hidden_layers=config['n_layers'],
-    	hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
+    	#hidden_layers=config['n_layers'],
+    	#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
     	activation_function=act_fun,
     	init_sigm=config['sigma']
     	)
-    agent = agents.agentReinforce.Agent(/
+	agent = agents.agentReinforce.Agent(
     	policy,
     	device='cpu',
     	gamma=config['gamma'],
     	lr=config['lr']
     	)
 
-    trainModel.train(agent, target_env, actorCriticCheck=False, config['batch_size'], config['n_episodes'], args.print_every)
-    tt_return = testMode.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
+	trainModel.train(agent, target_env, actorCriticCheck=False, batch_size=config['batch_size'], episodes=config['n_episodes'], print_every=args.print_every)
+	tt_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
-    with open("reinforce_evaluation.txt", "a") as f:
-    	f.write(f"{i},{ss_return},{st_return},{tt_return}")
+	with open("reinforce_evaluation.txt", "a") as f:
+		f.write(f"{i},{ss_return},{st_return},{tt_return}")

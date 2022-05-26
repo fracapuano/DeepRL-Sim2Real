@@ -13,8 +13,8 @@ def write_config(FILE_NAME, configurations):
 		print(f"Total number of configurations: {len(configuration['configurations'])}")
 
 REINFORCE_PARAMS = {
-	'n_neurons':[32, 64],
-	'n_layers':[2, 4],
+	#'n_neurons':[32, 64],
+	#'n_layers':[2, 4],
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
 	'activation_function':['tanh', 'relu'],
@@ -24,8 +24,8 @@ REINFORCE_PARAMS = {
 }
 
 ACTOR_CRITIC_PARAMS = {
-	'n_neurons':[32, 64],
-	'n_layers':[2, 4],
+	#'n_neurons':[32, 64],
+	#'n_layers':[2, 4],
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
 	'activation_function':['tanh', 'relu'],

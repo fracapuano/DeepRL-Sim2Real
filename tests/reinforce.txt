@@ -2,1730 +2,386 @@
     "configurations": [
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.75
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
+            "batch_size": 0,
             "gamma": 0.999,
             "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
             "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
+            "n_episodes": 200000,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
+            "lr": 0.005,
             "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
+            "lr": 0.005,
+            "n_episodes": 200000,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
+            "n_episodes": 100000,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
+            "batch_size": 0,
+            "gamma": 0.999,
             "lr": 0.001,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
             "sigma": 0.75
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
+            "batch_size": 0,
+            "gamma": 0.999,
+            "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 100000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
+            "batch_size": 0,
             "gamma": 0.999,
             "lr": 0.005,
             "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 2,
-            "n_neurons": 64,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 32,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "n_layers": 4,
-            "n_neurons": 64,
             "sigma": 0.75
         }
     ]
