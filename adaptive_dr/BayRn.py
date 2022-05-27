@@ -147,9 +147,12 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit):
     bestCandidate = D[torch.argmax(D[:, -1]), :-1]
     return D, bestCandidate
 
-def main():
+def get_bc():
     D, bc = BayRN()
-    print(bc)
+    return bc
+
+def main():
+    print(get_bc())
 
 if __name__ == '__main__':
     main()
