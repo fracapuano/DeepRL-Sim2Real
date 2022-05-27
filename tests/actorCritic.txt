@@ -5,6 +5,30 @@
             "batch_size": 20,
             "gamma": 0.998,
             "lr": 0.001,
+            "n_episodes": 50000,
+            "sigma": 0.25
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
+            "sigma": 0.5
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
+            "sigma": 0.75
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
             "n_episodes": 100000,
             "sigma": 0.25
         },
@@ -28,24 +52,24 @@
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -75,25 +99,25 @@
         {
             "activation_function": "tanh",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -124,24 +148,24 @@
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
             "batch_size": 20,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -170,26 +194,26 @@
         },
         {
             "activation_function": "tanh",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -220,24 +244,24 @@
             "activation_function": "tanh",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "tanh",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "tanh",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -261,54 +285,6 @@
             "batch_size": 50,
             "gamma": 0.998,
             "lr": 0.005,
-            "n_episodes": 100000,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 100000,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.001,
             "n_episodes": 100000,
             "sigma": 0.75
         },
@@ -317,7 +293,7 @@
             "batch_size": 50,
             "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
@@ -325,7 +301,7 @@
             "batch_size": 50,
             "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
@@ -333,7 +309,55 @@
             "batch_size": 50,
             "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 200000,
+            "n_episodes": 50000,
+            "sigma": 0.75
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 100000,
+            "sigma": 0.25
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 100000,
+            "sigma": 0.5
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 100000,
+            "sigma": 0.75
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 50000,
+            "sigma": 0.25
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 50000,
+            "sigma": 0.5
+        },
+        {
+            "activation_function": "tanh",
+            "batch_size": 50,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -361,27 +385,27 @@
             "sigma": 0.75
         },
         {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
-            "activation_function": "tanh",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -412,24 +436,24 @@
             "activation_function": "relu",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
             "batch_size": 20,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -459,25 +483,25 @@
         {
             "activation_function": "relu",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
             "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -508,32 +532,8 @@
             "activation_function": "relu",
             "batch_size": 20,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
             "lr": 0.005,
-            "n_episodes": 100000,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
@@ -541,6 +541,30 @@
             "batch_size": 20,
             "gamma": 0.999,
             "lr": 0.005,
+            "n_episodes": 50000,
+            "sigma": 0.5
+        },
+        {
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 50000,
+            "sigma": 0.75
+        },
+        {
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.999,
+            "lr": 0.005,
+            "n_episodes": 100000,
+            "sigma": 0.25
+        },
+        {
+            "activation_function": "relu",
+            "batch_size": 20,
+            "gamma": 0.999,
+            "lr": 0.005,
             "n_episodes": 100000,
             "sigma": 0.5
         },
@@ -554,26 +578,26 @@
         },
         {
             "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "batch_size": 50,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -604,24 +628,24 @@
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -651,25 +675,25 @@
         {
             "activation_function": "relu",
             "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 200000,
+            "gamma": 0.999,
+            "lr": 0.001,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -700,24 +724,24 @@
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.25
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.5
         },
         {
             "activation_function": "relu",
             "batch_size": 50,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 200000,
+            "lr": 0.005,
+            "n_episodes": 50000,
             "sigma": 0.75
         },
         {
@@ -742,30 +766,6 @@
             "gamma": 0.999,
             "lr": 0.005,
             "n_episodes": 100000,
-            "sigma": 0.75
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "sigma": 0.25
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
-            "sigma": 0.5
-        },
-        {
-            "activation_function": "relu",
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 200000,
             "sigma": 0.75
         }
     ]

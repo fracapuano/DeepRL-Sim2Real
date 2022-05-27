@@ -18,14 +18,14 @@ def parse_args():
     parser.add_argument('--op', default='train', type=str, help='Select to either train an agent or test a trained agent')
     parser.add_argument('--model', default=None, type=str, help='Trained model path')
     parser.add_argument('--device', default='cpu', type=str, help='network device <cpu, cuda>')
-    parser.add_argument('--render', default=False, action='store_true', help='Render the simulator')
+    parser.add_argument('--render', default=True, action='store_true', help='Render the simulator')
     parser.add_argument('--episodes', default=10, type=int, help='Number of test episodes')
     parser.add_argument('--agent-type', default='reinforce', type=str, help='Agent type to be tested with existing trained model <reinforce - actorCritic - ppo - trpo>')
     parser.add_argument('--domain-type', default='source', type=str, help='Select which env to build: either source or target')
     parser.add_argument('--batch-size', default=10, type=int, help='Batch size!')
     parser.add_argument('--print-every', default=10, type=int, help='number of episodes to pass before printing an output')
     # argument to be removed later, this is just for debugging
-    parser.add_argument('--net-type', default='tiboniNET', type=str, help='String to selct the NN used: <tiboniNET, fraNET>')
+    parser.add_argument('--net-type', default='tibNET', type=str, help='String to select the NN used: <tiboniNET, fraNET>')
     return parser.parse_args()
 
 args = parse_args()
@@ -95,7 +95,7 @@ def main():
         saveModel.save_model(agent, args.agent_type, MODELS_PATH)
 
     elif args.op == 'test':
-        testModel.test(agent, args.agent_type, env, args.episodes, MODELS_PATH, args.render)
+        testModel.test(agent, args.agent_type, env, args.episodes, MODELS_PATH+args.model, render_bool=args.render)
 
     else:
         raise Exception("Invalid action selected! Try train or test.")

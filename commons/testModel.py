@@ -2,7 +2,7 @@ import numpy as np
 from tqdm import tqdm
 
 
-def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
+def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         episode_r = np.zeros(episodes)
         for episode in tqdm(range(episodes)):
@@ -21,7 +21,7 @@ def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
                 if render_bool:
                     env.render()
 
-                test_reward += reward
+                #test_reward += reward
 
             gammas = agent.gamma**np.arange(len(rewards))
             episode_return = gammas @ np.array(rewards)
@@ -32,11 +32,22 @@ def test(agent, agent_type, env, episodes, model_info='/', render_bool=False):
     elif agent_type == 'ppo' or agent_type == 'trpo':
         model = agent.load(model_info)
         obs = env.reset()
-        for episode in tqdm(range(episodes)):
-            action, _states = model.predict(obs)
-            obs, rewards, dones, info = env.step(action)
-            env.render()
-            if dones:
-                env.reset()
+        episode_r = np.zeros(episodes)
+        for episode in range(episodes):
+            done=False
+            rewards=[]
+            while (not done):
+                if render_bool:
+                    env.render()
+                action, _states = model.predict(obs)
+                obs, reward, done, info = env.step(action)
+                rewards.append(reward)
+
+                if done:
+                    env.reset()
+
+        gammas = agent.gamma**np.arange(len(rewards))
+        episode_return = gammas @ np.array(rewards)
+        episode_r[episode] = episode_return
                 
     return episode_r.mean()

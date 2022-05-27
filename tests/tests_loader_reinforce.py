@@ -103,5 +103,5 @@ with open("reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 
 		tt_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
-		reinforce_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}")
+		reinforce_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
 reinforce_evaluation_f.close()
