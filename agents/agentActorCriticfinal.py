@@ -1,7 +1,7 @@
 import torch
 
 class Agent(object):
-    def __init__(self, policy, net_type,device='cpu'):
+    def __init__(self, policy, net_type,device='cpu', gamma=0.99, lr=1e-3):
         self.train_device = device
         self.policy = policy.to(self.train_device)
 
@@ -15,10 +15,10 @@ class Agent(object):
 
         self.policy.init_weights()
 
-        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=1e-3)
+        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr)
 
         self.I = 1
-        self.gamma = 0.99
+        self.gamma = gamma
         self.states = []
         self.next_states = []
         self.action_log_probs = []

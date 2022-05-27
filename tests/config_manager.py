@@ -1,8 +1,8 @@
 import json
-from sklearn.model_selection import ParameterGrid
 import torch
 import torch.nn as nn
 from tqdm import tqdm
+from sklearn.model_selection import ParameterGrid
 
 def write_config(FILE_NAME, configurations):
 	configuration={'configurations':[]}
