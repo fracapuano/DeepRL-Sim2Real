@@ -17,14 +17,14 @@ from stable_baselines3 import PPO
 
 SEED = 42
 
-with open("ppo.txt", "r") as ppof:
+with open("ppo/ppo.txt", "r") as ppof:
 	ppo_configurations = json.load(ppof)
 
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
 
 print("Looking for PPO best hyperparameters configuration...")
-with open("ppo_evaluation.txt", "w") as ppo_evaluation_f:
+with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
     for i in range(len(ppo_configurations['configurations'])):
         config = ppo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]

@@ -22,7 +22,7 @@ def parse_args():
 
 args = parse_args()
 
-with open("actorCritic.txt", "r") as acf:
+with open("a2c/actorCritic.txt", "r") as acf:
 	actorCritic_configurations = json.load(acf)
 
 source_env = makeEnv.make_environment("source")
@@ -33,7 +33,7 @@ action_space_dim = source_env.action_space.shape[-1]
 
 #ACTOR-CRITIC OPTIMIZATION
 print("Looking for ActorCritic best hyperparameters configuration...")
-with open("actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
+with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 	for i in tqdm(range(len(actorCritic_configurations['configurations']))):
 		config = actorCritic_configurations['configurations'][i]
 		loginfo = [hp for hp in config.items()]

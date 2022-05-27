@@ -22,7 +22,7 @@ def parse_args():
 
 args = parse_args()
 
-with open("reinforce.txt", "r") as rf:
+with open("reinforce/reinforce.txt", "r") as rf:
 	reinforce_configurations = json.load(rf)
 
 source_env = makeEnv.make_environment("source")
@@ -33,7 +33,7 @@ action_space_dim = source_env.action_space.shape[-1]
 
 #REINFORCE OPTIMIZATION
 print("Looking for REINFORCE best hyperparameters configuration...")
-with open("reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
+with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 	for i in tqdm(range(len(reinforce_configurations['configurations']))):
 		config = reinforce_configurations['configurations'][i]
 		loginfo = [hp for hp in config.items()]

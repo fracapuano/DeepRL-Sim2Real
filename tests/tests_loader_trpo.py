@@ -17,14 +17,14 @@ from sb3_contrib.trpo.trpo import TRPO
 
 SEED = 42
 
-with open("trpo.txt", "r") as trpof:
+with open("trpo/trpo.txt", "r") as trpof:
 	trpo_configurations = json.load(trpof)
 
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
 
 print("Looking for TRPO best hyperparameters configuration...")
-with open("trpo_evaluation.txt", "w") as trpo_evaluation_f:
+with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
     for i in range(len(trpo_configurations['configurations'])):
         config = trpo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]
