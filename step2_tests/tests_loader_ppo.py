@@ -25,6 +25,7 @@ target_env = makeEnv.make_environment("target")
 
 print("Looking for PPO best hyperparameters configuration...")
 with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
+    ppo_evaluation_f.write("ID,ss-return,st-return"+'\n')
     for i in range(len(ppo_configurations['configurations'])):
         config = ppo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]

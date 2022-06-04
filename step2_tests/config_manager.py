@@ -56,9 +56,9 @@ PPO_PARAMS = {
 	'batch_size':[128, 256]
 }
 
-write_config("reinforce.txt", ParameterGrid(REINFORCE_PARAMS))
-write_config("actorCritic.txt", ParameterGrid(ACTOR_CRITIC_PARAMS))
-write_config("ppo.txt", ParameterGrid(PPO_PARAMS))
-write_config("trpo.txt", ParameterGrid(TRPO_PARAMS))
+write_config("reinforce/reinforce.txt", ParameterGrid(REINFORCE_PARAMS))
+write_config("a2c/actorCritic.txt", ParameterGrid(ACTOR_CRITIC_PARAMS))
+write_config("ppo/ppo.txt", ParameterGrid(PPO_PARAMS))
+write_config("trpo/trpo.txt", ParameterGrid(TRPO_PARAMS))
 
 

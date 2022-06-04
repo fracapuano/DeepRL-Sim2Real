@@ -24,6 +24,7 @@ target_env = makeEnv.make_environment("target")
 
 print("Looking for TRPO best hyperparameters configuration...")
 with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
+    trpo_evaluation_f.write("ID,ss-return,st-return"+'\n')
     for i in range(len(trpo_configurations['configurations'])):
         config = trpo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]
