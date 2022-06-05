@@ -3,11 +3,14 @@ import torch.nn.functional as F
 from torch.distributions import Normal
 
 class ActorCriticPolicy(torch.nn.Module):
-    def __init__(self, state_space, action_space):
+    def __init__(self, state_space, action_space, hidden = 64, init_sigma = 0.5):
+        """
+        This constructor initializes the network with respect to a default strategy
+        """
         super().__init__()
         self.state_space = state_space
         self.action_space = action_space
-        self.hidden = 64
+        self.hidden = hidden
         self.tanh = torch.nn.Tanh()
 
         """
@@ -19,9 +22,8 @@ class ActorCriticPolicy(torch.nn.Module):
         
         # Learned standard deviation for exploration at training time 
         self.sigma_activation = F.softplus
-        init_sigma = 0.5
+        init_sigma = init_sigma
         self.sigma = torch.nn.Parameter(torch.zeros(self.action_space)+init_sigma)
-
 
         """
             Critic network
@@ -49,7 +51,6 @@ class ActorCriticPolicy(torch.nn.Module):
         sigma = self.sigma_activation(self.sigma)
         normal_dist = Normal(action_mean, sigma)
 
-
         """
             Critic
         """
@@ -59,13 +60,12 @@ class ActorCriticPolicy(torch.nn.Module):
 
         return normal_dist, value_estimate
 
-
 class ReinforcePolicy(torch.nn.Module):
-    def __init__(self, state_space, action_space):
+    def __init__(self, state_space, action_space, hidden = 64, init_sigma = 0.5):
         super().__init__()
         self.state_space = state_space
         self.action_space = action_space
-        self.hidden = 64
+        self.hidden = hidden
         self.tanh = torch.nn.Tanh()
 
         self.fc1_actor = torch.nn.Linear(state_space, self.hidden)
@@ -74,7 +74,7 @@ class ReinforcePolicy(torch.nn.Module):
         
         # Learned standard deviation for exploration at training time 
         self.sigma_activation = F.softplus
-        init_sigma = 0.5
+        init_sigma = init_sigma
         self.sigma = torch.nn.Parameter(torch.zeros(self.action_space)+init_sigma)
 
         self.init_weights()

@@ -49,7 +49,6 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
             gamma=config['gamma'],
             seed=SEED,
             policy_kwargs={
-                #'use_sde':config['use_sde'],
             'activation_fn':act_fun
                 },
             verbose=0
@@ -72,7 +71,6 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
             gamma=config['gamma'],
             seed=SEED,
             policy_kwargs={
-                #'use_sde':config['use_sde'],
                 'activation_fn':act_fun
                 },
             verbose=0

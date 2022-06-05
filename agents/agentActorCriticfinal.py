@@ -1,7 +1,7 @@
 import torch
 
 class Agent(object):
-    def __init__(self, policy, net_type,device='cpu', gamma=0.99, lr=1e-3):
+    def __init__(self, policy, net_type, device='cpu', gamma=0.99, lr=1e-3):
         self.train_device = device
         self.policy = policy.to(self.train_device)
 
@@ -44,8 +44,8 @@ class Agent(object):
         for timestep in range(numberOfSteps):
             _, current_value = self.policy(states[timestep]) 
             _, onestep_value = self.policy(next_states[timestep])
+
             current_state_values.append(current_value)
-    
             advantages.append(rewards[timestep] + self.gamma * onestep_value - current_value)
 
         advantages = torch.stack(advantages, dim = 0)
@@ -54,13 +54,13 @@ class Agent(object):
         critic_loss = []
             
         for log_prob, advantage in zip(action_log_probs, advantages):
-            #actor_loss.append(log_prob * self.I * advantage)
+            # actor_loss.append(log_prob * self.I * advantage)
             actor_loss.append(log_prob * advantage)
 
         actor_loss = torch.tensor(actor_loss).mean()
 
         for value_state, advantage in zip(current_state_values, advantages):
-            #critic_loss.append(value_state * self.I * advantage)
+            # actor_loss.append(value_state * self.I * advantage)
             critic_loss.append(value_state * advantage)
 
         critic_loss = torch.stack(critic_loss).mean()
@@ -70,13 +70,13 @@ class Agent(object):
         loss.backward()
         self.optimizer.step()
 
+        self.I = self.gamma * self.I
+
         self.states = []
         self.next_states = []
         self.action_log_probs = []
         self.rewards = []
         self.done = []
-
-        self.I = self.gamma * self.I
 
     def get_action(self, state, evaluation=False):
         x = torch.from_numpy(state).float().to(self.train_device)

@@ -50,7 +50,6 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             gamma=config['gamma'],
             seed=SEED,
             policy_kwargs={
-                #'use_sde':config['use_sde'],
             'activation_fn':act_fun
                 },
             verbose=0
@@ -73,7 +72,6 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             gamma=config['gamma'],
             seed=SEED,
             policy_kwargs={
-                #'use_sde':config['use_sde'],
                 'activation_fn':act_fun
                 },
             verbose=0
@@ -86,5 +84,3 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
         ppo_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
         os.remove('ppo-model.mdl')
 ppo_evaluation_f.close()
-
-

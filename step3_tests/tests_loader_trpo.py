@@ -49,11 +49,9 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
             env=source_env,
             learning_rate=config['lr'],
             target_kl=config['target_kl'],
-            #batch_size=config['batch_size'],
             gamma=config['gamma'],
             seed=SEED,
             policy_kwargs={
-                #'use_sde':config['use_sde'],
             'activation_fn':act_fun
                 },
             verbose=0

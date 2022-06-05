@@ -16,11 +16,9 @@ TRPO_PARAMS = {
 	'policy':['MlpPolicy'],
 	'lr':[1e-3, 5e-3],
 	'gamma':[0.998, 0.999],
-	'target_kl':[0.001, 0.01, 0.05],
-	'episodes':[100000],
+	'target_kl':[0.01, 0.05],
+	'episodes':[50000],
 	'activation_function':['tanh'],
-	#'use_sde':[True, False],
-	#'batch_size':[128, 256],
 	'low_bounds':[2, 4, 5],
 	'high_bounds':[4.5, 5.5, 7]
 }

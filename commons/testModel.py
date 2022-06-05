@@ -1,7 +1,6 @@
 import numpy as np
 from tqdm import tqdm
 
-
 def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         episode_r = np.zeros(episodes)
@@ -21,13 +20,9 @@ def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
                 if render_bool:
                     env.render()
 
-                #test_reward += reward
+                test_reward += reward
 
-            gammas = agent.gamma**np.arange(len(rewards))
-            episode_return = gammas @ np.array(rewards)
-            episode_r[episode] = episode_return
-
-        #print(f"Average return: {episode_r.mean()}")
+            episode_r[episode] = test_reward
 
     elif agent_type == 'ppo' or agent_type == 'trpo':
         model = agent.load(model_info)
@@ -45,9 +40,7 @@ def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
 
                 if done:
                     env.reset()
-
-        gammas = agent.gamma**np.arange(len(rewards))
-        episode_return = gammas @ np.array(rewards)
-        episode_r[episode] = episode_return
+                    
+        episode_r[episode] = np.array(rewards).sum()
                 
     return episode_r.mean()

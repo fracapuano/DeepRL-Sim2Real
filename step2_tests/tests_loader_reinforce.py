@@ -51,10 +51,8 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 		policy = tibNET.ReinforcePolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,
-    		#hidden_layers=config['n_layers'],
-    		#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
-    		#activation_function=act_fun,
-    		#init_sigma=config['sigma']
+    		hidden=config['n_neurons'],
+    		init_sigma=config['sigma']
     	)
 
 		agent = agents.agentReinforce.Agent(
@@ -82,10 +80,8 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 		policy = tibNET.ReinforcePolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,
-    		#hidden_layers=config['n_layers'],
-    		#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
-    		#activation_function=act_fun,
-    		#init_sigma=config['sigma']
+    		hidden=config['n_neurons'],
+    		init_sigma=config['sigma']
     		)
 		agent = agents.agentReinforce.Agent(
     		policy,

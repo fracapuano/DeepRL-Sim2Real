@@ -19,8 +19,6 @@ TRPO_PARAMS = {
 	'target_kl':[0.001, 0.01, 0.05],
 	'episodes':[100000],
 	'activation_function':['tanh']
-	#'use_sde':[True, False],
-	#'batch_size':[128, 256],
 }
 
 write_config("trpo/trpo.txt", ParameterGrid(TRPO_PARAMS))
