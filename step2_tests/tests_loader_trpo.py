@@ -22,7 +22,7 @@ with open("trpo/trpo.txt", "r") as trpof:
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
 
-print(f"Total number of configurations to test {len(ppo_configurations['configurations'])}")
+print(f"Total number of configurations to test {len(trpo_configurations['configurations'])}")
 
 print("Looking for TRPO best hyperparameters configuration...")
 with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:

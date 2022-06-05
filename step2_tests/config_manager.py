@@ -17,7 +17,7 @@ REINFORCE_PARAMS = {
 	#'n_layers':[2, 4],
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
-	'activation_function':['tanh', 'relu'],
+	'activation_function':['tanh'],
 	'n_episodes':[50000, 100000],
 	'sigma':[0.25, 0.5, 0.75],
 	'batch_size':[0]
@@ -28,7 +28,7 @@ ACTOR_CRITIC_PARAMS = {
 	#'n_layers':[2, 4],
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
-	'activation_function':['tanh', 'relu'],
+	'activation_function':['tanh'],
 	'n_episodes':[75000],
 	'batch_size':[20, 50],
 	'sigma':[0.25, 0.5, 0.75]
@@ -40,7 +40,7 @@ TRPO_PARAMS = {
 	'gamma':[0.998, 0.999],
 	'target_kl':[0.001, 0.01, 0.05],
 	'episodes':[50000, 100000],
-	'activation_function':['tanh', 'relu'],
+	'activation_function':['tanh'],
 	#'use_sde':[True, False],
 	'batch_size':[128, 256]
 }
@@ -51,7 +51,7 @@ PPO_PARAMS = {
 	'gamma':[0.998, 0.999],
 	'target_kl':[0.001, 0.01, 0.05],
 	'episodes':[50000, 100000],
-	'activation_function':['tanh', 'relu'],
+	'activation_function':['tanh'],
 	#'use_sde':[True, False],
 	'batch_size':[128, 256]
 }

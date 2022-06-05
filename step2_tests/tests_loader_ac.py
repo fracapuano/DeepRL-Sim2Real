@@ -12,7 +12,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
 from commons import trainModel, testModel, saveModel, makeEnv, utils
-from policies import fraNET
+from policies import fraNET, tibNET
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -48,18 +48,18 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 		elif config['activation_function'] == 'relu':
 			act_fun = np.array([nn.ReLU for _ in range(2)])
 
-		policy = fraNET.ActorCriticPolicy(
+		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,
     		#hidden_layers=config['n_layers'],
     		#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
-    		activation_function=act_fun,
-    		init_sigma=config['sigma']
+    		#activation_function=act_fun,
+    		#init_sigma=config['sigma']
     	)
 
 		agent = agents.agentActorCriticfinal.Agent(
     		policy,
-			net_type='fraNET',
+			net_type='tibNET',
     		device='cpu',
     		gamma=config['gamma'],
     		lr=config['lr']
@@ -80,19 +80,19 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 		del policy
 		del agent
 
-		policy = fraNET.ActorCriticPolicy(
+		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,
     		#hidden_layers=config['n_layers'],
     		#hidden_neurons=np.array([config['n_neurons'] for _ in range(config['n_layers'])]),
-    		activation_function=act_fun,
-    		init_sigma=config['sigma']
+    		#activation_function=act_fun,
+    		#init_sigma=config['sigma']
     		)
 		agent = agents.agentActorCriticfinal.Agent(
     		policy,
     		device='cpu',
     		gamma=config['gamma'],
-			net_type='fraNET',
+			net_type='tibNET',
     		lr=config['lr']
     		)
 
