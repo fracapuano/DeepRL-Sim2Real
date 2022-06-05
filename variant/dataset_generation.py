@@ -18,7 +18,7 @@ parametrization = [low, high, low, high, low, high]
 
 env = makeEnv.make_environment("source")
 
-n_samples = 50
+n_samples = 100
 n_params = 3
 
 observations = np.zeros((n_samples, n_params + 1))
@@ -30,7 +30,7 @@ for s in tqdm(range(n_samples)):
     env.set_random_parameters()
     masses = env.sim.model.body_mass[2:]
 
-    agent.learn(total_timesteps = 5)
+    agent.learn(total_timesteps = 50000)
 
     saveModel.save_model(agent, "trpo", folder_path="./variant/")
     total_reward = testModel.test(
