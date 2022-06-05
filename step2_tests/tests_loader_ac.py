@@ -34,7 +34,7 @@ action_space_dim = source_env.action_space.shape[-1]
 #ACTOR-CRITIC OPTIMIZATION
 print("Looking for ActorCritic best hyperparameters configuration...")
 with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
-    actorCritic_evaluation_f.write("ID,ss-return,st-return"+'\n')
+	actorCritic_evaluation_f.write("ID,ss-return,st-return"+'\n')
 	for i in tqdm(range(len(actorCritic_configurations['configurations']))):
 		config = actorCritic_configurations['configurations'][i]
 		loginfo = [hp for hp in config.items()]
@@ -92,6 +92,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		policy,
     		device='cpu',
     		gamma=config['gamma'],
+			net_type='fraNET',
     		lr=config['lr']
     		)
 
