@@ -23,13 +23,16 @@ with open("ppo/ppo.txt", "r") as ppof:
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
 
+print(f"Total number of configurations to test {len(ppo_configurations['configurations'])}")
+
 print("Looking for PPO best hyperparameters configuration...")
 with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
     ppo_evaluation_f.write("ID,ss-return,st-return"+'\n')
     for i in range(len(ppo_configurations['configurations'])):
+        print(f"Testing configuration ID: {i}")
         config = ppo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]
-        print("Testing ")
+        
         for param in loginfo:
             print(param)
 
@@ -50,7 +53,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
                 #'use_sde':config['use_sde'],
             'activation_fn':act_fun
                 },
-            verbose=1
+            verbose=0
         )
 
         agent.learn(total_timesteps=config['episodes'])
@@ -73,7 +76,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
                 #'use_sde':config['use_sde'],
                 'activation_fn':act_fun
                 },
-            verbose=1
+            verbose=0
         )
 
         agent.learn(total_timesteps=config['episodes'])

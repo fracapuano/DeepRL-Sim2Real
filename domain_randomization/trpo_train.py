@@ -33,7 +33,7 @@ def main():
         env = gym.make("CustomHopper-source-v0")
     if args.domain_type.lower() == 'target': 
         env = gym.make("CustomHopper-target-v0")
-    
+        
     # instantiating an agent
     agent = TRPO('MlpPolicy', env)
 

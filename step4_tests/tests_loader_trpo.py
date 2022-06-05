@@ -27,13 +27,16 @@ with open("trpo/trpo.txt", "r") as trpof:
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
 
+print(f"Total number of configurations to test {len(trpo_configurations['configurations'])}")
+
 print("Looking for TRPO best hyperparameters configuration...")
 with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
     trpo_evaluation_f.write("ID,ss-return,st-return"+'\n')
     for i in range(len(trpo_configurations['configurations'])):
+        print(f"Testing configuration ID: {i}")
         config = trpo_configurations['configurations'][i]
         loginfo = [hp for hp in config.items()]
-        print("Testing ")
+
         for param in loginfo:
             print(param)
 
@@ -57,7 +60,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
                 #'use_sde':config['use_sde'],
             'activation_fn':act_fun
                 },
-            verbose=1
+            verbose=0
         )
 
         agent.learn(total_timesteps=config['episodes'])

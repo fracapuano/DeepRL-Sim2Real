@@ -29,7 +29,7 @@ ACTOR_CRITIC_PARAMS = {
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
 	'activation_function':['tanh', 'relu'],
-	'n_episodes':[50000, 100000],
+	'n_episodes':[75000],
 	'batch_size':[20, 50],
 	'sigma':[0.25, 0.5, 0.75]
 }
