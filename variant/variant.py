@@ -1,6 +1,4 @@
-import torch
 import numpy as np
-import torch.nn as nn
 from tqdm import tqdm
 
 import sys
@@ -37,9 +35,9 @@ for s in tqdm(range(n_samples)):
 
     agent.learn(total_timesteps = 5)
 
-    saveModel.save_model(agent, "trpo", folder_path="./")
+    saveModel.save_model(agent, "trpo", folder_path="./variant")
     total_reward = testModel.test(
-        agent, agent_type = "trpo", env=env, episodes = 50, render_bool = False, model_info = "./trpo-model.mdl")
+        agent, agent_type = "trpo", env=env, episodes = 50, render_bool = False, model_info = "./variant/trpo-model.mdl")
     
     row = np.append(masses, total_reward)
 
