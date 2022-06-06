@@ -87,15 +87,42 @@ def main():
         raise Exception("Invalid Agent selected. Select one among <reinforce - actorCritic - ppo - trpo>")
 
     if args.op == 'train' and (args.agent_type != 'ppo' and args.agent_type != 'trpo'):
-        trainModel.train(agent, env, actorCriticCheck, args.batch_size, args.episodes, args.print_every)
-        saveModel.save_model(agent, args.agent_type, MODELS_PATH)
+
+        trainModel.train(
+            agent=agent,
+            env=env,
+            actorCriticCheck=actorCriticCheck,
+            batch_size=args.batch_size,
+            episodes=args.episodes,
+            print_every=args.print_every
+            )
+
+        saveModel.save_model(
+            agent=agent,
+            agent_type=args.agent_type,
+            folder_path=MODELS_PATH
+            )
 
     elif args.op == 'train' and (args.agent_type == 'ppo' or args.agent_type == 'trpo'):
+
         agent.learn(total_timesteps=args.episodes)
-        saveModel.save_model(agent, args.agent_type, MODELS_PATH)
+
+        saveModel.save_model(
+            agent=agent,
+            agent_type=args.agent_type,
+            folder_path=MODELS_PATH
+            )
 
     elif args.op == 'test':
-        testModel.test(agent, args.agent_type, env, args.episodes, MODELS_PATH+args.model, render_bool=args.render)
+        
+        test_return_trpo=testModel.test(
+            agent=agent,
+            agent_type=args.agent_type,
+            env=env,
+            episodes=args.episodes,
+            render_bool=args.render,
+            model_info=MODELS_PATH+args.model
+            )
 
     else:
         raise Exception("Invalid action selected! Try train or test.")
