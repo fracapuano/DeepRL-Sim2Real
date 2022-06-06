@@ -82,9 +82,9 @@ def J_masses(bounds):
     source_env.set_random_parameters()
 
     # istantiating an agent
-    agent = TRPO('MlpPolicy', source_env)
+    agent = TRPO('MlpPolicy', source_env, gamma = GAMMA)
     # learning with respect to random environment considered
-    agent.learn(total_timesteps = 2048)
+    agent.learn(total_timesteps = 100000)
 
     roll_return = []
     # testing the learned policy in the target environment for n_roll times
@@ -98,13 +98,13 @@ def J_masses(bounds):
             action, _ = agent.predict(obs)
             # stepping the environment with respect to the action selected
             obs, rewards, done, _ = target_env.step(action)
-            # collecting the reward (to later obtain return)
+            # collecting the reward
             test_rewards.append(rewards)
 
             timestep += 1
-
-        gammas = GAMMA ** np.arange(timestep)
-        roll_return.append(test_rewards @ gammas)
+        
+        # obtaining total return
+        roll_return.append(np.array(test_rewards).sum())
     
     roll_return = np.array(roll_return)
     return roll_return.mean()
