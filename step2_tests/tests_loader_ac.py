@@ -43,11 +43,6 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			print(param)
 		import agents.agentActorCriticfinal
 
-		if config['activation_function'] == 'tanh':
-			act_fun = np.array([nn.Tanh for _ in range(2)])
-		elif config['activation_function'] == 'relu':
-			act_fun = np.array([nn.ReLU for _ in range(2)])
-
 		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,

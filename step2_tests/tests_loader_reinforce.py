@@ -43,11 +43,6 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 			print(param)
 		import agents.agentReinforce
 
-		if config['activation_function'] == 'tanh':
-			act_fun = np.array([nn.Tanh for _ in range(2)])
-		elif config['activation_function'] == 'relu':
-			act_fun = np.array([nn.ReLU for _ in range(2)])
-
 		policy = tibNET.ReinforcePolicy(
     		state_space=observation_space_dim,
     		action_space=action_space_dim,
