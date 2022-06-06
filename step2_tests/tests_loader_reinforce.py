@@ -34,7 +34,7 @@ action_space_dim = source_env.action_space.shape[-1]
 #REINFORCE OPTIMIZATION
 print("Looking for REINFORCE best hyperparameters configuration...")
 with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
-	reinforce_evaluation_f.write("ID,ss-return,st-return"+'\n')
+	reinforce_evaluation_f.write("ID,ss-return,st-return,tt-return"+'\n')
 	for i in tqdm(range(len(reinforce_configurations['configurations']))):
 		config = reinforce_configurations['configurations'][i]
 		loginfo = [hp for hp in config.items()]

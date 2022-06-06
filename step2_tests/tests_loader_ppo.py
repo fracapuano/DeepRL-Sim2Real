@@ -27,7 +27,7 @@ print(f"Total number of configurations to test {len(ppo_configurations['configur
 
 print("Looking for PPO best hyperparameters configuration...")
 with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
-    ppo_evaluation_f.write("ID,ss-return,st-return"+'\n')
+    ppo_evaluation_f.write("ID,ss-return,st-return,tt-return"+'\n')
     for i in range(len(ppo_configurations['configurations'])):
         print(f"Testing configuration ID: {i}")
         config = ppo_configurations['configurations'][i]

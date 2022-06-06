@@ -1,6 +1,6 @@
 import torch
 
-def save_model(agent, agent_type, folder_path='.'):
+def save_model(agent, agent_type, folder_path='./'):
     if agent_type.lower() == 'reinforce':
         torch.save(agent.policy.state_dict(), folder_path + "reinforce-model.mdl")
     elif agent_type.lower() == 'actorcritic':
