@@ -115,7 +115,7 @@ def main():
 
     elif args.op == 'test':
         
-        test_return_trpo=testModel.test(
+        testModel.test(
             agent=agent,
             agent_type=args.agent_type,
             env=env,
