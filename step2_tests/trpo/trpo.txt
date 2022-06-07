@@ -3,7 +3,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -12,7 +12,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -21,25 +21,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
-            "gamma": 0.998,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.01
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 128,
-            "episodes": 250000,
-            "gamma": 0.998,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.05
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -48,7 +30,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -57,7 +39,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -66,7 +48,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -75,25 +57,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
-            "gamma": 0.999,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.01
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 128,
-            "episodes": 250000,
-            "gamma": 0.999,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.05
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -102,7 +66,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 128,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -111,7 +75,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -120,7 +84,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -129,25 +93,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
-            "gamma": 0.998,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.01
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 256,
-            "episodes": 250000,
-            "gamma": 0.998,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.05
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -156,7 +102,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.998,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -165,7 +111,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -174,7 +120,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.001,
             "policy": "MlpPolicy",
@@ -183,25 +129,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
-            "gamma": 0.999,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.01
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 256,
-            "episodes": 250000,
-            "gamma": 0.999,
-            "lr": 0.00225,
-            "policy": "MlpPolicy",
-            "target_kl": 0.05
-        },
-        {
-            "activation_function": "tanh",
-            "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.005,
             "policy": "MlpPolicy",
@@ -210,7 +138,7 @@
         {
             "activation_function": "tanh",
             "batch_size": 256,
-            "episodes": 250000,
+            "episodes": 100000,
             "gamma": 0.999,
             "lr": 0.005,
             "policy": "MlpPolicy",

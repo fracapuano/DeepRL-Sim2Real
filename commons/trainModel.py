@@ -1,6 +1,6 @@
 from tqdm import tqdm
 
-def train(agent, env, actorCriticCheck, batch_size, episodes, print_every):
+def train(agent, env, actorCriticCheck, batch_size, episodes, print_every, print_bool=False):
     for episode in tqdm(range(episodes)):
         batch_counter = 0
         done = False
@@ -25,7 +25,7 @@ def train(agent, env, actorCriticCheck, batch_size, episodes, print_every):
             
         if not actorCriticCheck: 
             agent.update_policy()
-        
-        if (episode+1)%print_every == 0:
-            print('Training episode:', episode)
-            print('Episode return:', train_reward)
+        if print_bool:
+            if (episode+1)%print_every == 0:
+                print('Training episode:', episode)
+                print('Episode return:', train_reward)
