@@ -17,7 +17,7 @@ TRPO_PARAMS = {
 	'lr':[1e-3, 5e-3],
 	'gamma':[0.998, 0.999],
 	'target_kl':[0.01, 0.05],
-	'episodes':[50000],
+	'episodes':[250000],
 	'activation_function':['tanh'],
 	'low_bounds':[2, 4, 5],
 	'high_bounds':[4.5, 5.5, 7]
