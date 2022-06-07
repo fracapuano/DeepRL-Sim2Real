@@ -16,9 +16,10 @@ TRPO_PARAMS = {
 	'policy':['MlpPolicy'],
 	'lr':[1e-3, 5e-3],
 	'gamma':[0.998, 0.999],
-	'target_kl':[0.001, 0.01, 0.05],
+	'target_kl':[0.01, 0.05],
 	'episodes':[250000],
-	'activation_function':['tanh']
+	'activation_function':['tanh'],
+	'batch_size':[128, 256]
 }
 
 write_config("trpo/trpo.txt", ParameterGrid(TRPO_PARAMS))

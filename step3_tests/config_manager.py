@@ -19,6 +19,7 @@ TRPO_PARAMS = {
 	'target_kl':[0.01, 0.05],
 	'episodes':[250000],
 	'activation_function':['tanh'],
+	'batch_size':[128, 256],
 	'low_bounds':[2, 4, 5],
 	'high_bounds':[4.5, 5.5, 7]
 }

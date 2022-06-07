@@ -19,8 +19,6 @@ print("Optimizing distrubtions' bounds with BayRn...")
 bounds = get_bc()
 print(f"Using bounds: {bounds}")
 
-SEED = 42
-
 with open("trpo/trpo.txt", "r") as trpof:
 	trpo_configurations = json.load(trpof)
 
@@ -54,7 +52,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
             learning_rate=config['lr'],
             target_kl=config['target_kl'],
             gamma=config['gamma'],
-            seed=SEED,
+            batch_size=config['batch_size'],
             policy_kwargs={
             'activation_fn':act_fun
                 },
