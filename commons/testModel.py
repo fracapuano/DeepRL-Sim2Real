@@ -41,6 +41,6 @@ def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
                 if done:
                     env.reset()
                     
-        episode_r[episode] = np.array(rewards).sum()
+            episode_r[episode] = np.array(rewards).sum()
                 
     return episode_r.mean()
