@@ -10,6 +10,8 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
 from commons import trainModel, testModel, saveModel, makeEnv, utils
+from commons.custom_callback import CustomCallback as CB
+from callback_utils import env_data_generation, dynamics_scoring
 from env import *
 from sb3_contrib.trpo.trpo import TRPO
 
@@ -20,28 +22,25 @@ env = makeEnv.make_environment("source")
 
 n_samples = 100
 n_params = 3
+callback_ = CB()
+timesteps = 100000
 
 observations = np.zeros((n_samples, n_params + 1))
 env.set_parametrization(parametrization)
 
-for s in tqdm(range(n_samples)): 
-    agent = TRPO("MlpPolicy", env, verbose = 1)
-    
+for s in tqdm(range(n_samples)):     
     env.set_random_parameters()
+
+    agent = TRPO("MlpPolicy", env, verbose = 1)
     masses = env.sim.model.body_mass[2:]
-
-    agent.learn(total_timesteps = 50000)
-
-    saveModel.save_model(agent, "trpo", folder_path="./variant/")
-    total_reward = testModel.test(
-        agent, agent_type = "trpo", env=env, episodes = 50, render_bool = False, model_info = "./variant/trpo-model.mdl")
     
-    row = np.append(masses, total_reward)
+    env_data_generation(timesteps = timesteps, env = env, callback_ = callback_)
+    dynamics_score = dynamics_scoring()
+    row = np.append(masses, dynamics_score)
 
     observations[s, :] = row
 
     del agent
-    os.remove("variant/trpo-model.mdl")
     del row
     del masses
 

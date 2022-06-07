@@ -19,13 +19,6 @@ def random_forest_importance(X, y):
     
     return sorted(list(zip(parts, reg.feature_importances_)))
 
-def kernel_importance(X, y, kernel): 
-    krr = KernelRidge(alpha=1.0, kernel = kernel)
-    feature_names = ["tight", "leg", "foot"]
-    krr.fit(X, y)
-    
-    return sorted(list(zip(feature_names, X.T @ krr.dual_coef_)))
-
 def linear_models(X, y): 
     df = pd.DataFrame(
         data = np.hstack((X, y.reshape(-1,1)))
@@ -44,11 +37,9 @@ def main():
     X, y = 10*np.random.random(size = (100, 3)), 3*np.random.random(size = (100,))
 
     rf_imp = random_forest_importance(X, y)
-    ker_imp = kernel_importance(X, y, "rbf")
     anova_test = linear_models(X, y)
 
     print(rf_imp)
-    print(ker_imp)
     print(anova_test)
 
 if __name__ == "__main__": 
