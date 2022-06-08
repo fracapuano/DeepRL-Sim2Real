@@ -44,4 +44,4 @@ for s in tqdm(range(n_samples)):
     del row
     del masses
 
-np.savetxt("variant/dynamics.txt", observations)
+np.savetxt("dynamics.txt", observations)
