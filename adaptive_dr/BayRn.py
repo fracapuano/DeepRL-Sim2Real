@@ -121,7 +121,7 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit):
         maxit: maximal number of iterations of the overall Bayesian Optimization process. 
     """
     D = init_D(n_init = n_init, n_roll = n_roll)
-    
+    print("ciao!")
     for it in tqdm(range(maxit)):  
         X, Y = D[:, :-1], D[:, -1].reshape(-1,1)
         
