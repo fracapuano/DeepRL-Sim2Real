@@ -55,7 +55,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             verbose=0
         )
 
-        agent.learn(total_timesteps=config['episodes'])
+        agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
         ss_return = testModel.test(agent, agent_type='ppo', env=source_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
         st_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
@@ -77,7 +77,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             verbose=0
         )
 
-        agent.learn(total_timesteps=config['episodes'])
+        agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
         tt_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
 

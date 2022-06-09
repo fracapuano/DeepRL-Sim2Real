@@ -17,7 +17,7 @@ class Agent(object):
 
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr)
 
-        self.I = 1
+        #self.I = 1
         self.gamma = gamma
         self.states = []
         self.next_states = []
@@ -65,12 +65,12 @@ class Agent(object):
 
         critic_loss = torch.stack(critic_loss).mean()
 
-        loss = actor_loss + critic_loss
+        loss = (-1)*actor_loss + critic_loss
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
 
-        self.I = self.gamma * self.I
+        #self.I = self.gamma * self.I
 
         self.states = []
         self.next_states = []

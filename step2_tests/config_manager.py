@@ -35,7 +35,7 @@ TRPO_PARAMS = {
 	'lr':[1e-3, 5e-3],
 	'gamma':[0.998, 0.999],
 	'target_kl':[0.01, 0.05],
-	'episodes':[100000],
+	'timesteps':[150000],
 	'activation_function':['tanh'],
 	'batch_size':[128, 256]
 }
@@ -45,7 +45,7 @@ PPO_PARAMS = {
 	'lr':[1e-3, 2.25e-3, 5e-3],
 	'gamma':[0.998, 0.999],
 	'target_kl':[0.01, 0.05],
-	'episodes':[100000],
+	'timesteps':[150000],
 	'activation_function':['tanh'],
 	'batch_size':[128, 256]
 }

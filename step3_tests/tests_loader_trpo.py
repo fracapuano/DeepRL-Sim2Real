@@ -55,7 +55,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
             verbose=0
         )
 
-        agent.learn(total_timesteps=config['episodes'])
+        agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
         ss_return = testModel.test(agent, agent_type='trpo', env=source_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
         st_return = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
