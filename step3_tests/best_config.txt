@@ -1,0 +1,12 @@
+{
+    "best_config": {
+        "activation_function": "tanh",
+        "episodes": 100000,
+        "gamma": 0.998,
+        "high_bounds": 4.5,
+        "low_bounds": 2,
+        "lr": 0.001,
+        "policy": "MlpPolicy",
+        "target_kl": 0.001
+    }
+}
