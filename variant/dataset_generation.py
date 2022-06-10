@@ -22,15 +22,15 @@ env = makeEnv.make_environment("source")
 
 n_samples = 100
 n_params = 3
-callback_ = CB()
+callback_ = CB(path='variant/')
 timesteps = 250000
 
 observations = np.zeros((n_samples, n_params + 1))
 env.set_parametrization(parametrization)
 
-with open("training_actions.txt", "w") as action_file: 
+with open("variant/training_actions.txt", "w") as action_file: 
     action_file.write("episodeID,action_measure\n")
-with open("training_rewards.txt", "w") as reward_file: 
+with open("variant/training_rewards.txt", "w") as reward_file: 
     reward_file.write("episodeID,episode_reward,number_of_steps\n")
 
 for s in tqdm(range(n_samples)):     
@@ -50,7 +50,7 @@ for s in tqdm(range(n_samples)):
     del row
     del masses
 
-os.remove("training_actions.txt")
-os.remove("training_rewards.txt")
+os.remove("variant/training_actions.txt")
+os.remove("variant/training_rewards.txt")
 
 np.savetxt("dynamics.txt", observations)

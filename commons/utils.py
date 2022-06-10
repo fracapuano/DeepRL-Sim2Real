@@ -56,3 +56,8 @@ class Rewards:
 
     def get_G(self): 
         return self.total_reward
+
+
+class grafica():
+    def __init__(self, figure_path="./"):
+        self.figure_path = figure_path

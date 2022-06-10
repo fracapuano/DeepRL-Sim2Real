@@ -24,8 +24,8 @@ def env_data_generation(timesteps, env, callback_):
 
 def dynamics_scoring(): 
     
-    actionsDF = pd.read_csv("training_actions.txt", index_col = 0)
-    rewardsDF = pd.read_csv("training_rewards.txt", index_col = 0)
+    actionsDF = pd.read_csv("variant/training_actions.txt", index_col = 0)
+    rewardsDF = pd.read_csv("variant/training_rewards.txt", index_col = 0)
 
     episodes, _ = actionsDF.shape
     frac = 0.5
@@ -37,12 +37,12 @@ def dynamics_scoring():
 
     action_weight, reward_weight, n_steps_weight = 0.4, 0.4, 0.2
 
-    os.remove("training_actions.txt")
-    os.remove("training_rewards.txt")
+    os.remove("variant/training_actions.txt")
+    os.remove("variant/training_rewards.txt")
 
-    with open("training_actions.txt", "w") as action_file: 
+    with open("variant/training_actions.txt", "w") as action_file: 
         action_file.write("episodeID,action_measure\n")
-    with open("training_rewards.txt", "w") as reward_file: 
+    with open("variant/training_rewards.txt", "w") as reward_file: 
         reward_file.write("episodeID,episode_reward,number_of_steps\n")
     
     return action_weight * actions_.mean() + reward_weight * rewards_.mean() + n_steps_weight * number_of_steps_.mean()

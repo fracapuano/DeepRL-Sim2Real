@@ -13,7 +13,7 @@ sys.path.insert(0, parentdir)
 
 from commons import trainModel, testModel, saveModel, makeEnv, utils
 from sb3_contrib.trpo.trpo import TRPO
-from adaptive_dr.bayrn_test import get_bc
+from BayRn import get_bc
 
 def parse_args():
     parser = argparse.ArgumentParser()
