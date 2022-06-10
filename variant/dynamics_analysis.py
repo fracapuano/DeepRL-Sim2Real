@@ -26,21 +26,20 @@ def linear_models(X, y):
     df.columns = ["tight", "leg", "foot", "AvgTotalReward"]
 
     complete_model = sfm.ols("AvgTotalReward ~ tight + leg + foot", data = df).fit()
-    anova = sm.stats.anova_lm(complete_model)
-    return anova
+    return complete_model.summary()
 
 def main(): 
-    data = "variant/dynamics.txt"
+    data = "dynamics.txt"
     df = load_data(data)
     
     # X, y = df.iloc[:, :-1], df.iloc[:, -1]
     X, y = 10*np.random.random(size = (100, 3)), 3*np.random.random(size = (100,))
 
     rf_imp = random_forest_importance(X, y)
-    anova_test = linear_models(X, y)
+    t_test = linear_models(X, y)
 
     print(rf_imp)
-    print(anova_test)
+    print(t_test)
 
 if __name__ == "__main__": 
     main()
