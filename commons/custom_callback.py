@@ -26,7 +26,7 @@ class CustomCallback(BaseCallback):
         
         with open(self.path + "/" + self.rewardfile_name, "w") as reward_file:
             reward_file.write("episodeID,episode_reward,number_of_steps\n")
-    
+        
     def init_actions(self):
         self.actions = np.array([])
     def init_rewards(self): 
@@ -38,7 +38,7 @@ class CustomCallback(BaseCallback):
         self.init_actions()
         self.init_rewards()
         self.init_number_of_steps()
-
+    
     def _on_step(self) -> bool:
         """
         This method will be called by the model after each call to `env.step()`.
@@ -61,15 +61,15 @@ class CustomCallback(BaseCallback):
 
         else:
             episode_reward = self.rewards.sum()
-            episode_action_derivative = np.diff(self.actions.reshape(3, -1)) / self.nos
-            episode_action_sum_of_moduli = np.abs(episode_action_derivative).mean()
+            episode_action_derivative = np.diff(self.actions.reshape(3, -1))
+            episode_action_range = np.abs(episode_action_derivative).max() - np.abs(episode_action_derivative).min()
             number_of_steps = self.nos
 
             with open(self.path + "/" + self.rewardfile_name, "a") as reward_file: 
                 reward_file.write(f"{self.episode_counter},{episode_reward},{number_of_steps}\n")
             
             with open(self.path + "/" + self.actionfile_name, "a") as action_file: 
-                action_file.write(f"{self.episode_counter},{episode_action_sum_of_moduli}\n")
+                action_file.write(f"{self.episode_counter},{episode_action_range}\n")
             
             # reinitializing the actions and rewards arrays
             self.episode_setup() 
