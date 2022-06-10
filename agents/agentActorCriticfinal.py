@@ -55,7 +55,7 @@ class Agent(object):
             
         for log_prob, advantage in zip(action_log_probs, advantages):
             # actor_loss.append(log_prob * self.I * advantage)
-            actor_loss.append(log_prob * advantage)
+            actor_loss.append((-1)*log_prob * advantage)
 
         actor_loss = torch.tensor(actor_loss).mean()
 
@@ -65,7 +65,7 @@ class Agent(object):
 
         critic_loss = torch.stack(critic_loss).mean()
 
-        loss = (-1)*actor_loss + critic_loss
+        loss = actor_loss + critic_loss
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
