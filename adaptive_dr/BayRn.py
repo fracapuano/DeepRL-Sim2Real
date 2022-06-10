@@ -1,4 +1,3 @@
-##### UTILITIES #####
 import sys
 import os
 import inspect
@@ -10,7 +9,6 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
-##### TORCH #####
 import torch
 from torch.distributions.uniform import Uniform
 from botorch.models import SingleTaskGP
@@ -20,12 +18,10 @@ from gpytorch.mlls import ExactMarginalLogLikelihood
 from botorch.acquisition import UpperConfidenceBound
 from botorch.optim import optimize_acqf
 
-##### ALGS #####
 from sb3_contrib.trpo.trpo import TRPO
 from env.custom_hopper import *
 
 def parse_args():
-
     parser = argparse.ArgumentParser()
 
     # number of interaction with target environment: the higher, the better, with the contraint
@@ -37,11 +33,12 @@ def parse_args():
 
     parser.add_argument('--n-init', default=5, type=int, help='Number of initialization iterations')
     parser.add_argument('--maxit', default=20, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
+    parser.add_argument('--timesteps', default=int(1e5), type=int, help='Number of timesteps for policy algorithm')
     return parser.parse_args()
 
 args = parse_args()
 
-def init_D(n_init = args.n_init, n_roll = args.n_roll):
+def init_D(agent, source_env, target_env, ncols = 6, n_init = args.n_init, n_roll = args.n_roll):
     """
     This function returns an initial dataset D in which each row is D[row, :-1], D[row, -1] = target, parameters
     Parameters: 
@@ -57,34 +54,22 @@ def init_D(n_init = args.n_init, n_roll = args.n_roll):
     parametersDistribution = Uniform(low = torch.tensor([low], dtype = float), 
                                  high = torch.tensor([high], dtype = float))
 
-    ncols = 6
-
     D = torch.zeros(n_init, ncols+1)
     
     for i in range(n_init): 
         phi_i = torch.tensor([parametersDistribution.sample() for _ in range(ncols)], dtype = float)
         D[i, :-1] = phi_i
-        D[i, -1] = J_masses(phi_i)
+        D[i, -1] = J_masses(agent, source_env, target_env, phi_i)
         
     return D
 
-def J_masses(bounds):
-    # lower (x[0]) and upper (x[1]) bound of the distribution
-    #x = np.fromiter(kwargs.values(), dtype=float)
-
-    # create the source and target environments
-    GAMMA = 0.99
-    source_env = gym.make("CustomHopper-source-v0")
-    target_env = gym.make("CustomHopper-target-v0") 
-    
+def J_masses(agent, source_env, target_env, bounds):
     # sampling with respect to the parameters just passed to set random masses
     source_env.set_parametrization(bounds)
     source_env.set_random_parameters()
 
-    # istantiating an agent
-    agent = TRPO('MlpPolicy', source_env, gamma = GAMMA)
     # learning with respect to random environment considered
-    agent.learn(total_timesteps = 100000)
+    agent.learn(total_timesteps = args.timesteps)
 
     roll_return = []
     # testing the learned policy in the target environment for n_roll times
@@ -109,7 +94,21 @@ def J_masses(bounds):
     roll_return = np.array(roll_return)
     return roll_return.mean()
 
-def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit): 
+def obtain_candidate(X, Y): 
+    gp = SingleTaskGP(X, Y)
+    mll = ExactMarginalLogLikelihood(gp.likelihood, gp)
+    fit_gpytorch_model(mll)
+    UCB = UpperConfidenceBound(gp, beta=0.1, maximize = True)
+
+    bounds = torch.stack([args.min * torch.ones(X.shape[1]), args.max * torch.ones(X.shape[1])])
+    
+    candidate, _ = optimize_acqf(
+        UCB, bounds=bounds, q=1, num_restarts=5, raw_samples=20)
+    
+    candidate = candidate.reshape(-1,)
+    return candidate
+
+def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit, verbose = 1): 
     """
     This function uses bayesian optimization to choose the optimal parametrization given a specific set of parameters
     for what concerns their influence on a some blackbox function. 
@@ -120,24 +119,24 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit):
                 parameters
         maxit: maximal number of iterations of the overall Bayesian Optimization process. 
     """
-    D = init_D(n_init = n_init, n_roll = n_roll)
-    print("ciao!")
+
+    # creating source and target environments
+    source_env = gym.make("CustomHopper-source-v0")
+    target_env = gym.make("CustomHopper-target-v0") 
+
+    # istantiating an agent
+    agent = TRPO('MlpPolicy', source_env, verbose=verbose)
+
+    D = init_D(agent, source_env, target_env, n_init = n_init, n_roll = n_roll)
+    
     for it in tqdm(range(maxit)):  
         X, Y = D[:, :-1], D[:, -1].reshape(-1,1)
-        
-        gp = SingleTaskGP(X, Y)
-        mll = ExactMarginalLogLikelihood(gp.likelihood, gp)
-        fit_gpytorch_model(mll)
-        UCB = UpperConfidenceBound(gp, beta=0.1, maximize = True)
+        # obtaining best candidate with Bayesian Optimization
+        candidate = obtain_candidate(X, Y)
+        # evaluating the candidate solution with source training - rollout evaluation
+        J_phi = J_masses(agent, source_env, target_env, candidate)
+        J_phi = torch.tensor(J_phi).reshape(-1)
 
-        bounds = torch.stack([args.min * torch.ones(X.shape[1]), args.max * torch.ones(X.shape[1])])
-        
-        candidate, _ = optimize_acqf(
-            UCB, bounds=bounds, q=1, num_restarts=5, raw_samples=20)
-        
-        candidate = candidate.reshape(-1,)
-        J_phi = torch.tensor(J_masses(candidate)).reshape(-1) #qui c'era un reshape
-        
         candidate_and_J = torch.hstack([candidate, J_phi])
         
         D = torch.vstack(
@@ -149,6 +148,7 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit):
 
 def get_bc():
     D, bc = BayRN()
+    np.savetxt("BayRN_D.txt", D, header="low1,up1,low2,up2,low2,up3,st-return")
     return bc
 
 def main():
