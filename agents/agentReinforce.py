@@ -48,11 +48,11 @@ class Agent(object):
             for timestep in reversed(range(numberOfSteps)): 
                 Gt = rewards[timestep] + (self.gamma * returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
                 returns[timestep] = Gt
+
         elif self.return_flag == "baseline": # reward to go introducing a baseline to standardize return
             for timestep in reversed(range(numberOfSteps)): 
                 Gt = rewards[timestep] + (self.gamma * returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
                 returns[timestep] = Gt
-            
             returns = (returns - returns.mean())/returns.std()
 
         # populating the sample of log(pi(A|S, theta))
