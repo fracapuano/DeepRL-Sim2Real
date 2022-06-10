@@ -13,12 +13,12 @@ sys.path.insert(0, parentdir)
 
 from commons import trainModel, testModel, saveModel, makeEnv, utils
 from sb3_contrib.trpo.trpo import TRPO
-from adaptive_dr.BayRn import get_bc
+from adaptive_dr.bayrn_test import get_bc
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--test-timesteps', default=100000, type=int, help='Number of timesteps to train the agent on')
-    parser.add_argument('--train-timesteps', default=50, type=int, help='Number of timesteps to test the agent in the target environment')
+    parser.add_argument('--train-timesteps', default=100000, type=int, help='Number of timesteps to train the agent on')
+    parser.add_argument('--test-timesteps', default=5, type=int, help='Number of timesteps to test the agent in the target environment')
     return parser.parse_args()
 
 args = parse_args()

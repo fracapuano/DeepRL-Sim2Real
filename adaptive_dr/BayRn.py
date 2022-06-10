@@ -26,14 +26,16 @@ def parse_args():
 
     # number of interaction with target environment: the higher, the better, with the contraint
     # of not having too many since after a certain moment it would train on the target environment
-    parser.add_argument('--n-roll', default=7, type=int, help='Number of rollout on the target environment')
+    parser.add_argument('--n-roll', default=5, type=int, help='Number of rollout on the target environment')
 
     parser.add_argument('--min', default=0.25, type=float, help='lower bound to masses distribution')
     parser.add_argument('--max', default=10, type=float, help='upper bound to masses distribution')
 
     parser.add_argument('--n-init', default=5, type=int, help='Number of initialization iterations')
-    parser.add_argument('--maxit', default=20, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
+    parser.add_argument('--maxit', default=10, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
     parser.add_argument('--timesteps', default=int(1e5), type=int, help='Number of timesteps for policy algorithm')
+
+    parser.add_argument('--n-samples', default=5, type=int, help="Number of samples to evaluate distribution")
     return parser.parse_args()
 
 args = parse_args()
@@ -63,13 +65,14 @@ def init_D(agent, source_env, target_env, ncols = 6, n_init = args.n_init, n_rol
         
     return D
 
-def J_masses(agent, source_env, target_env, bounds):
+def J_masses(agent, source_env, target_env, bounds, n_samples=args.n_samples):
     # sampling with respect to the parameters just passed to set random masses
-    source_env.set_parametrization(bounds)
-    source_env.set_random_parameters()
+    for n in range(n_samples):
+        source_env.set_parametrization(bounds)
+        source_env.set_random_parameters()
 
-    # learning with respect to random environment considered
-    agent.learn(total_timesteps = args.timesteps)
+        # learning with respect to random environment considered
+        agent.learn(total_timesteps = args.timesteps)
 
     roll_return = []
     # testing the learned policy in the target environment for n_roll times

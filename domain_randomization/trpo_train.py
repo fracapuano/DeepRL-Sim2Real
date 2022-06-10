@@ -19,11 +19,11 @@ from tqdm import tqdm
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--n-episodes', default=100000, type=int, help='Number of training episodes')
+    parser.add_argument('--n-iterations', default=500, type=int, help='Number of training episodes')
     parser.add_argument('--domain-type', default='source', type=str, help='source / target')
     parser.add_argument('--low', default=0.5, type=float, help='lower bound to uniform distribution')
     parser.add_argument('--high', default=5, type=float, help='upper bound to uniform distribution')
-    parser.add_argument('--timesteps', default=2048, type=int, help='Timesteps used to train the agent')
+    parser.add_argument('--timesteps', default=100000, type=int, help='Timesteps used to train the agent')
     return parser.parse_args()
 
 args = parse_args()
@@ -40,10 +40,10 @@ def main():
     default_bounds = [args.low, args.high, args.low, args.high, args.low, args.high]
     env.set_parametrization(default_bounds)
 
-    episodes = tqdm(range(args.n_episodes))
+    iterations = tqdm(range(args.n_iterations))
 
-    for episode in episodes: 
-        episodes.set_description(f"Episode {episode}")
+    for iteration in iterations: 
+        iterations.set_description(f"Iteration {iteration}")
 
         # changing the masses of the hopper
         env.set_random_parameters()

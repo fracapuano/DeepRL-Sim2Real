@@ -24,23 +24,29 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         
         self.random_masses = 3
 
-    def set_uniform_parametrization(self, bounds):
-        self.low1 = bounds[0]
-        self.high1 = bounds[1]
-        self.low2 = bounds[2]
-        self.high2 = bounds[3]
-        self.low3 = bounds[4]
-        self.high3 = bounds[5]
+    def set_parametrization(self, bounds, dist_type='uniform'):
+        if dist_type.lower()=='uniform':
+            self.low_uniform_1 = bounds[0]
+            self.high_uniform_1 = bounds[1]
+            self.low_uniform_2 = bounds[2]
+            self.high_uniform_2 = bounds[3]
+            self.low_uniform_3 = bounds[4]
+            self.high_uniform_3 = bounds[5]
+        elif dist_type.lower()=='normal':
+            self.low_normal = bounds[0]
+            self.high_normal = bounds[1]
+            self.mean_normal_1 = bounds[2]
+            self.std_normal_1 = bounds[3]
+            self.mean_normal_2 = bounds[4]
+            self.std_normal_2 = bounds[5]
+            self.mean_normal_3 = bounds[6]
+            self.std_normal_3 =bounds[7]
+        else:
+            raise ValueError("Invalid parametric distribution selected. Please try Uniform or Normal.")
 
-    def set_normal_parametrization(self, low=.25, high=5, mean=0, std=1):
-        self.low = low
-        self.high = high
-        self.mean = mean
-        self.std = std
-
-    def set_random_parameters(self):
-        #Set random masses
-        self.set_parameters(*np.hstack((np.array(self.sim.model.body_mass[1]), self.sample_parameters())))
+    # def set_random_parameters(self):
+    #     #Set random masses
+    #     self.set_parameters(*np.hstack((np.array(self.sim.model.body_mass[1]), self.sample_parameters())))
 
     def sample_parameters(self, dist_type='uniform'):
         """
@@ -50,14 +56,14 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         vector. 
         """
         if dist_type=='uniform':
-            self.MassDistribution1 = Uniform(low = torch.tensor([self.low1], dtype = float),
-                                            high = torch.tensor([self.high1], dtype = float), 
+            self.MassDistribution1 = Uniform(low = torch.tensor([self.low_uniform_1], dtype = float),
+                                            high = torch.tensor([self.high_uniform_1], dtype = float), 
                                             validate_args = False)
-            self.MassDistribution2 = Uniform(low = torch.tensor([self.low2], dtype = float),
-                                            high = torch.tensor([self.high2], dtype = float), 
+            self.MassDistribution2 = Uniform(low = torch.tensor([self.low_uniform_2], dtype = float),
+                                            high = torch.tensor([self.high_uniform_2], dtype = float), 
                                             validate_args = False)
-            self.MassDistribution3 = Uniform(low = torch.tensor([self.low3], dtype = float),
-                                            high = torch.tensor([self.high3], dtype = float), 
+            self.MassDistribution3 = Uniform(low = torch.tensor([self.low_uniform_3], dtype = float),
+                                            high = torch.tensor([self.high_uniform_3], dtype = float), 
                                             validate_args = False)
 
             randomized_masses = np.array([
@@ -68,9 +74,9 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
 
         elif dist_type=='normal':
             empty_tensor = torch.empty(1,1)
-            self.MassDistribution1 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean, std=self.std)
-            self.MassDistribution2 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean, std=self.std)
-            self.MassDistribution3 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean, std=self.std)
+            self.MassDistribution1 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean_normal_1, std=self.std_normal_1)
+            self.MassDistribution2 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean_normal_2, std=self.std_normal_2)
+            self.MassDistribution3 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean_normal_3, std=self.std_normal_3)
 
             randomized_masses = np.array([
             self.MassDistribution1.detach().numpy(), 
@@ -83,32 +89,17 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
 
         return randomized_masses.reshape(-1,)
 
-    def select_parameters_to_sample(self, masses=[], dist_type='uniform'):
-
-        randomized_masses = [self.sim.model.body_mass[2], self.sim.model.body_mass[3], self.sim.model.body_mass[4]]
-
+    def set_random_parameters(self, masses=['thigh', 'leg', 'foot'], dist_type='uniform'):
         masses_map = {
-            'thigh':2,
-            'leg':3,
-            'foot':4
+            'thigh':1,
+            'leg':2,
+            'foot':3
         }
 
         if not bool(masses):
+            randomized_masses = self.sample_parameters(self, dist_type=dist_type)
             for mass in masses:
-                if dist_type=='uniform':
-                    randomized_masses[masses_map[mass]]= Uniform(
-                        low = torch.tensor([self.low], dtype = float),
-                        high = torch.tensor([self.high], dtype = float), 
-                        validate_args = False
-                        ).sample().detach().numpy()
-
-                elif dist_type=='normal':
-                    empty_tensor = torch.empty(1,1)
-                    randomized_masses[masses_map[mass]] = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean, std=self.std)
-                else:
-                    raise ValueError("Parametric distribution not supported! Try normal or uniform.")
-
-        return np.array(randomized_masses).reshape(-1,)
+                self.sim.model.body_mass[masses_map[mass]] = randomized_masses[masses_map[mass]]
 
     def get_parameters(self):
         """Get value of mass for each link"""
