@@ -8,7 +8,7 @@ from torch.distributions import Normal
 import numpy as np
 
 class Agent(object):
-    def __init__(self, policy, device='cpu', gamma=0.99, lr=1e-3):
+    def __init__(self, policy, device='cpu', gamma=0.99, lr=1e-3, return_flag = "baseline"):
         self.train_device = device
         self.policy = policy.to(self.train_device)
         self.policy.init_weights()
@@ -19,6 +19,8 @@ class Agent(object):
         self.action_log_probs = []
         self.rewards = []
         self.done = []
+
+        self.return_flag = return_flag.lower()
 
     def update_policy(self):
         """
@@ -36,26 +38,22 @@ class Agent(object):
         # initializing the sample of the log(pi(A|S, theta))
         policy_loss = []
 
-        returns = np.zeros_like(rewards)
-        
-        for timestep in reversed(range(numberOfSteps)): 
-            Gt = rewards[timestep] + (returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
-            # Gt = (self.gamma ** torch.tensor(range(numberOfSteps - timestep))) @ rewards[timestep:]
-            returns[timestep] = Gt
-    
-        # for timestep in reversed(range(numberOfSteps)): 
-        #     Gt = rewards[timestep] + (returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
-        #     value_function = self.baseline(states[timestep])
-        #     returns[timestep] = Gt - value_function
-        #     if done[timestep]:
-        #         self.baseline_optimizer.zero_grad()
-        #         value_function.backward()
-        #         self.baseline_optimizer.step()
+        returns = torch.zeros_like(rewards)
+        if self.return_flag == "standard": # considering all the rewards to obtain the trajectory return
+            gammas = self.gamma ** torch.ones_like(rewards).cumsum(dim = 0)
+            Gt = gammas @ rewards
+            returns = returns + Gt 
 
-
-        returns = torch.tensor(returns)
-        # implementing a baseline based on deviation by the mean
-        #returns = returns - returns.mean()
+        elif self.return_flag == "reward_to_go": # considering only the reward subsequent to having taken the action
+            for timestep in reversed(range(numberOfSteps)): 
+                Gt = rewards[timestep] + (self.gamma * returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
+                returns[timestep] = Gt
+        elif self.return_flag == "baseline": # reward to go introducing a baseline to standardize return
+            for timestep in reversed(range(numberOfSteps)): 
+                Gt = rewards[timestep] + (self.gamma * returns[timestep + 1] if timestep + 1 < numberOfSteps else 0)
+                returns[timestep] = Gt
+            
+            returns = (returns - returns.mean())/returns.std()
 
         # populating the sample of log(pi(A|S, theta))
         for log_prob, G in zip(action_log_probs, returns):

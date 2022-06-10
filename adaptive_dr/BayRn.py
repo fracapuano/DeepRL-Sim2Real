@@ -40,7 +40,7 @@ def parse_args():
 
 args = parse_args()
 
-def init_D(agent, source_env, target_env, ncols = 6, n_init = args.n_init, n_roll = args.n_roll):
+def init_D(agent, source_env, target_env, masses, n_init = args.n_init, n_roll = args.n_roll):
     """
     This function returns an initial dataset D in which each row is D[row, :-1], D[row, -1] = target, parameters
     Parameters: 
@@ -52,6 +52,7 @@ def init_D(agent, source_env, target_env, ncols = 6, n_init = args.n_init, n_rol
 
     low = args.min
     high = args.max
+    ncols = 6
 
     parametersDistribution = Uniform(low = torch.tensor([low], dtype = float), 
                                  high = torch.tensor([high], dtype = float))
@@ -61,15 +62,16 @@ def init_D(agent, source_env, target_env, ncols = 6, n_init = args.n_init, n_rol
     for i in range(n_init): 
         phi_i = torch.tensor([parametersDistribution.sample() for _ in range(ncols)], dtype = float)
         D[i, :-1] = phi_i
-        D[i, -1] = J_masses(agent, source_env, target_env, phi_i)
+        D[i, -1] = J_masses(agent=agent, source_env=source_env, target_env=target_env, bounds=phi_i, masses=masses)
         
     return D
 
-def J_masses(agent, source_env, target_env, bounds, n_samples=args.n_samples):
+def J_masses(agent, source_env, target_env, bounds, masses, n_samples=args.n_samples):
     # sampling with respect to the parameters just passed to set random masses
     for n in range(n_samples):
+        print(bounds)
         source_env.set_parametrization(bounds)
-        source_env.set_random_parameters()
+        source_env.set_random_parameters(masses = masses, dist_type="uniform")
 
         # learning with respect to random environment considered
         agent.learn(total_timesteps = args.timesteps)
@@ -80,7 +82,6 @@ def J_masses(agent, source_env, target_env, bounds, n_samples=args.n_samples):
         done = False
         test_rewards = []
         obs = target_env.reset()
-        timestep = 0
         while not done: 
             # using the policy to select an action in the current state
             action, _ = agent.predict(obs)
@@ -89,8 +90,7 @@ def J_masses(agent, source_env, target_env, bounds, n_samples=args.n_samples):
             # collecting the reward
             test_rewards.append(rewards)
 
-            timestep += 1
-        
+
         # obtaining total return
         roll_return.append(np.array(test_rewards).sum())
     
@@ -111,7 +111,7 @@ def obtain_candidate(X, Y):
     candidate = candidate.reshape(-1,)
     return candidate
 
-def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit, verbose = 1): 
+def BayRN(masses = ["tigh", "leg", "foot"], n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit, verbose = 1): 
     """
     This function uses bayesian optimization to choose the optimal parametrization given a specific set of parameters
     for what concerns their influence on a some blackbox function. 
@@ -125,19 +125,20 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit, verbos
 
     # creating source and target environments
     source_env = gym.make("CustomHopper-source-v0")
+    print("Initial masses: ", source_env.sim.model.body_mass)
     target_env = gym.make("CustomHopper-target-v0") 
 
     # istantiating an agent
     agent = TRPO('MlpPolicy', source_env, verbose=verbose)
 
-    D = init_D(agent, source_env, target_env, n_init = n_init, n_roll = n_roll)
+    D = init_D(agent, source_env, target_env, masses, n_init = n_init, n_roll = n_roll)
     
     for it in tqdm(range(maxit)):  
         X, Y = D[:, :-1], D[:, -1].reshape(-1,1)
         # obtaining best candidate with Bayesian Optimization
         candidate = obtain_candidate(X, Y)
         # evaluating the candidate solution with source training - rollout evaluation
-        J_phi = J_masses(agent, source_env, target_env, candidate)
+        J_phi = J_masses(agent, source_env, target_env, candidate, masses)
         J_phi = torch.tensor(J_phi).reshape(-1)
 
         candidate_and_J = torch.hstack([candidate, J_phi])
@@ -145,12 +146,13 @@ def BayRN(n_init = args.n_init, n_roll = args.n_roll, maxit = args.maxit, verbos
         D = torch.vstack(
             (D, candidate_and_J)
         )
+    print(source_env.sim.model.body_mass)
     
     bestCandidate = D[torch.argmax(D[:, -1]), :-1]
     return D, bestCandidate
 
 def get_bc():
-    D, bc = BayRN()
+    D, bc = BayRN(masses = ["tigh", "foot"])
     np.savetxt("BayRN_D.txt", D, header="low1,up1,low2,up2,low2,up3,st-return")
     return bc
 

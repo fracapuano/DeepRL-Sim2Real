@@ -55,7 +55,7 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         This function samples masses for a Uniform Distribution. Sampling is done independently for each component of the
         vector. 
         """
-        if dist_type=='uniform':
+        if dist_type.lower()=='uniform':
             self.MassDistribution1 = Uniform(low = torch.tensor([self.low_uniform_1], dtype = float),
                                             high = torch.tensor([self.high_uniform_1], dtype = float), 
                                             validate_args = False)
@@ -72,7 +72,7 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
             self.MassDistribution3.sample().detach().numpy()
             ])
 
-        elif dist_type=='normal':
+        elif dist_type.lower()=='normal':
             empty_tensor = torch.empty(1,1)
             self.MassDistribution1 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean_normal_1, std=self.std_normal_1)
             self.MassDistribution2 = tn(empty_tensor, a=self.low, b=self.high, mean=self.mean_normal_2, std=self.std_normal_2)
@@ -89,17 +89,16 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
 
         return randomized_masses.reshape(-1,)
 
-    def set_random_parameters(self, masses=['thigh', 'leg', 'foot'], dist_type='uniform'):
+    def set_random_parameters(self, masses=['tigh', 'leg', 'foot'], dist_type='uniform'):
         masses_map = {
-            'thigh':1,
+            'tigh':1,
             'leg':2,
             'foot':3
         }
-
-        if not bool(masses):
-            randomized_masses = self.sample_parameters(self, dist_type=dist_type)
+        if bool(masses):
+            randomized_masses = self.sample_parameters(dist_type=dist_type)
             for mass in masses:
-                self.sim.model.body_mass[masses_map[mass]] = randomized_masses[masses_map[mass]]
+                self.sim.model.body_mass[masses_map[mass]+1] = randomized_masses[masses_map[mass]-1]        
 
     def get_parameters(self):
         """Get value of mass for each link"""
