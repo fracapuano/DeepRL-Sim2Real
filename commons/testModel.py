@@ -1,8 +1,14 @@
 import numpy as np
 from tqdm import tqdm
 
-def test(agent, agent_type, env, episodes, render_bool, model_info='models/'):
-    if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
+def test(agent,
+agent_type,
+env,
+episodes,
+render_bool,
+model_info='models/'):
+
+    if agent_type.lower() == 'reinforce' or agent_type.lower() == 'a2c':
         episode_r = np.zeros(episodes)
         for episode in tqdm(range(episodes)):
             rewards=[]

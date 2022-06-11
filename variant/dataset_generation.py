@@ -11,7 +11,7 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir) 
 
 from commons import trainModel, testModel, saveModel, makeEnv, utils
-from commons.custom_callback import CustomCallback as CB
+from commons.variant_callback import CustomCallback as CB
 from callback_utils import env_data_generation, dynamics_scoring
 from env import *
 from sb3_contrib.trpo.trpo import TRPO

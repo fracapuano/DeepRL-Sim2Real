@@ -8,52 +8,71 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
 from commons.utils import FileSaver
+from commons import saveModel
 
-def train(agent, env, actorCriticCheck, batch_size, episodes, print_every, file_name='reinforce', print_bool=False, save_to_file_bool=True, info_file_path='./'):
-   
-    if save_to_file_bool:
-        files = [
-            f'{file_name}_reward_file.txt',
-            f'{file_name}_action_file.txt'
-            ]
-        fs_reward = FileSaver(file_name=files[0], path=info_file_path)
-        fs_action = FileSaver(file_name=files[1], path=info_file_path)
+def train(agent,
+agent_type,
+env,
+actorCriticCheck,
+batch_size,
+episodes,
+print_every,
+file_name,
+timesteps=100000,
+print_bool=False,
+save_to_file_bool=True,
+info_file_path='./'):
 
-        fs_reward.write_header("EpisodeID,Reward\n")
-        fs_action.write_header("EpisodeID,ActionMeasure1, ActionMeasure2, ActionMeasure3\n")
-   
-    episodes_counter = 0
-    for episode in tqdm(range(episodes)):
-        episodes_counter += 1
-        batch_counter = 0
-        done = False
-        train_reward = 0
-        state = env.reset()
+    if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
+        if save_to_file_bool:
+            files = [
+                f'{file_name}_reward_file.txt',
+                f'{file_name}_action_file.txt'
+                ]
+            fs_reward = FileSaver(file_name=files[0], path=info_file_path)
+            fs_action = FileSaver(file_name=files[1], path=info_file_path)
 
-        while not done: 
-            batch_counter += 1
-            action, action_probabilities = agent.get_action(state)
+            fs_reward.write_header("EpisodeID,Reward,Timestep\n")
+            fs_action.write_header("EpisodeID,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+    
+        episodes_counter = 0
+        timestep_counter = 0
+        for episode in tqdm(range(episodes)):
+            episodes_counter += 1
+            batch_counter = 0
+            done = False
+            train_reward = 0
+            state = env.reset()
 
-            previous_state = state
+            while not done:
+                timestep_counter += 1
+                batch_counter += 1
+                action, action_probabilities = agent.get_action(state)
 
-            state, reward, done, info = env.step(action.detach().cpu().numpy())
-            agent.store_outcome(previous_state, state, action_probabilities, reward, done)
+                previous_state = state
 
-            train_reward += reward
+                state, reward, done, info = env.step(action.detach().cpu().numpy())
+                agent.store_outcome(previous_state, state, action_probabilities, reward, done)
 
-
-            fs_reward.append_content(f"{episodes_counter},{reward}\n")
-            fs_action.append_content(f"{episodes_counter},{action[0]},{action[1]},{action[2]}\n")
+                train_reward += reward
 
 
-            if actorCriticCheck and batch_counter == batch_size: 
+                fs_reward.append_content(f"{episodes_counter},{reward},{timestep_counter}\n")
+                fs_action.append_content(f"{episodes_counter},{action[0]},{action[1]},{action[2]},{timestep_counter}\n")
+
+
+                if actorCriticCheck and batch_counter == batch_size: 
+                    agent.update_policy()
+                    batch_counter = 0
+                    continue
+                
+            if not actorCriticCheck: 
                 agent.update_policy()
-                batch_counter = 0
-                continue
-            
-        if not actorCriticCheck: 
-            agent.update_policy()
-        if print_bool:
-            if (episode+1)%print_every == 0:
-                print('Training episode:', episode)
-                print('Episode return:', train_reward)
+            if print_bool:
+                if (episode+1)%print_every == 0:
+                    print('Training episode:', episode)
+                    print('Episode return:', train_reward)
+
+    elif agent_type == 'ppo' or agent_type == 'trpo':
+        agent.learn(total_timesteps=timesteps)
+        saveModel.save_model(agent=agent, agent_type=agent_type, folder_path=info_file_path)
