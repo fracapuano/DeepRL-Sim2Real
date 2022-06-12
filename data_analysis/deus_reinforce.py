@@ -10,10 +10,12 @@ import torch
 import argparse
 import json
 import numpy as np
+import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 from commons import makeEnv, saveModel, testModel, trainModel, utils
-from agents import agentActorCriticfinal, agentReinforce
+from agents import agentReinforce
 from policies import tibNET
 
 SEEDS = [42, 777, 299266, 303489, 295366]
@@ -26,7 +28,7 @@ ALGS = [
 
 MAP = dict.fromkeys(ALGS)
 
-EPISODES_TIMESTEPS = [50000 for _ in range(3)]
+EPISODES = [50000 for _ in range(3)]
 
 # ENV SETUP
 source_env = makeEnv.make_environment("source")
@@ -63,10 +65,10 @@ reinforce_togo = agentReinforce.Agent(
 
 MAP["reinforce_togo"] = reinforce_togo
 
-#PERFORMING EVALUATION FOR 5 DIFFERENT RANDOM SEEDS
+#PERFORMING TRAINING FOR 5 DIFFERENT RANDOM SEEDS
 for idx in range(5):
     current_seed = source_env.seed(seed=SEEDS[idx])
-    for agent, agent_name, duration in zip(MAP, ALGS, EPISODES_TIMESTEPS):
+    for agent, agent_name, duration in zip(MAP, ALGS, EPISODES):
         print(f"Training {agent_name} for {duration} episodes/timesteps. SEED = {current_seed}")
 
         trainModel.train(
@@ -88,64 +90,30 @@ for idx in range(5):
             agent_type="reinforce",
             folder_path=f"./{agent_name}/"
         )
-# GENERAZIONE GRAFICI
-# for alg in ALGS:
-#     seed = SEEDS[2]
-#     warhol = utils.Warhol(
-#         figure_path=f"./{alg}"
-#         )
-#     data_reward = np.loadtxt(f"./{alg}/[{seed}]_{alg}_reward_file.txt", delimiter=',', skiprows=1)
-#     data_action = np.loadtxt(f"./{alg}/[{seed}]_{alg}_action_file.txt", delimiter=',', skiprows=1)
-#     #plot delle reward
-#     warhol.plot_column(
-#         x=data_reward[:, 2],
-#         y=data_reward[:, 1],
-#         title=f"Rewards per timestep for {alg}",
-#         axis_labels=["timesteps", "reward"],
-#         figure_name=f"[{seed}]_{alg}_reward",
-#         save=True
-#     )
-#     #plot delle azioni
-#     warhol.plot_column(
-#         x=data_action[:, 4],
-#         y=data_action[:, 1],
-#         title=f"Actiion1 per timestep for {alg}",
-#         axis_labels=["timesteps", "action1"],
-#         figure_name=f"[{seed}]_{alg}_action1",
-#         save=True
-#     )
-#     warhol.plot_column(
-#         x=data_action[:, 4],
-#         y=data_action[:, 2],
-#         title=f"Action2 per timestep for {alg}",
-#         axis_labels=["timesteps", "action2"],
-#         figure_name=f"[{seed}]_{alg}_action2",
-#         save=True
-#     )
-#     warhol.plot_column(
-#         x=data_action[:, 4],
-#         y=data_action[:, 3],
-#         title=f"Action3 per timestep for {alg}",
-#         axis_labels=["timesteps", "action3"],
-#         figure_name=f"[{seed}]_{alg}_action3",
-#         save=True
-#     )
+# SEEDLESS RETURNS
+for alg in ALGS:
 
+    with open(f"reinforce_sumup/seedless_{alg}_rewards.txt", "w") as seedless_file_header_reward:
+        seedless_file_header_reward.write("Episode,Return\n")
 
-# seed = SEEDS[2]
-# warhol = utils.Warhol(
-#     figure_path=f"./"
-#     )
-# data_reward_baseline = np.loadtxt(f"./reinforce_baseline/[{seed}]_reinforce_baseline_reward_file.txt", delimiter=',', skiprows=1)
-# data_reward_standard = np.loadtxt(f"./reinforce_standard/[{seed}]_reinforce_standard_reward_file.txt", delimiter=',', skiprows=1)
-# data_reward_togo = np.loadtxt(f"./reinforce_togo/[{seed}]_reinforce_togo_reward_file.txt", delimiter=',', skiprows=1)
+    for seed in SEEDS:
+        with open(f"reinforce_sumup/seedless_{alg}_rewards.txt", "a+") as seedless_file_reward:
+            f = open(f"{alg}/{[seed]}_{alg}_reward_file.txt", "r")
+            next(f) # salto l'header, non mi interessa averne più di uno.
+            seedless_file_reward.write(f.read())
+            seedless_file_reward.seek(0)
+            f.seek(0)
 
-# y=[data_reward_standard[:, 1], data_reward_baseline[:, 1], data_reward_togo[:, 1]]
+#SEEDLESS ACTIONS
+for alg in ALGS:
 
-# warhol.plot_columns(
-#     y=[data_reward_standard[:, 1], data_reward_baseline[:, 1], data_reward_togo[:, 1]],
-#     title=f"Rewards per timestep for various implementations of Reinforce",
-#     axis_labels=["timesteps", "rewards"],
-#     figure_name=f"[{seed}]_reinforces_rewards",
-#     save=True
-#     )
+    with open(f"reinforce_sumup/seedless_{alg}_actions.txt", "w") as seedless_file_header_action:
+        seedless_file_header_action.write("Episode,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+
+    for seed in SEEDS:
+        with open(f"reinforce_sumup/seedless_{alg}_actions.txt", "a+") as seedless_file_action:
+            f = open(f"{alg}/{[seed]}_{alg}_action_file.txt", "r")
+            next(f) # salto l'header, non mi interessa averne più di uno.
+            seedless_file_action.write(f.read())
+            seedless_file_action.seek(0)
+            f.seek(0)

@@ -34,12 +34,13 @@ info_file_path='./'):
             fs_reward = FileSaver(file_name=files[0], path=info_file_path)
             fs_action = FileSaver(file_name=files[1], path=info_file_path)
 
-            fs_reward.write_header("EpisodeID,Reward,Timestep\n")
+            fs_reward.write_header("EpisodeID,Return\n")
             fs_action.write_header("EpisodeID,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
     
         episodes_counter = 0
         timestep_counter = 0
         for episode in tqdm(range(episodes)):
+            episode_return = 0
             episodes_counter += 1
             batch_counter = 0
             done = False
@@ -57,19 +58,20 @@ info_file_path='./'):
                 agent.store_outcome(previous_state, state, action_probabilities, reward, done)
 
                 train_reward += reward
-
-
-                fs_reward.append_content(f"{episodes_counter},{reward},{timestep_counter}\n")
-                fs_action.append_content(f"{episodes_counter},{action[0]},{action[1]},{action[2]},{timestep_counter}\n")
-
+                episode_return += reward
 
                 if actorCriticCheck and batch_counter == batch_size: 
                     agent.update_policy()
                     batch_counter = 0
                     continue
-                
+
+                fs_action.append_content(f"{episodes_counter},{action[0]},{action[1]},{action[2]},{timestep_counter}\n")
+
             if not actorCriticCheck: 
                 agent.update_policy()
+
+            fs_reward.append_content(f"{episodes_counter},{episode_return}\n")
+
             if print_bool:
                 if (episode+1)%print_every == 0:
                     print('Training episode:', episode)
