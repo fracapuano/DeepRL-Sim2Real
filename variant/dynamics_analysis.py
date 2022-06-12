@@ -13,7 +13,6 @@ def load_data(path):
 def random_forest_importance(X, y): 
     rs = 42
     reg = RandomForestRegressor(n_jobs = -1, random_state = rs, verbose = 1)
-    
     reg.fit(X, y)
     parts = ["tight", "leg", "foot"]
     
