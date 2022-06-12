@@ -20,9 +20,10 @@ from stable_baselines3 import PPO
 
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
-timesteps = 10000
+timesteps = 1000
 
 SEEDS = [42, 777, 299266, 303489, 295366]
+ALGS = ["ppo", "trpo"]
 
 with open("../step2_tests/best_config.txt", "r") as trpo_best_config_file:
     trpo_best_config = json.load(trpo_best_config_file)
@@ -89,3 +90,31 @@ for idx in range(5):
         timesteps=timesteps,
         info_file_path="ppo/"
         )
+
+# SEEDLESS RETURNS
+for alg in ALGS:
+
+    with open(f"ppo_trpo_sumup/seedless_{alg}_rewards.txt", "w") as seedless_file_header_reward:
+        seedless_file_header_reward.write("Episode,Return,Timestep\n")
+
+    for seed in SEEDS:
+        with open(f"ppo_trpo_sumup/seedless_{alg}_rewards.txt", "a+") as seedless_file_reward:
+            f = open(f"{alg}/{[seed]}_{alg}_reward_file.txt", "r")
+            next(f) # salto l'header, non mi interessa averne più di uno.
+            seedless_file_reward.write(f.read())
+            seedless_file_reward.seek(0)
+            f.seek(0)
+
+#SEEDLESS ACTIONS
+for alg in ALGS:
+
+    with open(f"ppo_trpo_sumup/seedless_{alg}_actions.txt", "w") as seedless_file_header_action:
+        seedless_file_header_action.write("Episode,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+
+    for seed in SEEDS:
+        with open(f"ppo_trpo_sumup/seedless_{alg}_actions.txt", "a+") as seedless_file_action:
+            f = open(f"{alg}/{[seed]}_{alg}_action_file.txt", "r")
+            next(f) # salto l'header, non mi interessa averne più di uno.
+            seedless_file_action.write(f.read())
+            seedless_file_action.seek(0)
+            f.seek(0)

@@ -11,10 +11,10 @@ class CustomCallback(BaseCallback):
         self.episodes_counter = 0
 
         with open(f"{self.reward_file}", "w") as r_file:
-            r_file.write("EpisodeID,Reward,Timestep")
+            r_file.write("EpisodeID,Reward,Timestep\n")
 
         with open(f"{self.action_file}", "w") as a_file:
-            a_file.write("EpisodeID,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep")
+            a_file.write("EpisodeID,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
 
     def append_to_file(self, file, content):
         with open(f"{file}", "a") as cb_file:
