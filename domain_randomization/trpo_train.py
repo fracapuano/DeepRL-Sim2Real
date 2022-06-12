@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--n-iterations', default=500, type=int, help='Number of training episodes')
+    parser.add_argument('--n-samples', default=5, type=int, help='Number of training episodes')
     parser.add_argument('--domain-type', default='source', type=str, help='source / target')
     parser.add_argument('--low', default=0.5, type=float, help='lower bound to uniform distribution')
     parser.add_argument('--high', default=5, type=float, help='upper bound to uniform distribution')
@@ -40,7 +40,7 @@ def main():
     default_bounds = [args.low, args.high, args.low, args.high, args.low, args.high]
     env.set_parametrization(default_bounds)
 
-    iterations = tqdm(range(args.n_iterations))
+    iterations = tqdm(range(args.n_samples))
 
     for iteration in iterations: 
         iterations.set_description(f"Iteration {iteration}")

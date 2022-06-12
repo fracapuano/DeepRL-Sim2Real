@@ -63,8 +63,6 @@ def main():
             if args.render:
                 env.render()
 
-        #gammas = GAMMA ** np.arange(timestep)
-        #results[episode] = test_rewards[:timestep] @ gammas
         results[episode] = test_rewards.sum()
 
     print("*** Average total reward over episodes : {:.4f} ***".format(results.mean()))
