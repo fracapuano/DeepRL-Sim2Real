@@ -1,3 +1,4 @@
+from gc import callbacks
 from tqdm import tqdm
 
 import sys
@@ -13,11 +14,12 @@ from commons import saveModel
 def train(agent,
 agent_type,
 env,
-actorCriticCheck,
-batch_size,
-episodes,
-print_every,
-file_name,
+actorCriticCheck=False,
+batch_size=0,
+episodes=50000,
+print_every=10,
+file_name=None,
+callback=None,
 timesteps=100000,
 print_bool=False,
 save_to_file_bool=True,
@@ -74,5 +76,5 @@ info_file_path='./'):
                     print('Episode return:', train_reward)
 
     elif agent_type == 'ppo' or agent_type == 'trpo':
-        agent.learn(total_timesteps=timesteps)
+        agent.learn(total_timesteps=timesteps, callback=callback)
         saveModel.save_model(agent=agent, agent_type=agent_type, folder_path=info_file_path)
