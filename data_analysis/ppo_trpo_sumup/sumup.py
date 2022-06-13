@@ -31,32 +31,23 @@ plt.legend()
 plt.savefig("reward_per_timestep.png")
 plt.close(fig1)
 
+
 fig2 = plt.figure(figsize=(24,12))
-action1_ppo = sns.lineplot(x=seedless_df_ppo_actions.iloc[:, 4], y=seedless_df_ppo_actions.iloc[:, 1], data=seedless_df_ppo_actions)
-plt.savefig("action1_per_timestep_ppo.png")
+
+action_plot = sns.lineplot(x=seedless_df_ppo_actions.iloc[:, 0], y=seedless_df_ppo_actions.iloc[:, 1], data=seedless_df_ppo_actions)
+action_plot = sns.lineplot(x=seedless_df_trpo_actions.iloc[:, 0], y=seedless_df_trpo_actions.iloc[:, 1], data=seedless_df_trpo_actions)
+
+action_plot.set_xlabel("Episode")
+action_plot.set_ylabel("ActionMeasure")
+action_plot.set(title="ActionMeasure per episode")
+
+action_plot.lines[0].set_linestyle("--")
+action_plot.lines[0].set_label("ppo")
+action_plot.lines[1].set_linestyle("dotted")
+action_plot.lines[1].set_label("trpo")
+action_plot.collections[0].set_label(None)
+action_plot.collections[1].set_label(None)
+
+plt.legend()
+plt.savefig("action_measure_per_episode.png")
 plt.close(fig2)
-
-fig3 = plt.figure(figsize=(24,12))
-action2_ppo = sns.lineplot(x=seedless_df_ppo_actions.iloc[:, 4], y=seedless_df_ppo_actions.iloc[:, 2], data=seedless_df_ppo_actions)
-plt.savefig("action2_per_timestep_ppo.png")
-plt.close(fig3)
-
-fig4 = plt.figure(figsize=(24,12))
-action3_ppo = sns.lineplot(x=seedless_df_ppo_actions.iloc[:, 4], y=seedless_df_ppo_actions.iloc[:, 3], data=seedless_df_ppo_actions)
-plt.savefig("action3_per_timestep_ppo.png")
-plt.close(fig4)
-
-fig5 = plt.figure(figsize=(24,12))
-action1_trpo = sns.lineplot(x=seedless_df_trpo_actions.iloc[:, 4], y=seedless_df_trpo_actions.iloc[:, 1], data=seedless_df_trpo_actions)
-plt.savefig("action1_per_timestep_trpo.png")
-plt.close(fig5)
-
-fig6 = plt.figure(figsize=(24,12))
-action2_trpo = sns.lineplot(x=seedless_df_trpo_actions.iloc[:, 4], y=seedless_df_trpo_actions.iloc[:, 2], data=seedless_df_trpo_actions)
-plt.savefig("action2_per_timestep_trpo.png")
-plt.close(fig6)
-
-fig7 = plt.figure(figsize=(24,12))
-action3_trpo = sns.lineplot(x=seedless_df_trpo_actions.iloc[:, 4], y=seedless_df_trpo_actions.iloc[:, 3], data=seedless_df_trpo_actions)
-plt.savefig("action3_per_timestep_trpo.png")
-plt.close(fig7)

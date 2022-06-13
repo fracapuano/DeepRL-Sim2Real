@@ -86,7 +86,7 @@ class Agent(object):
             return normal_dist.mean, None
 
         else:   # Sample from the distribution
-            action = normal_dist.sample()
+            action = torch.clamp(normal_dist.sample(), min=-1, max=1)
 
             # Compute Log probability of the action [ log(p(a[0] AND a[1] AND a[2])) =
             # log(p(a[0])*p(a[1])*p(a[2])) = log(p(a[0])) + log(p(a[1])) + log(p(a[2]))]

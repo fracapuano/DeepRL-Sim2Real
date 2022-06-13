@@ -20,7 +20,7 @@ from stable_baselines3 import PPO
 
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
-timesteps = 1000
+timesteps = 250000
 
 SEEDS = [42, 777, 299266, 303489, 295366]
 ALGS = ["ppo", "trpo"]
@@ -109,7 +109,7 @@ for alg in ALGS:
 for alg in ALGS:
 
     with open(f"ppo_trpo_sumup/seedless_{alg}_actions.txt", "w") as seedless_file_header_action:
-        seedless_file_header_action.write("Episode,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+        seedless_file_header_action.write("Episode,ActionMeasure\n")
 
     for seed in SEEDS:
         with open(f"ppo_trpo_sumup/seedless_{alg}_actions.txt", "a+") as seedless_file_action:

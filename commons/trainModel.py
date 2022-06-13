@@ -10,6 +10,7 @@ sys.path.insert(0, parentdir)
 
 from commons.utils import FileSaver
 from commons import saveModel
+import numpy as np
 
 def train(agent,
 agent_type,
@@ -35,7 +36,7 @@ info_file_path='./'):
             fs_action = FileSaver(file_name=files[1], path=info_file_path)
 
             fs_reward.write_header("EpisodeID,Return\n")
-            fs_action.write_header("EpisodeID,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+            fs_action.write_header("EpisodeID,ActionMeasure\n")
     
         episodes_counter = 0
         timestep_counter = 0
@@ -47,10 +48,13 @@ info_file_path='./'):
             train_reward = 0
             state = env.reset()
 
+            episode_actions = np.array([])
             while not done:
                 timestep_counter += 1
                 batch_counter += 1
                 action, action_probabilities = agent.get_action(state)
+
+                episode_actions = np.append(episode_actions, action)
 
                 previous_state = state
 
@@ -62,15 +66,22 @@ info_file_path='./'):
 
                 if actorCriticCheck and batch_counter == batch_size: 
                     agent.update_policy()
+                    agent.clear_history()
                     batch_counter = 0
                     continue
-
-                fs_action.append_content(f"{episodes_counter},{action[0]},{action[1]},{action[2]},{timestep_counter}\n")
+                
+            if actorCriticCheck:
+                agent.clear_history()
 
             if not actorCriticCheck: 
                 agent.update_policy()
 
+            action_derivative = np.diff(episode_actions.reshape(3, -1))
+            action_measure = np.abs(action_derivative).max(axis = 0) - np.abs(action_derivative).min(axis = 0)
+            action_measure = action_measure.max() - action_measure.min()
+
             fs_reward.append_content(f"{episodes_counter},{episode_return}\n")
+            fs_action.append_content(f"{episodes_counter},{action_measure}\n")
 
             if print_bool:
                 if (episode+1)%print_every == 0:

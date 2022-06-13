@@ -60,13 +60,13 @@ def main():
 
     elif args.agent_type.lower() == 'actorcritic':
 
-        import agents.agentActorCriticfinal
+        import agents.agentActorCritic
         
         batch_size = args.batch_size
         policy = ActorCriticPolicy(observation_space_dim, action_space_dim)
         if args.op == 'test':
             policy.load_state_dict(torch.load(MODELS_PATH + str(args.model)), strict=False)
-        agent = agents.agentActorCriticfinal.Agent(policy, args.net_type)
+        agent = agents.agentActorCritic.Agent(policy, args.net_type)
         actorCriticCheck = True
 
     elif args.agent_type.lower() == 'ppo':
@@ -90,6 +90,7 @@ def main():
 
         trainModel.train(
             agent=agent,
+            agent_type=args.agent_type,
             env=env,
             actorCriticCheck=actorCriticCheck,
             batch_size=args.batch_size,

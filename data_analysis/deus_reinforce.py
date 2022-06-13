@@ -78,7 +78,7 @@ for idx in range(5):
             actorCriticCheck=False,
             batch_size=0,
             episodes=100,
-            print_every=100,
+            print_every=duration,
             print_bool=False,
             file_name=f"{current_seed}_{agent_name}",
             save_to_file_bool=True,
@@ -108,7 +108,7 @@ for alg in ALGS:
 for alg in ALGS:
 
     with open(f"reinforce_sumup/seedless_{alg}_actions.txt", "w") as seedless_file_header_action:
-        seedless_file_header_action.write("Episode,ActionMeasure1,ActionMeasure2,ActionMeasure3,Timestep\n")
+        seedless_file_header_action.write("Episode,ActionMeasure\n")
 
     for seed in SEEDS:
         with open(f"reinforce_sumup/seedless_{alg}_actions.txt", "a+") as seedless_file_action:
