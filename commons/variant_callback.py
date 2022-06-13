@@ -62,10 +62,12 @@ class CustomCallback(BaseCallback):
         else:
             episode_reward = self.rewards.sum()
             episode_action_derivative = np.diff(self.actions.reshape(3, -1))
-            episode_action_range = np.abs(episode_action_derivative).max() - np.abs(episode_action_derivative).min()
+            episode_action_range = np.abs(episode_action_derivative).max(axis = 1) - np.abs(episode_action_derivative).min(axis = 0)
+            episode_action_range = episode_action_range.max() - episode_action_range.min()
+
             number_of_steps = self.nos
 
-            with open(self.path + "/" + self.rewardfile_name, "a") as reward_file: 
+            with open(self.path + "/" + self.rewardfile_name, "a") as reward_file:  
                 reward_file.write(f"{self.episode_counter},{episode_reward},{number_of_steps}\n")
             
             with open(self.path + "/" + self.actionfile_name, "a") as action_file: 
