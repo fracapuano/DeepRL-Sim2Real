@@ -16,7 +16,7 @@ from sb3_contrib.trpo.trpo import TRPO
 from adaptive_dr.BayRn import get_bc
 
 print("Optimizing distrubtions' bounds with BayRn...")
-bounds = get_bc()
+bounds = get_bc(verbose=0)
 print(f"Using bounds: {bounds}")
 
 with open("trpo/trpo.txt", "r") as trpof:
@@ -69,5 +69,3 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         trpo_evaluation_f.write(f"{i},{ss_return},{st_return}"+'\n')
 trpo_evaluation_f.close()
-
-
