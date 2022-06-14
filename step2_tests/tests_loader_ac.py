@@ -59,12 +59,14 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     	)
 
 		trainModel.train(
-			agent,
-			source_env, 
-			actorCriticCheck=False, 
+			agent=agent,
+			agent_type="actorCritic",
+			env=source_env, 
+			actorCriticCheck=True, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'], 
-			print_every=args.print_every
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		ss_return = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
@@ -80,7 +82,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		init_sigma=config['sigma']
     		)
 			
-		agent = agents.agentActorCriticfinal.Agent(
+		agent = agents.agentActorCritic.Agent(
     		policy,
     		device='cpu',
     		gamma=config['gamma'],
@@ -88,12 +90,15 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		lr=config['lr']
     		)
 
-		trainModel.train(agent, 
-			target_env, 
-			actorCriticCheck=False, 
+		trainModel.train(
+			agent=agent,
+			agent_type="ActorCritic",
+			env=target_env, 
+			actorCriticCheck=True, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'], 
-			print_every=args.print_every
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		tt_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)

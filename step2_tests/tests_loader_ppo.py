@@ -15,8 +15,6 @@ sys.path.insert(0, parentdir)
 from commons import trainModel, testModel, saveModel, makeEnv, utils
 from stable_baselines3 import PPO
 
-SEED = 42
-
 with open("ppo/ppo.txt", "r") as ppof:
 	ppo_configurations = json.load(ppof)
 
@@ -48,7 +46,6 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             target_kl=config['target_kl'],
             batch_size=config['batch_size'],
             gamma=config['gamma'],
-            seed=SEED,
             policy_kwargs={
             'activation_fn':act_fun
                 },
@@ -70,7 +67,6 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             target_kl=config['target_kl'],
             batch_size=config['batch_size'],
             gamma=config['gamma'],
-            seed=SEED,
             policy_kwargs={
                 'activation_fn':act_fun
                 },

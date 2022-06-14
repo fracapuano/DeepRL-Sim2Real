@@ -35,7 +35,7 @@ def main() -> None:
 
     n_samples = args.samples
     n_params = 3
-    callback_ = CB()
+    callback_ = CB(path="variant")
     timesteps = args.timesteps
 
     observations = np.zeros((n_samples, n_params + 1))

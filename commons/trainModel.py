@@ -76,12 +76,13 @@ info_file_path='./'):
             if not actorCriticCheck: 
                 agent.update_policy()
 
-            action_derivative = np.diff(episode_actions.reshape(3, -1))
-            action_measure = np.abs(action_derivative).max(axis = 0) - np.abs(action_derivative).min(axis = 0)
-            action_measure = action_measure.max() - action_measure.min()
+            if save_to_file_bool:
+                action_derivative = np.diff(episode_actions.reshape(3, -1))
+                action_measure = np.abs(action_derivative).max(axis = 0) - np.abs(action_derivative).min(axis = 0)
+                action_measure = action_measure.max() - action_measure.min()
 
-            fs_reward.append_content(f"{episodes_counter},{episode_return}\n")
-            fs_action.append_content(f"{episodes_counter},{action_measure}\n")
+                fs_reward.append_content(f"{episodes_counter},{episode_return}\n")
+                fs_action.append_content(f"{episodes_counter},{action_measure}\n")
 
             if print_bool:
                 if (episode+1)%print_every == 0:
