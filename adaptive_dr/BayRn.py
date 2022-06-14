@@ -146,18 +146,17 @@ def BayRN(masses = ["tigh", "leg", "foot"], n_init = args.n_init, n_roll = args.
         D = torch.vstack(
             (D, candidate_and_J)
         )
-    print(source_env.sim.model.body_mass)
     
     bestCandidate = D[torch.argmax(D[:, -1]), :-1]
     return D, bestCandidate
 
-def get_bc(verbose=1):
-    D, bc = BayRN(verbose=verbose)
+def get_bc(masses=["thigh", "leg", "foot"], verbose=1):
+    D, bc = BayRN(masses=masses, verbose=verbose)
     np.savetxt("BayRN_D.txt", D)
     return bc
 
-def main(masses):
-    print(get_bc(masses=masses))
+def main():
+    print(get_bc())
 
 if __name__ == '__main__':
     main()

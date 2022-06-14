@@ -92,7 +92,7 @@ for idx in range(5):
             actorCriticCheck=actorCriticCheck,
             batch_size=batch_size_a2c,
             episodes=duration,
-            print_every=100,
+            print_every=duration,
             print_bool=False,
             file_name=f"{current_seed}_{agent_name}",
             save_to_file_bool=True,
