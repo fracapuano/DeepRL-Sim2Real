@@ -151,13 +151,8 @@ def BayRN(masses = ["tigh", "leg", "foot"], n_init = args.n_init, n_roll = args.
     bestCandidate = D[torch.argmax(D[:, -1]), :-1]
     return D, bestCandidate
 
-<<<<<<< HEAD
-def get_bc(masses):
-    D, bc = BayRN(masses=masses)
-=======
 def get_bc(verbose=1):
     D, bc = BayRN(verbose=verbose)
->>>>>>> ad305ec54d838dcead737373789e657a056c5dcb
     np.savetxt("BayRN_D.txt", D)
     return bc
 
