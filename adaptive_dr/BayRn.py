@@ -69,7 +69,6 @@ def init_D(agent, source_env, target_env, masses, n_init = args.n_init, n_roll =
 def J_masses(agent, source_env, target_env, bounds, masses, n_samples=args.n_samples):
     # sampling with respect to the parameters just passed to set random masses
     for n in range(n_samples):
-        print(bounds)
         source_env.set_parametrization(bounds)
         source_env.set_random_parameters(masses = masses, dist_type="uniform")
 
@@ -150,7 +149,7 @@ def BayRN(masses = ["tigh", "leg", "foot"], n_init = args.n_init, n_roll = args.
     bestCandidate = D[torch.argmax(D[:, -1]), :-1]
     return D, bestCandidate
 
-def get_bc(masses=["thigh", "leg", "foot"], verbose=1):
+def get_bc(masses=["tigh", "leg", "foot"], verbose=1):
     D, bc = BayRN(masses=masses, verbose=verbose)
     np.savetxt("BayRN_D.txt", D)
     return bc

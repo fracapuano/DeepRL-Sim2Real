@@ -33,7 +33,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         for param in loginfo:
             print(param)
-        print("Using bounds: " + '\n' + "low: " + str(config['low_bounds']) + '\n' + str(config['high_bounds']))
+        print("Using bounds: " + '\n' + "low: " + str(config['low_bounds']) + '\n' + "high: " + str(config['high_bounds']))
         source_env.set_parametrization([config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds']])
         source_env.set_random_parameters()
 
