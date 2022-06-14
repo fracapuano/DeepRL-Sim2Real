@@ -66,6 +66,8 @@ def main():
         results[episode] = test_rewards.sum()
 
     print("*** Average total reward over episodes : {:.4f} ***".format(results.mean()))
+    print("*** Average reward Standard Deviation over episodes : {:.4f} ***".format(results.std()))
+
 
 if __name__ == '__main__':
     main()

@@ -20,7 +20,7 @@ from stable_baselines3 import PPO
 
 source_env = makeEnv.make_environment("source")
 target_env = makeEnv.make_environment("target")
-timesteps = 250000
+timesteps = 150000
 
 SEEDS = [42, 777, 299266, 303489, 295366]
 ALGS = ["ppo", "trpo"]
@@ -42,6 +42,7 @@ else:
     actfunc = torch.nn.ReLU
 
 for idx in range(5):
+    print(f"Training PPO and TRPO for {timesteps} timesteps with seed: [{SEEDS[idx]}]")
     current_seed = source_env.seed(seed=SEEDS[idx])
 
     trpo_callback_ = CB(
@@ -60,7 +61,8 @@ for idx in range(5):
         policy=trpo_best_config["configurations"]['trpo']['policy'],
         target_kl=trpo_best_config["configurations"]['trpo']['target_kl'],
         policy_kwargs={'activation_fn':actfunc},
-        verbose=1
+        verbose=0,
+        seed=SEEDS[idx]
     )
 
     agent_ppo = PPO(
@@ -70,7 +72,8 @@ for idx in range(5):
         policy=ppo_best_config["configurations"]['ppo']['policy'],
         target_kl=ppo_best_config["configurations"]['ppo']['target_kl'],
         policy_kwargs={'activation_fn':actfunc},
-        verbose=1
+        verbose=0,
+        seed=SEEDS[idx]
     )
 
     trainModel.train(

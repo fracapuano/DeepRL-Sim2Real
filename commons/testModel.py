@@ -49,4 +49,4 @@ model_info='models/'):
                     
             episode_r[episode] = np.array(rewards).sum()
                 
-    return episode_r.mean()
+    return episode_r.mean(), episode_r.std()

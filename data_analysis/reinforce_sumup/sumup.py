@@ -1,6 +1,9 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
+
+os.chdir("reinforce_sumup/")
 
 ALGS = [
     "reinforce_baseline",
@@ -36,7 +39,7 @@ plot.collections[1].set_label(None)
 plot.collections[2].set_label(None)
 # plt.legend(title="reinforces", labels=[alg for alg in ALGS])
 plt.legend()
-plt.savefig("reward_per_episode.png")
+plt.savefig("return_per_episode_reinforces.png")
 plt.close(fig1)
 
 fig2 = plt.figure(figsize=(24,12))
@@ -60,5 +63,5 @@ action_plot.collections[1].set_label(None)
 action_plot.collections[2].set_label(None)
 
 plt.legend()
-plt.savefig("action_measure_per_episode.png")
+plt.savefig("action_measure_per_episode_reinforces.png")
 plt.close(fig2)

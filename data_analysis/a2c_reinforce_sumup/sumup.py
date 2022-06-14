@@ -1,6 +1,9 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
+
+os.chdir("a2c_reinforce_sumup/")
 
 ALGS = [
     "actorcritic",
@@ -20,7 +23,7 @@ plot = sns.lineplot(x=seedless_df_reinforce_rewards.iloc[:, 0], y=seedless_df_re
 
 plot.set_xlabel("Timestep")
 plot.set_ylabel("Reward")
-plot.set(title=f"Reward per timesteps")
+plot.set(title=f"Return per episode")
 plot.lines[0].set_linestyle("--")
 plot.lines[0].set_label("a2c")
 plot.lines[1].set_linestyle("dotted")
@@ -28,7 +31,7 @@ plot.lines[1].set_label("reinforce")
 plot.collections[0].set_label(None)
 plot.collections[1].set_label(None)
 plt.legend()
-plt.savefig("reward_per_timestep.png")
+plt.savefig("return_per_episode_a2cvsreinforce.png")
 plt.close(fig1)
 
 
@@ -49,5 +52,5 @@ action_plot.collections[0].set_label(None)
 action_plot.collections[1].set_label(None)
 
 plt.legend()
-plt.savefig("action_measure_per_episode.png")
+plt.savefig("action_measure_per_episode_a2cvsreinforce.png")
 plt.close(fig2)
