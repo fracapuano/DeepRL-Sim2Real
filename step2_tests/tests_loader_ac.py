@@ -41,7 +41,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 		print("Testing ")
 		for param in loginfo:
 			print(param)
-		import agents.agentActorCritic
+		import agents.agentActorCriticfinal
 
 		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
@@ -50,7 +50,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		init_sigma=config['sigma']
     	)
 
-		agent = agents.agentActorCritic.Agent(
+		agent = agents.agentActorCriticfinal.Agent(
     		policy,
 			net_type='tibNET',
     		device='cpu',
@@ -59,18 +59,16 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     	)
 
 		trainModel.train(
-			agent=agent,
-			agent_type="actorCritic",
-			env=source_env, 
-			actorCriticCheck=True, 
+			agent,
+			source_env, 
+			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'], 
-			print_every=args.print_every,
-			save_to_file_bool=False
+			print_every=args.print_every
 			)
 
-		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
-		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		ss_return = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
+		st_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
 
 		del policy
 		del agent
@@ -82,7 +80,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		init_sigma=config['sigma']
     		)
 			
-		agent = agents.agentActorCritic.Agent(
+		agent = agents.agentActorCriticfinal.Agent(
     		policy,
     		device='cpu',
     		gamma=config['gamma'],
@@ -90,18 +88,15 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		lr=config['lr']
     		)
 
-		trainModel.train(
-			agent=agent,
-			agent_type="ActorCritic",
-			env=target_env, 
-			actorCriticCheck=True, 
+		trainModel.train(agent, 
+			target_env, 
+			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'], 
-			print_every=args.print_every,
-			save_to_file_bool=False
+			print_every=args.print_every
 			)
 
-		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		tt_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
 
-		actorCritic_evaluation_f.write(f"{i},{ss_return},{ss_return},{ss_return}"+'\n')
+		actorCritic_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
 actorCritic_evaluation_f.close()

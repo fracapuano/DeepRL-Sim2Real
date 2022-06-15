@@ -15,6 +15,8 @@ sys.path.insert(0, parentdir)
 from commons import trainModel, testModel, saveModel, makeEnv, utils
 from stable_baselines3 import PPO
 
+SEED = 42
+
 with open("ppo/ppo.txt", "r") as ppof:
 	ppo_configurations = json.load(ppof)
 
@@ -46,6 +48,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             target_kl=config['target_kl'],
             batch_size=config['batch_size'],
             gamma=config['gamma'],
+            seed=SEED,
             policy_kwargs={
             'activation_fn':act_fun
                 },
@@ -54,8 +57,8 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
-        ss_return, _ = testModel.test(agent, agent_type='ppo', env=source_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
-        ss_return, _ = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        ss_return = testModel.test(agent, agent_type='ppo', env=source_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        st_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
 
         del agent
         os.remove('ppo-model.mdl')
@@ -67,6 +70,7 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
             target_kl=config['target_kl'],
             batch_size=config['batch_size'],
             gamma=config['gamma'],
+            seed=SEED,
             policy_kwargs={
                 'activation_fn':act_fun
                 },
@@ -75,8 +79,8 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
-        ss_return, _ = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        tt_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
 
-        ppo_evaluation_f.write(f"{i},{ss_return},{ss_return},{ss_return}"+'\n')
+        ppo_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
         os.remove('ppo-model.mdl')
 ppo_evaluation_f.close()
