@@ -8,7 +8,7 @@ episodes,
 render_bool,
 model_info='models/'):
     episode_r = np.zeros(episodes)
-    if agent_type.lower() == 'reinforce' or agent_type.lower() == 'a2c':
+    if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         for episode in tqdm(range(episodes)):
             rewards=[]
             done = False

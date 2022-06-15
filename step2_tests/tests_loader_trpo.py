@@ -56,8 +56,8 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
-        ss_return = testModel.test(agent, agent_type='trpo', env=source_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
-        st_return = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
+        ss_return, _ = testModel.test(agent, agent_type='trpo', env=source_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
+        st_return, _ = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
 
         del agent
         os.remove('trpo-model.mdl')
@@ -78,7 +78,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
-        tt_return = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
+        tt_return, _ = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
 
         trpo_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
         os.remove('trpo-model.mdl')

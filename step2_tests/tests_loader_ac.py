@@ -64,12 +64,14 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			source_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
-			episodes=config['n_episodes'], 
+			episodes=config['n_episodes'],
 			print_every=args.print_every
 			)
 
-		ss_return = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
-		st_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
+		print("Configuration source-source return: ", ss_return)
+		st_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		print("Configuration source-target return: ", st_return)
 
 		del policy
 		del agent
@@ -98,7 +100,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			print_every=args.print_every
 			)
 
-		tt_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		tt_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
 
 		actorCritic_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
 actorCritic_evaluation_f.close()
