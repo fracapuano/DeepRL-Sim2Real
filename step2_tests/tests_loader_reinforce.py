@@ -59,6 +59,7 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 
 		trainModel.train(
 			agent,
+			"reinforce",
 			source_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
