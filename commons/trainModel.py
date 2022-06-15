@@ -25,7 +25,6 @@ timesteps=100000,
 print_bool=False,
 save_to_file_bool=True,
 info_file_path='./'):
-    print(actorCriticCheck)
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         if save_to_file_bool:
             files = [
