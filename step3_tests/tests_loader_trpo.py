@@ -33,7 +33,7 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         for param in loginfo:
             print(param)
-        print("Using bounds: " + '\n' + "low: " + str(config['low_bounds']) + '\n' + "high: " + str(config['high_bounds']))
+        print("Using bounds: " + '\n' + "low: " + str(config['low_bounds']) + '\n' + str(config['high_bounds']))
         source_env.set_parametrization([config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds']])
         source_env.set_random_parameters()
 
@@ -57,13 +57,13 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
-        ss_return, _ = testModel.test(agent, agent_type='trpo', env=source_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
-        ss_return, _ = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
+        ss_return = testModel.test(agent, agent_type='trpo', env=source_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
+        st_return = testModel.test(agent, agent_type='trpo', env=target_env, episodes=50, model_info='./trpo-model.mdl', render_bool=False)
 
         del agent
         os.remove('trpo-model.mdl')
 
-        trpo_evaluation_f.write(f"{i},{ss_return},{ss_return}"+'\n')
+        trpo_evaluation_f.write(f"{i},{ss_return},{st_return}"+'\n')
 trpo_evaluation_f.close()
 
 
