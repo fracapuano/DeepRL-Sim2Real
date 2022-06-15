@@ -1,260 +1,68 @@
 {
     "configurations": [
         {
-            "batch_size": 20,
+            "batch_size": 5,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 20,
+            "batch_size": 5,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
+            "lr": 0.01,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 20,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
+            "batch_size": 5,
             "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 20,
+            "batch_size": 5,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
+            "lr": 0.01,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 20,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
+            "batch_size": 10,
             "gamma": 0.998,
             "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 50,
+            "batch_size": 10,
             "gamma": 0.998,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
+            "lr": 0.01,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 50,
-            "gamma": 0.998,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
+            "batch_size": 10,
             "gamma": 0.999,
             "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
         },
         {
-            "batch_size": 50,
+            "batch_size": 10,
             "gamma": 0.999,
-            "lr": 0.001,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 0.5
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 32,
-            "sigma": 1.25
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
+            "lr": 0.01,
+            "n_episodes": 20000,
             "n_neurons": 64,
             "sigma": 0.5
-        },
-        {
-            "batch_size": 50,
-            "gamma": 0.999,
-            "lr": 0.005,
-            "n_episodes": 50000,
-            "n_neurons": 64,
-            "sigma": 1.25
         }
     ]
 }

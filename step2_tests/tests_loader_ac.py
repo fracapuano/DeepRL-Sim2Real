@@ -90,7 +90,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		)
 
 		trainModel.train(agent,
-			"actor_critic", 
+			"actorcritic", 
 			target_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 

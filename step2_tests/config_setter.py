@@ -22,12 +22,12 @@ REINFORCE_PARAMS = {
 }
 
 ACTOR_CRITIC_PARAMS = {
-	'n_neurons':[32, 64],
+	'n_neurons':[64],
 	'gamma':[0.998, 0.999],
-	'lr':[1e-3, 5e-3],
-	'n_episodes':[50000],
-	'batch_size':[20, 50],
-	'sigma':[0.5, 1.25]
+	'lr':[1e-3, 1e-2],
+	'n_episodes':[20000],
+	'batch_size':[5, 10],
+	'sigma':[0.5]
 }
 
 TRPO_PARAMS = {
