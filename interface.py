@@ -95,7 +95,8 @@ def main():
             actorCriticCheck=actorCriticCheck,
             batch_size=args.batch_size,
             episodes=args.episodes,
-            print_every=args.print_every
+            print_every=args.print_every,
+            print_bool=True
             )
 
         saveModel.save_model(

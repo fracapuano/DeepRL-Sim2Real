@@ -25,7 +25,7 @@ timesteps=100000,
 print_bool=False,
 save_to_file_bool=True,
 info_file_path='./'):
-
+    print(actorCriticCheck)
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         if save_to_file_bool:
             files = [
@@ -48,10 +48,12 @@ info_file_path='./'):
             train_reward = 0
             state = env.reset()
 
+            timestep_per_episode = 0
             episode_actions = np.array([])
             while not done:
                 timestep_counter += 1
-                batch_counter += 1
+                timestep_per_episode += 1
+            
                 action, action_probabilities = agent.get_action(state)
 
                 episode_actions = np.append(episode_actions, action)

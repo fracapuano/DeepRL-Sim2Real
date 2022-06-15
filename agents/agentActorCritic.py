@@ -54,16 +54,14 @@ class Agent(object):
         critic_loss = []
             
         for log_prob, advantage in zip(action_log_probs, advantages):
-            # actor_loss.append(log_prob * self.I * advantage)
             actor_loss.append((-1)*log_prob * advantage)
 
-        actor_loss = torch.tensor(actor_loss).mean()
+        actor_loss = torch.stack(actor_loss).sum()
 
         for value_state, advantage in zip(current_state_values, advantages):
-            # actor_loss.append(value_state * self.I * advantage)
             critic_loss.append(value_state * advantage)
 
-        critic_loss = torch.stack(critic_loss).mean()
+        critic_loss = torch.stack(critic_loss).sum()
 
         loss = actor_loss + critic_loss
         self.optimizer.zero_grad()
@@ -81,13 +79,13 @@ class Agent(object):
 
     def get_action(self, state, evaluation=False):
         x = torch.from_numpy(state).float().to(self.train_device)
-        normal_dist, _ = self.policy.forward(x)
+        normal_dist, _ = self.policy(x)
 
         if evaluation:  # Return mean
             return normal_dist.mean, None
 
         else:   # Sample from the distribution
-            action = torch.clamp(normal_dist.sample(), min=-1, max=1)
+            action = normal_dist.sample()
 
             # Compute Log probability of the action [ log(p(a[0] AND a[1] AND a[2])) =
             # log(p(a[0])*p(a[1])*p(a[2])) = log(p(a[0])) + log(p(a[1])) + log(p(a[2]))]
@@ -101,4 +99,4 @@ class Agent(object):
         self.next_states.append(torch.from_numpy(next_state).float())
         self.action_log_probs.append(action_log_prob)
         self.rewards.append(torch.Tensor([reward]))
-        self.done.append(done)            
+        self.done.append(done)   

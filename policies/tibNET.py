@@ -12,6 +12,7 @@ class ActorCriticPolicy(torch.nn.Module):
         self.action_space = action_space
         self.hidden = hidden
         self.tanh = torch.nn.Tanh()
+        self.relu = torch.nn.ReLU()
 
         """
             Actor network
