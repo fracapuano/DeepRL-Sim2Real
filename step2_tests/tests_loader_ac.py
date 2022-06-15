@@ -65,7 +65,8 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'],
-			print_every=args.print_every
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
@@ -97,7 +98,8 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
 			episodes=config['n_episodes'], 
-			print_every=args.print_every
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		tt_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)

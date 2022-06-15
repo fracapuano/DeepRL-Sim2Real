@@ -47,7 +47,7 @@ class CustomCallback(BaseCallback):
         else:
             self.episodes_counter += 1
             action_derivative = np.diff(self.actions.reshape(3, -1))
-            action_measure = np.abs(action_derivative).max(axis = 0) - np.abs(action_derivative).min(axis = 0)
+            action_measure = np.abs(action_derivative).max(axis = 1) - np.abs(action_derivative).min(axis = 1)
             action_measure = action_measure.max() - action_measure.min()
 
             self.append_to_file(self.reward_file, f"{self.episodes_counter},{self.rewards.sum()}\n")

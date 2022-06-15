@@ -22,6 +22,7 @@ plot = sns.lineplot(x=seedless_df_ppo_rewards.iloc[:, 0], y=seedless_df_ppo_rewa
 plot = sns.lineplot(x=seedless_df_trpo_rewards.iloc[:, 0], y=seedless_df_trpo_rewards.iloc[:, 1], data=seedless_df_trpo_rewards)
 
 plot.set_xlabel("Episode", fontsize=12)
+plot.set_xlim(1, seedless_df_trpo_rewards.iloc[:, 0].max())
 plot.set_ylabel("Return", fontsize=12)
 plot.set_title("Return per episode for PPO and TRPO algorithms", fontsize=12, fontweight="bold")
 
@@ -42,6 +43,7 @@ action_plot = sns.lineplot(x=seedless_df_ppo_actions.iloc[:, 0], y=seedless_df_p
 action_plot = sns.lineplot(x=seedless_df_trpo_actions.iloc[:, 0], y=seedless_df_trpo_actions.iloc[:, 1], data=seedless_df_trpo_actions)
 
 action_plot.set_xlabel("Episode", fontsize=12)
+action_plot.set_xlim(1, seedless_df_trpo_rewards.iloc[:, 0].max())
 action_plot.set_ylabel("ActionMeasure", fontsize=12)
 action_plot.set_title("ActionMeasure per episode for PPO and TRPO algorithms", fontsize=12, fontweight="bold")
 

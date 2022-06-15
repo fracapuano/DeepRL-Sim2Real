@@ -63,8 +63,9 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 			source_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
-			episodes=config['n_episodes'], 
-			print_every=args.print_every
+			episodes=config['n_episodes'],
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		ss_return, _ = testModel.test(agent, agent_type='reinforce', env=source_env, episodes=50, render_bool=False)
@@ -86,12 +87,14 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
     		lr=config['lr']
     		)
 
-		trainModel.train(agent, 
+		trainModel.train(agent,
+			"reinforce",
 			target_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
-			episodes=config['n_episodes'], 
-			print_every=args.print_every
+			episodes=config['n_episodes'],
+			print_every=args.print_every,
+			save_to_file_bool=False
 			)
 
 		tt_return, _ = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
