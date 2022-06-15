@@ -7,9 +7,8 @@ env,
 episodes,
 render_bool,
 model_info='models/'):
-
+    episode_r = np.zeros(episodes)
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'a2c':
-        episode_r = np.zeros(episodes)
         for episode in tqdm(range(episodes)):
             rewards=[]
             done = False
@@ -33,7 +32,6 @@ model_info='models/'):
     elif agent_type == 'ppo' or agent_type == 'trpo':
         model = agent.load(model_info)
         obs = env.reset()
-        episode_r = np.zeros(episodes)
         for episode in range(episodes):
             done=False
             rewards=[]
