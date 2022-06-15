@@ -41,7 +41,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 		print("Testing ")
 		for param in loginfo:
 			print(param)
-		import agents.agentActorCriticfinal
+		import agents.agentActorCritic
 
 		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
@@ -50,7 +50,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		init_sigma=config['sigma']
     	)
 
-		agent = agents.agentActorCriticfinal.Agent(
+		agent = agents.agentActorCritic.Agent(
     		policy,
 			net_type='tibNET',
     		device='cpu',
@@ -60,6 +60,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 
 		trainModel.train(
 			agent,
+			"actorcritic",
 			source_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
@@ -80,7 +81,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		init_sigma=config['sigma']
     		)
 			
-		agent = agents.agentActorCriticfinal.Agent(
+		agent = agents.agentActorCritic.Agent(
     		policy,
     		device='cpu',
     		gamma=config['gamma'],
@@ -88,7 +89,8 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
     		lr=config['lr']
     		)
 
-		trainModel.train(agent, 
+		trainModel.train(agent,
+			"actor_critic", 
 			target_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
