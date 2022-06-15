@@ -57,5 +57,5 @@ agent.learn(total_timesteps=args.train_timesteps)
 saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
 
 # TEST TRPO_BEST_CONFIG SU TARGET
-st_return = testModel.test(agent, agent_type='trpo', env=target_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=False)
-print(f"Current Source-Target return over {args.test_timesteps} test episodes: {st_return}")
+ss_return, _ = testModel.test(agent, agent_type='trpo', env=target_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=False)
+print(f"Current Source-Target return over {args.test_timesteps} test episodes: {ss_return}")

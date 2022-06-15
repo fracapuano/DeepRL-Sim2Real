@@ -69,8 +69,8 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			save_to_file_bool=False
 			)
 
-		ss_return = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
-		st_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=source_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
 
 		del policy
 		del agent
@@ -101,7 +101,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			save_to_file_bool=False
 			)
 
-		tt_return = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='actorCritic', env=target_env, episodes=50, render_bool=False)
 
-		actorCritic_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
+		actorCritic_evaluation_f.write(f"{i},{ss_return},{ss_return},{ss_return}"+'\n')
 actorCritic_evaluation_f.close()

@@ -54,8 +54,8 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
-        ss_return = testModel.test(agent, agent_type='ppo', env=source_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
-        st_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        ss_return, _ = testModel.test(agent, agent_type='ppo', env=source_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        ss_return, _ = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
 
         del agent
         os.remove('ppo-model.mdl')
@@ -75,8 +75,8 @@ with open("ppo/ppo_evaluation.txt", "w") as ppo_evaluation_f:
 
         agent.learn(total_timesteps=config['timesteps'])
         saveModel.save_model(agent=agent, agent_type='ppo', folder_path='./')
-        tt_return = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
+        ss_return, _ = testModel.test(agent, agent_type='ppo', env=target_env, episodes=50, model_info='./ppo-model.mdl', render_bool=False)
 
-        ppo_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
+        ppo_evaluation_f.write(f"{i},{ss_return},{ss_return},{ss_return}"+'\n')
         os.remove('ppo-model.mdl')
 ppo_evaluation_f.close()

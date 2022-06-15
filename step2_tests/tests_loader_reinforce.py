@@ -68,8 +68,8 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 			save_to_file_bool=False
 			)
 
-		ss_return = testModel.test(agent, agent_type='reinforce', env=source_env, episodes=50, render_bool=False)
-		st_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='reinforce', env=source_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
 		del policy
 		del agent
@@ -98,7 +98,7 @@ with open("reinforce/reinforce_evaluation.txt", "w") as reinforce_evaluation_f:
 			save_to_file_bool=False
 			)
 
-		tt_return = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
+		ss_return, _ = testModel.test(agent, agent_type='reinforce', env=target_env, episodes=50, render_bool=False)
 
-		reinforce_evaluation_f.write(f"{i},{ss_return},{st_return},{tt_return}"+'\n')
+		reinforce_evaluation_f.write(f"{i},{ss_return},{ss_return},{ss_return}"+'\n')
 reinforce_evaluation_f.close()
