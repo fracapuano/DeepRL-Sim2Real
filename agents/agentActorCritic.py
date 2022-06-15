@@ -1,3 +1,4 @@
+import torch.nn.functional as F
 import torch
 
 class Agent(object):
@@ -41,35 +42,40 @@ class Agent(object):
         advantages = []
         current_state_values = []
 
+        returns = []
+        Gt = 0
+        for rt in reversed(rewards): 
+            Gt = rt + self.gamma * Gt
+            returns.insert(0, Gt)
+        
         for timestep in range(numberOfSteps):
             _, current_value = self.policy(states[timestep]) 
             _, onestep_value = self.policy(next_states[timestep])
 
             current_state_values.append(current_value)
-            advantages.append(rewards[timestep] + self.gamma * onestep_value - current_value)
+            advantages.append((rewards[timestep] + self.gamma * onestep_value - current_value).detach())
 
         advantages = torch.stack(advantages, dim = 0)
 
         actor_loss = []
-        critic_loss = []
-            
         for log_prob, advantage in zip(action_log_probs, advantages):
-            actor_loss.append((-1)*log_prob * advantage)
+            actor_loss.append(log_prob * advantage)
 
         actor_loss = torch.stack(actor_loss).sum()
 
-        for value_state, advantage in zip(current_state_values, advantages):
-            critic_loss.append(value_state * advantage)
+        batch_loss = torch.nn.MSELoss()
 
-        critic_loss = torch.stack(critic_loss).sum()
+        returns = torch.tensor(returns)
+        current_state_values = torch.stack(current_state_values, dim = 0).squeeze(-1)
+        
+        critic_loss = batch_loss(current_state_values, returns)
 
-        loss = actor_loss + critic_loss
+        loss = (-1) * actor_loss + critic_loss
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
         self.clear_history()
 
-        #self.I = self.gamma * self.I
     def clear_history(self):
         self.states = []
         self.next_states = []
@@ -99,4 +105,4 @@ class Agent(object):
         self.next_states.append(torch.from_numpy(next_state).float())
         self.action_log_probs.append(action_log_prob)
         self.rewards.append(torch.Tensor([reward]))
-        self.done.append(done)   
+        self.done.append(done)            
