@@ -96,7 +96,8 @@ def main():
             batch_size=args.batch_size,
             episodes=args.episodes,
             print_every=args.print_every,
-            print_bool=True
+            print_bool=True,
+            save_to_file_bool=False
             )
 
         saveModel.save_model(

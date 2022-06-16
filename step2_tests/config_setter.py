@@ -22,12 +22,8 @@ REINFORCE_PARAMS = {
 }
 
 ACTOR_CRITIC_PARAMS = {
-	'n_neurons':[64],
-	'gamma':[0.998, 0.999],
-	'lr':[1e-3, 1e-2],
-	'n_episodes':[20000],
-	'batch_size':[5, 10],
-	'sigma':[0.5]
+	'lr':[1e-3, 5e-3],
+	'batch_size':[10, 20]
 }
 
 TRPO_PARAMS = {
@@ -51,6 +47,6 @@ PPO_PARAMS = {
 }
 
 write_config("reinforce/reinforce.txt", ParameterGrid(REINFORCE_PARAMS))
-write_config("a2c/actorCritic.txt", ParameterGrid(ACTOR_CRITIC_PARAMS))
+write_config("ppo/ppo.txt", ParameterGrid(ACTOR_CRITIC_PARAMS))
 write_config("ppo/ppo.txt", ParameterGrid(PPO_PARAMS))
 write_config("trpo/trpo.txt", ParameterGrid(TRPO_PARAMS))

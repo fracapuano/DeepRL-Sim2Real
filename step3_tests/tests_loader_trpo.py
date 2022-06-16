@@ -33,8 +33,10 @@ with open("trpo/trpo_evaluation.txt", "w") as trpo_evaluation_f:
 
         for param in loginfo:
             print(param)
-        print("Using bounds: " + '\n' + "low: " + str(config['low_bounds']) + '\n' + str(config['high_bounds']))
-        source_env.set_parametrization([config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds'], config['low_bounds'], config['high_bounds']])
+        print("Using bounds for m1: " + '\n' + "low: " + str(config['m1_low_bounds']) + '\n' + str(config['m1_high_bounds']))
+        print("Using bounds for m2: " + '\n' + "low: " + str(config['m2_low_bounds']) + '\n' + str(config['m2_high_bounds']))
+        print("Using bounds for m3: " + '\n' + "low: " + str(config['m3_low_bounds']) + '\n' + str(config['m3_high_bounds']))
+        source_env.set_parametrization([config['m1_low_bounds'], config['m1_high_bounds'], config['m2_low_bounds'], config['m2_high_bounds'], config['m3_low_bounds'], config['m3_high_bounds']])
         source_env.set_random_parameters()
 
         if config['activation_function'] == 'tanh':

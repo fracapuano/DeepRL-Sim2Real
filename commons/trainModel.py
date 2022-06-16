@@ -50,6 +50,7 @@ info_file_path='./'):
             timestep_per_episode = 0
             episode_actions = np.array([])
             while not done:
+                batch_counter += 1
                 timestep_counter += 1
                 timestep_per_episode += 1
             

@@ -30,7 +30,7 @@ target_env = makeEnv.make_environment("target")
 
 observation_space_dim = source_env.observation_space.shape[-1]
 action_space_dim = source_env.action_space.shape[-1]
-
+episodes = 20000
 #ACTOR-CRITIC OPTIMIZATION
 print("Looking for ActorCritic best hyperparameters configuration...")
 with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
@@ -45,16 +45,13 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 
 		policy = tibNET.ActorCriticPolicy(
     		state_space=observation_space_dim,
-    		action_space=action_space_dim,
-    		hidden=config['n_neurons'],
-    		init_sigma=config['sigma']
+    		action_space=action_space_dim
     	)
 
 		agent = agents.agentActorCritic.Agent(
     		policy,
 			net_type='tibNET',
     		device='cpu',
-    		gamma=config['gamma'],
     		lr=config['lr']
     	)
 
@@ -64,7 +61,7 @@ with open("a2c/actorCritic_evaluation.txt", "w") as actorCritic_evaluation_f:
 			source_env, 
 			actorCriticCheck=False, 
 			batch_size=config['batch_size'], 
-			episodes=config['n_episodes'],
+			episodes=episodes,
 			print_every=args.print_every,
 			save_to_file_bool=False
 			)
