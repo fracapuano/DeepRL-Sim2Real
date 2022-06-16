@@ -98,7 +98,7 @@ for idx in range(5):
 for alg in ALGS:
 
     with open(f"ppo_trpo_sumup/seedless_{alg}_rewards.txt", "w") as seedless_file_header_reward:
-        seedless_file_header_reward.write("Episode,Return,Timestep\n")
+        seedless_file_header_reward.write("Episode,Return\n")
 
     for seed in SEEDS:
         with open(f"ppo_trpo_sumup/seedless_{alg}_rewards.txt", "a+") as seedless_file_reward:
