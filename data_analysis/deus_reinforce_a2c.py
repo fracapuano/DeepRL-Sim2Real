@@ -38,33 +38,33 @@ observation_space_dim = source_env.observation_space.shape[-1]
 action_space_dim = source_env.action_space.shape[-1]
 
 #A2C BEST CONFIG
-batch_size_a2c=a2c_best_config["configurations"]["a2c"]["batch_size"]
-
-# policy_a2c = tibNET.ActorCriticPolicy(
-#     state_space=observation_space_dim,
-#     action_space=action_space_dim,
-#     hidden=a2c_best_config["configurations"]["a2c"]["n_neurons"],
-#     init_sigma=a2c_best_config["configurations"]["a2c"]["sigma"]
-#     )
-
-# agent_a2c = agentActorCritic.Agent(
-#     policy=policy_a2c,
-#     net_type="tibNET",
-#     gamma=a2c_best_config["configurations"]["a2c"]["gamma"],
-#     lr=a2c_best_config["configurations"]["a2c"]["lr"]
-#     )
-
-# A2C DEFAULT
+batch_size_a2c=a2c_best_config["configurations"]["actorCritic"]["batch_size"]
 
 policy_a2c = tibNET.ActorCriticPolicy(
     state_space=observation_space_dim,
-    action_space=action_space_dim
-)
+    action_space=action_space_dim,
+    hidden=a2c_best_config["configurations"]["actorCritic"]["n_neurons"],
+    init_sigma=a2c_best_config["configurations"]["actorCritic"]["sigma"]
+    )
 
 agent_a2c = agentActorCritic.Agent(
     policy=policy_a2c,
-    net_type="tibNET"
-)
+    net_type="tibNET",
+    gamma=a2c_best_config["configurations"]["actorCritic"]["gamma"],
+    lr=a2c_best_config["configurations"]["actorCritic"]["lr"]
+    )
+
+# A2C DEFAULT
+
+# policy_a2c = tibNET.ActorCriticPolicy(
+#     state_space=observation_space_dim,
+#     action_space=action_space_dim
+# )
+
+# agent_a2c = agentActorCritic.Agent(
+#     policy=policy_a2c,
+#     net_type="tibNET"
+# )
 
 MAP["actorcritic"] = agent_a2c
 

@@ -8,6 +8,14 @@
             "n_neurons": 32,
             "sigma": 0.5
         },
+        "actorCritic": {
+            "batch_size": 5,
+            "gamma": 0.998,
+            "lr": 0.001,
+            "n_episodes": 20000,
+            "n_neurons": 64,
+            "sigma": 0.5
+        },
         "ppo": {
             "activation_function": "tanh",
             "batch_size": 128,

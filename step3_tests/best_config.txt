@@ -1,12 +1,17 @@
 {
     "best_config": {
         "activation_function": "tanh",
-        "episodes": 100000,
+        "batch_size": 128,
         "gamma": 0.998,
-        "high_bounds": 4.5,
-        "low_bounds": 2,
         "lr": 0.001,
+        "m1_high_bounds": 4.5,
+        "m1_low_bounds": 2,
+        "m2_high_bounds": 4.5,
+        "m2_low_bounds": 3,
+        "m3_high_bounds": 9,
+        "m3_low_bounds": 1.5,
         "policy": "MlpPolicy",
-        "target_kl": 0.001
+        "target_kl": 0.01,
+        "timesteps": 100000
     }
 }

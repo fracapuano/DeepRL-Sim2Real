@@ -4,7 +4,7 @@ import json
 
 models = [
     'reinforce',
-    'a2c',
+    'actorCritic',
     'ppo',
     'trpo'
 ]
