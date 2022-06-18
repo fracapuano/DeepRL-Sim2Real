@@ -25,6 +25,7 @@ plot = sns.lineplot(x=seedless_df_baseline_rewards.iloc[:, 0], y=seedless_df_bas
 plot = sns.lineplot(x=seedless_df_standard_rewards.iloc[:, 0], y=seedless_df_standard_rewards.iloc[:, 1], data=seedless_df_standard_rewards)
 plot = sns.lineplot(x=seedless_df_togo_rewards.iloc[:, 0], y=seedless_df_togo_rewards.iloc[:, 1], data=seedless_df_togo_rewards)
 
+plot.set_xscale("log")
 plot.set_xlabel("Episode", fontsize=12)
 plot.set_ylabel("Episode Return", fontsize=12)
 plot.set_title("Return per episode for REINFORCE with three different return implementations", fontsize=12, fontweight="bold")
@@ -47,6 +48,7 @@ action_plot = sns.lineplot(x=seedless_df_baseline_actions.iloc[:, 0], y=seedless
 action_plot = sns.lineplot(x=seedless_df_standard_actions.iloc[:, 0], y=seedless_df_standard_actions.iloc[:, 1], data=seedless_df_standard_actions)
 action_plot = sns.lineplot(x=seedless_df_togo_actions.iloc[:, 0], y=seedless_df_togo_actions.iloc[:, 1], data=seedless_df_togo_actions)
 
+action_plot.set_xscale("log")
 action_plot.set_xlabel("Episode", fontsize=12)
 action_plot.set_ylabel("ActionMeasure", fontsize=12)
 action_plot.set_title("ActionMeasure per episode for REINFORCE with three different return implementations", fontsize=12, fontweight="bold")

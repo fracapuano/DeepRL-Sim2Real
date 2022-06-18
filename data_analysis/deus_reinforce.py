@@ -28,7 +28,7 @@ ALGS = [
 
 MAP = dict.fromkeys(ALGS)
 
-EPISODES = [50000 for _ in range(3)]
+EPISODES = [20000 for _ in range(3)]
 
 # ENV SETUP
 source_env = makeEnv.make_environment("source")

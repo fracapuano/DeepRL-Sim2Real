@@ -27,7 +27,7 @@ MAP = dict.fromkeys(ALGS)
 
 SEEDS = [42, 777, 299266, 303489, 295366]
 
-EPISODES = [50000 for _ in range(2)]
+EPISODES = [20000 for _ in range(2)]
 
 with open("../step2_tests/best_config.txt", "r") as a2c_best_config_file:
     a2c_best_config = json.load(a2c_best_config_file)
