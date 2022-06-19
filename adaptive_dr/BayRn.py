@@ -67,14 +67,6 @@ def init_D(agent, source_env, target_env, masses, n_init = args.n_init, n_roll =
     return D
 
 def J_masses(agent, source_env, target_env, bounds, masses, n_samples=args.n_samples):
-    # sampling with respect to the parameters just passed to set random masses
-    # for n in range(n_samples):
-    #     source_env.set_parametrization(bounds)
-    #     source_env.set_random_parameters(masses = masses, dist_type="uniform")
-
-    #     # learning with respect to random environment considered
-    #     agent.learn(total_timesteps = args.timesteps)
-
     source_env.set_parametrization(bounds)
     source_env.set_random_parameters(masses = masses, dist_type="uniform")
 

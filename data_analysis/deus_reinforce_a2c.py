@@ -54,18 +54,6 @@ agent_a2c = agentActorCritic.Agent(
     lr=a2c_best_config["configurations"]["actorCritic"]["lr"]
     )
 
-# A2C DEFAULT
-
-# policy_a2c = tibNET.ActorCriticPolicy(
-#     state_space=observation_space_dim,
-#     action_space=action_space_dim
-# )
-
-# agent_a2c = agentActorCritic.Agent(
-#     policy=policy_a2c,
-#     net_type="tibNET"
-# )
-
 MAP["actorcritic"] = agent_a2c
 
 with open("../step2_tests/best_config.txt", "r") as reinforce_best_config_file:

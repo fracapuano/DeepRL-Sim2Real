@@ -1,3 +1,6 @@
+"""
+THIS FILE CONTAINS JUST COME USEFUL FUNCTIONS AIMED AT BUILDING THE DATASET USED FOR OUR ANALYSIS.
+"""
 import numpy as np
 import pandas as pd
 from pkg_resources import add_activation_listener
@@ -18,12 +21,16 @@ from sb3_contrib.trpo.trpo import TRPO
 
 
 def env_data_generation(timesteps, env, callback_): 
-
+    """
+    Training the agent over a specified number of timesteps with a specific callback class.
+    """
     agent = TRPO("MlpPolicy", env, verbose = 1)
     agent.learn(total_timesteps = timesteps, callback=callback_)
 
 def dynamics_scoring(): 
-    
+    """
+    This function write to file all the measure useful for the analysis, namely the reward and our custom defined action measure.
+    """
     actionsDF = pd.read_csv("training_actions.txt", index_col = 0)
     rewardsDF = pd.read_csv("training_rewards.txt", index_col = 0)
 

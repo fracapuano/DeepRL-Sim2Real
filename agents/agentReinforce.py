@@ -88,8 +88,7 @@ class Agent(object):
         else:   # Sample from the distribution
             action = normal_dist.sample()
 
-            # Compute Log probability of the action [ log(p(a[0] AND a[1] AND a[2])) =
-            # log(p(a[0])*p(a[1])*p(a[2])) = log(p(a[0])) + log(p(a[1])) + log(p(a[2]))]
+            # Compute Log probability of the action
             action_log_prob = normal_dist.log_prob(action).sum()
 
             return action, action_log_prob

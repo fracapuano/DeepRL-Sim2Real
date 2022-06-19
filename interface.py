@@ -3,7 +3,7 @@ import torch
 import gym
 from env.custom_hopper import *
 
-### UTILITIES ###
+### UTILS ###
 import argparse
 import sys
 import os
