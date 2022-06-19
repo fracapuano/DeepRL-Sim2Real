@@ -19,7 +19,7 @@ from tqdm import tqdm
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--n-episodes', default=50, type=int, help='Number of training episodes')
+    parser.add_argument('--n-episodes', default=50, type=int, help='Number of test episodes')
     parser.add_argument('--domain-type', default='source', type=str, help='source / target')
     parser.add_argument('--render', default=False, action='store_true', help='Render the simulator')
     parser.add_argument('--model', default=None, type=str, help='Trained agent to import')
