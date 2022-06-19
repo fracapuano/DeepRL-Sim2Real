@@ -1,3 +1,7 @@
+"""
+The principle behind this callback is the same as custom_callback.py. Two different callbacks have been implemented since two different wrapping methods
+were necessary for our analysis.
+"""
 from stable_baselines3.common.callbacks import BaseCallback
 import numpy as np
 

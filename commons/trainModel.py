@@ -25,6 +25,22 @@ timesteps=100000,
 print_bool=False,
 save_to_file_bool=True,
 info_file_path='./'):
+    """
+    This function trains a specific agent and regulates the workflow of the overall application:
+    agent: the agent object employed in the task.
+    agent_type: string used to discriminate between agents' different implementations.
+    env: specific environment object retrived by makeEnvironment.
+    actorCriticCheck: bool to discriminate between A2C and REINFORCE. Fundamental since A2C policy updates are performed in batches.
+    batch_size: int used to indicate the batch chunk size for A2C policy updates.
+    episodes: number of training episodes.
+    print_every: number of episodes to skip before printing to episode's return to standard output.
+    file_name: if save_to_file_bool==True then saves the information in the file specified here via utils.FileSaver() object.
+    callback: specific callback given to TRPO and PPO agents.
+    timesteps: number of training timesteps for PPO and TRPO.
+    print_bool: bool used to indicate wheather to print or not episode's return to standard output.
+    save_to_file_bool: bool used to indicate if the current training process informations should be saved or not.
+    info_file_path: file path for utils.FileSaver() object instantiation.
+    """
     if agent_type.lower() == 'reinforce' or agent_type.lower() == 'actorcritic':
         if save_to_file_bool:
             files = [

@@ -1,3 +1,10 @@
+"""
+Performing training and testing of ActorCritic over source and target domain to retrive source-source return, source-target return and target-target return.
+Each time the ActorCritic agent is initialized with a different set of hyperparameters taken from actorCritic/actorCritic.txt.
+The obtained results are stored inside actorCritic_evaluation.txt.
+"""
+
+
 import argparse
 import json
 import numpy as np

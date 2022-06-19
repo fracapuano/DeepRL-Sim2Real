@@ -1,8 +1,5 @@
 """
-This script uses domain randomization to effectively train a RL agent with a variety of possible masses
-so to make the learned policy robust to changes in the overall distribution.
-The used algorithm is the Trust Region Policy Optimization (TRPO) algorithm, considering that in the "stable" training
-phase it has been shown to be the most promising one. 
+This script tests a TRPO agent with a pretrained model (trpo_train.py) in the target environment.
 """
 import sys
 import os

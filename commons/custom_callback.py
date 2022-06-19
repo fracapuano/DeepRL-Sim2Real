@@ -1,3 +1,7 @@
+"""
+This callback is just a custom fork of the template given by stable_baselines3, and is used to retrieve rewards and actions per step for PPO and TRPO via
+the _on_step() function, which are eventually appended to a specific file useful for the analysis.
+"""
 from stable_baselines3.common.callbacks import BaseCallback
 import numpy as np
 

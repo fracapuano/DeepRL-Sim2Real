@@ -1,3 +1,9 @@
+"""
+Performing training and testing of PPO over source and target domain to retrive source-source return, source-target return and target-target return.
+Each time the PPO agent is initialized with a different set of hyperparameters taken from ppo/ppo.txt.
+The obtained results are stored inside ppo_evaluation.txt.
+"""
+
 import argparse
 import json
 from pyexpat import model

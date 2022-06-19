@@ -1,5 +1,6 @@
 """
-
+This script collects the dataset used to bring our analysis further. The data is obtained through the commons/variant_callback.py.CustomCallBack()
+object passed to env_data_generation() (i.e. the TRPO agent).
 """
 
 import numpy as np

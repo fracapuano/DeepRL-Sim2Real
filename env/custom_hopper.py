@@ -25,6 +25,9 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         self.random_masses = 3
 
     def set_parametrization(self, bounds, dist_type='uniform'):
+        """
+        This function sets the parameters useful for customizing the employed parametric distribution.
+        """
         if dist_type.lower()=='uniform':
             self.low_uniform_1 = bounds[0]
             self.high_uniform_1 = bounds[1]
@@ -90,6 +93,9 @@ class CustomHopper(MujocoEnv, utils.EzPickle):
         return randomized_masses.reshape(-1,)
 
     def set_random_parameters(self, masses=['tigh', 'leg', 'foot'], dist_type='uniform'):
+        """
+        This function indicates which mass has to be randomized according to self.set_parametrization() and self.sample_parameters()
+        """
         masses_map = {
             'tigh':1,
             'leg':2,

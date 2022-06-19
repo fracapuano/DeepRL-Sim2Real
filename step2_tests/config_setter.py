@@ -1,3 +1,8 @@
+"""
+This script creates a ParameterGrid object with all the possibile hyperparameters' configurations and saves them to specific directories
+corresponding to each agent.
+"""
+
 import json
 import torch
 import torch.nn as nn

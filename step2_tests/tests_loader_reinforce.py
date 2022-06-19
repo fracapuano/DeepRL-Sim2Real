@@ -1,3 +1,9 @@
+"""
+Performing training and testing of REINFORCE over source and target domain to retrive source-source return, source-target return and target-target return.
+Each time the REINFORCE agent is initialized with a different set of hyperparameters taken from reinforce/reinforce.txt.
+The obtained results are stored inside reinforce_evaluation.txt.
+"""
+
 import argparse
 import json
 import numpy as np

@@ -1,6 +1,9 @@
 import torch
 
 def save_model(agent, agent_type, folder_path='./'):
+    """
+    Saves the model learnt by the agent in a specific path. Code Readibility.
+    """
     if agent_type.lower() == 'reinforce':
         torch.save(agent.policy.state_dict(), folder_path + "reinforce-model.mdl")
     elif agent_type.lower() == 'actorcritic':

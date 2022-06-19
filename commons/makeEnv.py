@@ -10,6 +10,9 @@ sys.path.insert(0, parentdir)
 from env.custom_hopper import *
 
 def make_environment(env_type):
+    """
+    Just a simple function used to create a specific environment. The aim was code readability.
+    """
     if env_type == 'source':
         env = gym.make('CustomHopper-source-v0')
         return env

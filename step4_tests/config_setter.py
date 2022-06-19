@@ -1,3 +1,7 @@
+"""
+This script creates a ParameterGrid object with all the possibile hyperparameters' configurations and saves them into trpo/.
+"""
+
 import json
 import torch
 import torch.nn as nn

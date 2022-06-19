@@ -1,3 +1,7 @@
+"""
+This script retrives the best hyperparameter's configuration obtained at the end of the tests.
+"""
+
 import pandas as pd
 import numpy as np
 import json

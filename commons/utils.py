@@ -3,6 +3,9 @@ import seaborn as sns
 import numpy as np
 
 class FileSaver():
+    """
+    Simple class used to save informations to specific files. Mainly employed in trainModel.py.
+    """
     def __init__(self, file_name, path='./'):
         self.path = path
         self.file_name = file_name

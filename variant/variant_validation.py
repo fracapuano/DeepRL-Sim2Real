@@ -1,3 +1,8 @@
+"""
+This script instantiates, trains and tests a TRPO agent over an environment with the specific settings provided
+by our analysis (i.e. which masses to randomize with their specific bounds).
+"""
+
 import numpy as np
 import torch.nn as nn
 import json

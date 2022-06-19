@@ -1,3 +1,9 @@
+"""
+Performing training and testing of TRPO over source and target domain to retrive source-source return, source-target return and target-target return.
+Each time the TRPO agent is initialized with a different set of hyperparameters taken from trpo/trpo.txt.
+The obtained results are stored inside trpo_evaluation.txt.
+"""
+
 import argparse
 import json
 import numpy as np
