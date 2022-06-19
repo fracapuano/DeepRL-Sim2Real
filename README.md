@@ -41,11 +41,36 @@ As per the guidelines, this project implements some basic RL Algorithms to learn
 ## Getting Started
 The algorithms we implemented are REINFORCE (with three different reward-systems implemented, i.e. baseline, reward to-go, and standard REINFORCE), ActorCritic, PPO and TRPO. REINFORCE and ActorCritic are implemented from scratch, and their content can be found in agents/ and policies/; since we tried to keep the structure simple and intuitive, in agents/ there are the main classes that perform the update operation of a given policy, while in policies/ there are two classes: fraNET.py and tibNET.py. For the purpose of solving the task as indicated in the guidelines, tibNET is the only policy approximation network employed in the whole project, while fraNET served just for debugging purposes, therefore its content shall not evaluated. One can interact with a default instantiation of these algorithms via **interface.py** through some simple commandline arguments:
 
-<details>
 <ol>
-<li>--op: "train"/"test" </li>
+  <li>
+--op: "train"/"test". default="train". The former tells the script to instantiate a specific agent, train it with a specific number of episodes/timesteps and
+save the resulting model in models/ as a .mdl file; the latter tests a given model (selected in models/ through --model) and renders the results.
+  </li>
+  <li>
+  --model:
+  </li>
+  <li>
+  --device:
+  </li>
+  <li>
+  --render:
+  </li>
+  <li>
+  --episodes:
+  </li>
+  <li>
+  --agent-type:
+  </li>
+  <li>
+  --domain-type:
+  </li>
+  <li>
+  --batch-size:
+  </li>
+  <li>
+  --print-every:
+  </li>
 </ol>
-</details>
 
 <!-- UDR -->
 ## UDR
