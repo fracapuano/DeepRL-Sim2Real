@@ -8,7 +8,7 @@
   </a>
 
 
-  <h3 align="center">Reainforcement Learning for Machine Learning and Deep Learning course \n Polito 2021/2022</h3>
+  <h3 align="center">Reinforcement Learning for Machine Learning and Deep Learning course <br /> PoliTo 2021/2022</h3>
 
   <p align="center">
     In the following, the whole project is briefly presented in how it works and how the various scripts should be executed to reproduce our results. We worked with some basic RL algorithms to make our friendly hopper able to jump to infinity and beyond.
