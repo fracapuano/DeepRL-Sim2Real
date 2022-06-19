@@ -30,7 +30,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-As per the guidelines, this project implements some basic RL Algorithms to learn an efficient policy that makes the HOPPER able to jump forward, along the x axis, maximazing its horizontal velocity. The way the code is organized is very simple: a preliminary inspection of the main algorithms employed is done via the **interface.py** file, which makes use of the content of the following folders: agent/ commons/ env/ /models and /policies. Step3 and Step4 of the task are implemented in domain_randomization/ and adaptive_dr/ respectively, in a way that their content can be executed without relying  on other files. In the following, each script will be explained individually.
+As per the guidelines, this project implements some basic RL Algorithms to learn an efficient policy that makes the HOPPER able to jump forward, along the x axis, maximazing its horizontal velocity. The way the code is organized is very simple: a preliminary inspection of the main algorithms employed is done via the **interface.py** file, which makes use of the content of the following folders: agent/ commons/ env/ /models and /policies. Step3 and Step4 of the task are implemented in domain_randomization/ and adaptive_dr/ respectively, in a way that their content can be executed without relying  on other files. In the following more informations will be provided.
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -79,7 +79,11 @@ python interface.py --op test --agent-type reinforce --episodes 50 --domain-type
 
 <!-- TESTS -->
 ## TESTS
-
+The folders step2_tests/ step3_tests/ and step4_tests/ perform the hyperparameters tuning of our agent in different context.
+* step2_tests/ content optimized REINFORE, ActorCritic, PPO and TRPO parameters for environments in which no specific randomization techniques are employed
+* step3_tests/ does the same thing but for environments in which Uniform Domain Randomization is employed
+* step4_tests/ performs hyperparameters' tuning for a TRPO agent that makes use of BayRn.py.
+The way each folder works is substantially the same: first config_setter.py creates a parameter grid object of the configurations we wanted to test and writes the resulting combinations as a json file which then each indivudal script uses. Please notice that every tests_loader_"model".py has its specific folder in which the combinations are stored and a "model"_evaluation.txt in which each combination's specific performance are recorded. Eventually, config_getter.py retrives the best one for each model and stores it inside best_config.txt 
 <!-- VARIANT -->
 ## VARIANT
 variant/ contains the content of the alternative approach we tried to implement in order to best identify the domain's parameters to randomize. A better explanation of such procedure can be read in our work's report, therefore here we just specify the order in which variant/*.py files should be executed to read the automatically generated results:
