@@ -72,6 +72,15 @@ save the resulting model in models/ as a .mdl file; the latter tests a given mod
   </li>
 </ol>
 
+Just for clarity purposes, here follows an example on how to _train_ a _REINFORCE_ agent for 50000 _episodes_ in the _source domain_ and print its _total reward_ every 100 episodes.
+```sh
+python interface.py --op train --agent-type reinforce --episodes 50000 --domain-type source --print-every 100
+```
+And _testing_ it in the _target domain_ for _50 episodes_:
+```sh
+python interace.py --op test --agent-type reinforce --episodes 50 --domain-type target --render --model reinforce-model.mdl
+```
+
 <!-- UDR -->
 ## UDR
 
