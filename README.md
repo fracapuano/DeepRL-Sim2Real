@@ -32,6 +32,8 @@
 ## About The Project
 As per the guidelines, this project implements some basic RL Algorithms to learn an efficient policy that makes the HOPPER able to jump forward, along the x axis, maximazing its horizontal velocity. The way the code is organized is very simple: a preliminary inspection of the main algorithms employed is done via the **interface.py** file, which makes use of the content of the following folders: agent/ commons/ env/ /models and /policies. Step3 and Step4 of the task are implemented in domain_randomization/ and adaptive_dr/ respectively, in a way that their content can be executed without relying  on other files. In the following more informations will be provided.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- GETTING STARTED -->
 ## Getting Started
 The algorithms we implemented are REINFORCE (with three different reward-systems implemented, i.e. baseline, reward to-go, and standard REINFORCE), ActorCritic, PPO and TRPO. REINFORCE and ActorCritic are implemented from scratch, and their content can be found in agents/ and policies/; since we tried to keep the structure simple and intuitive, in agents/ there are the main classes that perform the update operation of a given policy, while in policies/ there are two classes: fraNET.py and tibNET.py. For the purpose of solving the task as indicated in the guidelines, tibNET is the only policy approximation network employed in the whole project, while fraNET served just for debugging purposes, therefore its content shall not evaluated. One can interact with a default instantiation of these algorithms via **interface.py** through some simple commandline arguments:
@@ -71,11 +73,17 @@ And _testing_ it in the _target domain_ for _50 episodes_:
 python interface.py --op test --agent-type reinforce --episodes 50 --domain-type target --render --model reinforce-model.mdl
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- UDR -->
 ## UDR
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- ADR -->
 ## ADR
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- TESTS -->
 ## TESTS
@@ -85,6 +93,9 @@ The folders step2_tests/ step3_tests/ and step4_tests/ perform the hyperparamete
 * step4_tests/ performs hyperparameters' tuning for a TRPO agent that makes use of BayRn.py.
 The way each folder works is substantially the same: first config_setter.py creates a parameter grid object of the configurations we wanted to test and writes the resulting combinations as a json file which then each indivudal script uses. Please notice that every tests_loader_"model".py has its specific folder in which the combinations are stored and a "model"_evaluation.txt in which each combination's specific performance are recorded. Eventually, config_getter.py retrives the best one for each model and stores it inside best_config.txt. For each folder a run_hpt.sh file is present and its sufficient to run it to perform all the tests in that folder. <br />
 !! Notice that all the results are already in this repository, so to save your time we strongly recommend not to look at run_hpt.sh, kindly !!
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- VARIANT -->
 ## VARIANT
 variant/ contains the content of the alternative approach we tried to implement in order to best identify the domain's parameters to randomize. A better explanation of such procedure can be read in our work's report, therefore here we just specify the order in which variant/*.py files should be executed to read the automatically generated results:
@@ -96,6 +107,8 @@ variant/ contains the content of the alternative approach we tried to implement 
 variant_validation.py which trains a TRPO agent in the source environment where just 2 of the 3 masses are randomized according to our analysis results, and then tests it in the target domain.
 </li>
 </ol>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTACTS -->
 ## CONTACTS
