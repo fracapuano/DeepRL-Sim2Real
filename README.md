@@ -78,14 +78,14 @@ python interface.py --op test --agent-type reinforce --episodes 50 --domain-type
 <!-- UDR -->
 ## UDR
 Uniform Domain Randomization is a very simple yet effective strategy to help the agent generalize its behaviour after little environment's variations. Inside domain_randomiation/, the file trpo_train.py and trpo_test.py perform the training and testing of a TRPO agent with some specific user-specified bounds. trpo_train.py takes this bounds and saves the modell, while trpo_test.py loads it. trpo_train.py takes some simple input arguments:
-*--n-samples: int. default=5. Number of training sessions.
-*--domain-type as indicated in interface.py
-*--timesteps: int. default=100000. Number of timesteps the train a TRPO agent on.
-*--mX-low/--mX-high: float. default=0.5/5.  Each mass can have its specific bounds, but by default they are all the same. just use
-```sh
-python trpo_train.py --m1-low X --m1-high Y --m2-low Z --m2-high W --m3-low J --m3-high K 
-```
-to specify different bounds for the parametric distribution from which to sample each mass.
+  * --n-samples: int. default=5. Number of training sessions.
+  * --domain-type as indicated in interface.py
+  * --timesteps: int. default=100000. Number of timesteps the train a TRPO agent on.
+  * --mX-low/--mX-high: float. default=0.5/5.  Each mass can have its specific bounds, but by default they are all the same. just use
+  ```sh
+  python trpo_train.py --m1-low X --m1-high Y --m2-low Z --m2-high W --m3-low J --m3-high K 
+  ```
+to specify different bounds for the parametric distributions from which to sample each mass.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ADR -->
