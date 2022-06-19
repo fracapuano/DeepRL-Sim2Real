@@ -60,11 +60,11 @@ The algorithms we implemented are REINFORCE (with three different reward-systems
   </li>
   <li>
   --batch-size: int. default=10. Is an integer used to indicate the dimension of the batch chuck used for ActorCritic policy updates.
-  </li>
-  <li>
-  --print-every: int. default=10. Is the number of episodes to skip before printing the episode's total reward during training/testing.
-  </li>
-</ol>
+  </ol>
+
+  * --print-every: int. default=10. Is the number of episodes to skip before printing the episode's total reward during training/testing.
+
+
 
 Just for clarity purposes, here follows an example on how to _train_ a _REINFORCE_ agent for 50000 _episodes_ in the _source domain_ and print its _total reward_ every 100 episodes.
 ```sh
@@ -86,6 +86,9 @@ python interface.py --op test --agent-type reinforce --episodes 50 --domain-type
 
 <!-- VARIANT -->
 ## VARIANT
+varint/ contains the content of the alternative approach we tried to implement in order to best identify the domain's parameters to randomize. A better explanation of such procedure can be read in our work's report, therefore here we just specify the order in which varint/*.py files should be executed to read the automatically generated results:
+
+
 
 <!-- CONTACTS -->
 ## CONTACTS
