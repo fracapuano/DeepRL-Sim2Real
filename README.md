@@ -35,15 +35,17 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-As per the guidelines, this project implements some basic RL Algorithms to learn an efficient policy that makes the HOPPER able to jump forward, along the x axis, maximazing its horizontal velocity. The way the code is organized is very simple: a preliminary inspection of the main algorithms employed is done via the interface.py file, which makes use of the content of the following folders: agent/ commons/ env/ /models and /policies. Step3 and Step4 of the task are implemented in domain_randomization/ and adaptive_dr/ respectively, in a way that their content can be executed without relying  on other files. In the following, each script will be explained individually.
+As per the guidelines, this project implements some basic RL Algorithms to learn an efficient policy that makes the HOPPER able to jump forward, along the x axis, maximazing its horizontal velocity. The way the code is organized is very simple: a preliminary inspection of the main algorithms employed is done via the **interface.py** file, which makes use of the content of the following folders: agent/ commons/ env/ /models and /policies. Step3 and Step4 of the task are implemented in domain_randomization/ and adaptive_dr/ respectively, in a way that their content can be executed without relying  on other files. In the following, each script will be explained individually.
 
 <!-- GETTING STARTED -->
 ## Getting Started
-The algorithms we implemented are REINFORCE (with three different reward-systems implemented, i.e. baseline, reward to-go, and standard REINFORCE), ActorCritic, PPO and TRPO. REINFORCE and ActorCritic are implemented from scratch, and their content can be found in agents/ and policies/; since we tried to keep the structure simple and intuitive, in agents/ there are the main classes that perform the update operation of a given policy, while in policies/ there are two classes: fraNET.py and tibNET.py. For the purpose of solving the task as indicated in the guidelines, tibNET is the only policy approximation network employed in the whole project, while fraNET served just for debugging purposes, therefore its content shall not evaluated. One can interact with a default instantiation of these algorithms via interface.py through some simple commandline arguments:
+The algorithms we implemented are REINFORCE (with three different reward-systems implemented, i.e. baseline, reward to-go, and standard REINFORCE), ActorCritic, PPO and TRPO. REINFORCE and ActorCritic are implemented from scratch, and their content can be found in agents/ and policies/; since we tried to keep the structure simple and intuitive, in agents/ there are the main classes that perform the update operation of a given policy, while in policies/ there are two classes: fraNET.py and tibNET.py. For the purpose of solving the task as indicated in the guidelines, tibNET is the only policy approximation network employed in the whole project, while fraNET served just for debugging purposes, therefore its content shall not evaluated. One can interact with a default instantiation of these algorithms via **interface.py** through some simple commandline arguments:
 
+<details>
 <ol>
 <li>--op: "train"/"test" </li>
 </ol>
+</details>
 
 <!-- UDR -->
 ## UDR
