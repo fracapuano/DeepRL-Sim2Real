@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument('--max', default=10, type=float, help='upper bound to masses distribution')
 
     parser.add_argument('--n-init', default=5, type=int, help='Number of initialization iterations')
-    parser.add_argument('--maxit', default=10, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
+    parser.add_argument('--maxit', default=15, type=int, help = 'Maximal number of iterations for Bayesian Optimization')
     parser.add_argument('--timesteps', default=int(1e5), type=int, help='Number of timesteps for policy algorithm')
 
     parser.add_argument('--n-samples', default=5, type=int, help="Number of samples to evaluate distribution")

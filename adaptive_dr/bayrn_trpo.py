@@ -18,8 +18,8 @@ from BayRn import get_bc
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--train-timesteps', default=150000, type=int, help='Number of timesteps to train the agent on')
-    parser.add_argument('--test-timesteps', default=1000, type=int, help='Number of timesteps to test the agent in the target environment')
+    parser.add_argument('--train-timesteps', default=250000, type=int, help='Number of timesteps to train the agent on')
+    parser.add_argument('--test-timesteps', default=50, type=int, help='Number of timesteps to test the agent in the target environment')
     return parser.parse_args()
 
 args = parse_args()
@@ -62,7 +62,7 @@ agent.learn(total_timesteps=args.train_timesteps)
 saveModel.save_model(agent=agent, agent_type='trpo', folder_path='./')
 
 # TEST TRPO_BEST_CONFIG SU TARGET
-ss_return, _ = testModel.test(agent, agent_type='trpo', env=source_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=True)
-st_return, _ = testModel.test(agent, agent_type='trpo', env=target_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=True)
-print(f"Current Source-Source return over {args.test_timesteps} test episodes: {ss_return}")
-print(f"Current Source-Target return over {args.test_timesteps} test episodes: {st_return}")
+ss_return, ss_std = testModel.test(agent, agent_type='trpo', env=source_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=False)
+st_return, st_std = testModel.test(agent, agent_type='trpo', env=target_env, episodes=args.test_timesteps, model_info='./trpo-model.mdl', render_bool=False)
+print(f"Current Source-Source return over {args.test_timesteps} test episodes: {ss_return} pm {ss_std}")
+print(f"Current Source-Target return over {args.test_timesteps} test episodes: {st_return} pm {st_std}")
