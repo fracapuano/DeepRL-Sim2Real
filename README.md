@@ -39,7 +39,7 @@ The algorithms we implemented are REINFORCE (with three different reward-systems
 
   * --op: "train"/"test". default="train". The former tells the script to instantiate a specific agent, train it with a specific number of episodes/timesteps and save the resulting model in models/ as a .mdl file; the latter tests a given model (selected in models/ through --model) and renders the results.
 
-  * --model. default=None. Is just the name of the model you want to save after a training procedure or the name of the model you want to load when testing an agent. Be aware that no specific check is done to assert its compatibility with the specified --agent-type, therefore it should be coherent with said choice. Don't use --agent-type actorCritic and load a model for TRPO with --model trpo-model.mdl.
+  * --model: str default=None. Is just the name of the model you want to save after a training procedure or the name of the model you want to load when testing an agent. Be aware that no specific check is done to assert its compatibility with the specified --agent-type, therefore it should be coherent with said choice. Don't use --agent-type actorCritic and load a model for TRPO with --model trpo-model.mdl.
 
   * --device: "cpu"/"cuda". default="cpu". The whole project is developed in PyTorch [https://pytorch.org/], therefore there is the possibility to perform some operations using the GPU. At this specific state of the project such opportunity is not yet implemented but will for sure in next releases. Just leave it as default for now.
 
@@ -86,7 +86,7 @@ variant/ contains the content of the alternative approach we tried to implement 
 
 <ol>
 <li>dataset_generation.py to create a specific dataset suitable for our analysis.</li>
-<li>dynamics_analysis.py in which a _Random Forest Regressor_ performs its magic on the previously built dataset.</li>
+<li>dynamics_analysis.py in which a Random Forest Regressor performs its magic on the previously built dataset.</li>
 <li>
 variant_validation.py which trains a TRPO agent in the source environment where just 2 of the 3 masses are randomized according to our analysis results, and then tests it in the target domain.
 </li>
