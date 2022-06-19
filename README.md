@@ -86,11 +86,22 @@ Uniform Domain Randomization is a very simple yet effective strategy to help the
   python trpo_train.py --m1-low X --m1-high Y --m2-low Z --m2-high W --m3-low J --m3-high K 
   ```
 to specify different bounds for the parametric distributions from which to sample each mass.
+
+To test the agent, the usual arguments can be specified like previously described for interace.py: n-episodes, timesteps, domain-type, render and model.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ADR -->
 ## ADR
 To implement Adaptive Domain Randomization we decided to go for Bayesian Optimization [paper to reference: https://arxiv.org/pdf/2003.02471.pdf]. All the files for this specific set can be found in adaptive_dr/. BayRn.py contains all the necessary functions to perform such strategy, and can be run as a standalone file to obtaion the optimized bounds from which to sample the environments parameters (masses), or one could run (armed with some good patience) bayrn_trpo.py and let the code perform Bayesian Optimization by itself and then train and test a TRPO agent which BayRn.py output.
+BayRn.py allows the use of some useful arguments:
+
+* --n-roll: int. default=5. Number of rollouts in the target environment.
+* --min: float. default=0.25. Lower bound for masses' distribution.
+* --max: float. default=10. Higher bound for masses' distribution.
+* --maxit: int. default=15. Maximum number of Bayesiam Optimization iterations.
+* --timesteps: int. default=100000. Number of timesteps for policy algorithm training.
+* --n-init: int. default=5. Number of initialization iterations.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -116,6 +127,13 @@ variant/ contains the content of the alternative approach we tried to implement 
 variant_validation.py which trains a TRPO agent in the source environment where just 2 of the 3 masses are randomized according to our analysis results, and then tests it in the target domain.
 </li>
 </ol>
+
+To generate the dataset used for the analysis, dataset_generation.py allows some arguments to be given:
+
+* --samples: int. default=100. Number of training samples to consider while building the dataset.
+* --timesteps: int. default= 100000. Number of training timesteps for TRPO training.
+* --low: float. default=0.5. Lower bound of distribution.
+* --high: float. default=5. Higher bound of distribution.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
