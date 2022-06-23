@@ -26,8 +26,6 @@ ALGS = [
     "reinforce_togo"
 ] 
 
-MAP = dict.fromkeys(ALGS)
-
 EPISODES = [20000 for _ in range(3)]
 
 # ENV SETUP
@@ -37,37 +35,38 @@ target_env = makeEnv.make_environment("target")
 observation_space_dim = source_env.observation_space.shape[-1]
 action_space_dim = source_env.action_space.shape[-1]
 
-# AGENTS INITIALIZATION
-#DEFAULT REINFORCES
-policy = tibNET.ReinforcePolicy(
-    state_space=observation_space_dim,
-    action_space=action_space_dim,
-    )
-
-reinforce_baseline = agentReinforce.Agent(
-    policy,
-    return_flag='baseline'
-)
-
-MAP["reinforce_baseline"] = reinforce_baseline
-
-reinforce_standard = agentReinforce.Agent(
-    policy,
-    return_flag='standard'
-)
-
-MAP["reinforce_standard"] = reinforce_standard
-
-reinforce_togo = agentReinforce.Agent(
-    policy,
-    return_flag='reward_to_go'
-)
-
-MAP["reinforce_togo"] = reinforce_togo
-
 #PERFORMING TRAINING FOR 5 DIFFERENT RANDOM SEEDS
 for idx in range(5):
+    MAP = dict.fromkeys(ALGS)
     current_seed = source_env.seed(seed=SEEDS[idx])
+    # AGENTS INITIALIZATION
+        #DEFAULT REINFORCES
+    policy = tibNET.ReinforcePolicy(
+        state_space=observation_space_dim,
+        action_space=action_space_dim,
+        )
+
+    reinforce_baseline = agentReinforce.Agent(
+        policy,
+        return_flag='baseline'
+    )
+
+    MAP["reinforce_baseline"] = reinforce_baseline
+
+    reinforce_standard = agentReinforce.Agent(
+        policy,
+        return_flag='standard'
+    )
+
+    MAP["reinforce_standard"] = reinforce_standard
+
+    reinforce_togo = agentReinforce.Agent(
+        policy,
+        return_flag='reward_to_go'
+    )
+
+    MAP["reinforce_togo"] = reinforce_togo
+
     for agent, agent_name, duration in zip(MAP, ALGS, EPISODES):
         print(f"Training {agent_name} for {duration} episodes/timesteps. SEED = {current_seed}")
 
@@ -90,6 +89,12 @@ for idx in range(5):
             agent_type="reinforce",
             folder_path=f"./{agent_name}/"
         )
+    del policy
+    del reinforce_baseline
+    del reinforce_standard
+    del reinforce_togo
+    del MAP
+    
 # SEEDLESS RETURNS
 for alg in ALGS:
 

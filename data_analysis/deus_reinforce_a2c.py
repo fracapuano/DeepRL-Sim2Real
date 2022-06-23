@@ -23,8 +23,6 @@ ALGS = [
     "reinforce"
 ]
 
-MAP = dict.fromkeys(ALGS)
-
 SEEDS = [42, 777, 299266, 303489, 295366]
 
 EPISODES = [20000 for _ in range(2)]
@@ -32,51 +30,53 @@ EPISODES = [20000 for _ in range(2)]
 with open("../step2_tests/best_config.txt", "r") as a2c_best_config_file:
     a2c_best_config = json.load(a2c_best_config_file)
 
+with open("../step2_tests/best_config.txt", "r") as reinforce_best_config_file:
+    reinforce_best_config = json.load(reinforce_best_config_file)
+
+batch_size_a2c=a2c_best_config["configurations"]["actorCritic"]["batch_size"]
+
 source_env = makeEnv.make_environment("source")
 
 observation_space_dim = source_env.observation_space.shape[-1]
 action_space_dim = source_env.action_space.shape[-1]
 
-#A2C BEST CONFIG
-batch_size_a2c=a2c_best_config["configurations"]["actorCritic"]["batch_size"]
-
-policy_a2c = tibNET.ActorCriticPolicy(
-    state_space=observation_space_dim,
-    action_space=action_space_dim,
-    hidden=a2c_best_config["configurations"]["actorCritic"]["n_neurons"],
-    init_sigma=a2c_best_config["configurations"]["actorCritic"]["sigma"]
-    )
-
-agent_a2c = agentActorCritic.Agent(
-    policy=policy_a2c,
-    net_type="tibNET",
-    gamma=a2c_best_config["configurations"]["actorCritic"]["gamma"],
-    lr=a2c_best_config["configurations"]["actorCritic"]["lr"]
-    )
-
-MAP["actorcritic"] = agent_a2c
-
-with open("../step2_tests/best_config.txt", "r") as reinforce_best_config_file:
-    reinforce_best_config = json.load(reinforce_best_config_file)
-
-policy_reinforce = tibNET.ReinforcePolicy(
-    state_space=observation_space_dim,
-    action_space=action_space_dim,
-    hidden=reinforce_best_config["configurations"]["reinforce"]["n_neurons"],
-    init_sigma=reinforce_best_config["configurations"]["reinforce"]["sigma"]
-)
-agent_reinforce = agentReinforce.Agent(
-    policy=policy_reinforce,
-    gamma=reinforce_best_config["configurations"]["reinforce"]["gamma"],
-    lr=reinforce_best_config["configurations"]["reinforce"]["lr"],
-    return_flag="baseline"
-)
-
-MAP["reinforce"] = agent_reinforce
-
 #PERFORMING TRAINING FOR 5 DIFFERENT RANDOM SEEDS FOR BEST_CONFIG_A2C
 for idx in range(5):
+    MAP = dict.fromkeys(ALGS)
     current_seed = source_env.seed(seed=SEEDS[idx])
+
+        #A2C BEST CONFIG
+    policy_a2c = tibNET.ActorCriticPolicy(
+        state_space=observation_space_dim,
+        action_space=action_space_dim,
+        hidden=a2c_best_config["configurations"]["actorCritic"]["n_neurons"],
+        init_sigma=a2c_best_config["configurations"]["actorCritic"]["sigma"]
+        )
+
+    agent_a2c = agentActorCritic.Agent(
+        policy=policy_a2c,
+        net_type="tibNET",
+        gamma=a2c_best_config["configurations"]["actorCritic"]["gamma"],
+        lr=a2c_best_config["configurations"]["actorCritic"]["lr"]
+        )
+
+    MAP["actorcritic"] = agent_a2c
+
+    policy_reinforce = tibNET.ReinforcePolicy(
+        state_space=observation_space_dim,
+        action_space=action_space_dim,
+        hidden=reinforce_best_config["configurations"]["reinforce"]["n_neurons"],
+        init_sigma=reinforce_best_config["configurations"]["reinforce"]["sigma"]
+    )
+    agent_reinforce = agentReinforce.Agent(
+        policy=policy_reinforce,
+        gamma=reinforce_best_config["configurations"]["reinforce"]["gamma"],
+        lr=reinforce_best_config["configurations"]["reinforce"]["lr"],
+        return_flag="baseline"
+    )
+
+    MAP["reinforce"] = agent_reinforce
+
     for agent, agent_name, duration in zip(MAP, ALGS, EPISODES):
         print(f"Training {agent_name} for {duration} episodes. SEED = {current_seed}")
 
@@ -104,6 +104,11 @@ for idx in range(5):
             agent_type=agent_name,
             folder_path=f"./a2c_reinforce/"
         )
+    del agent_a2c
+    del agent_reinforce
+    del policy_a2c
+    del policy_reinforce
+    del MAP
 
 # SEEDLESS RETURNS
 for alg in ALGS:
