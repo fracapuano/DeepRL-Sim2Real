@@ -31,9 +31,8 @@ def main():
     data = "dynamics.txt"
     df = load_data(data)
     
-    # X, y = df.iloc[:, :-1], df.iloc[:, -1]
-    X, y = 10*np.random.random(size = (100, 3)), 3*np.random.random(size = (100,))
-
+    X, y = df.iloc[:, :-1], df.iloc[:, -1]
+    
     rf_imp = random_forest_importance(X, y)
     t_test = linear_models(X, y)
 
