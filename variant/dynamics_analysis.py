@@ -34,7 +34,6 @@ def main():
     X, y = df.iloc[:, :-1], df.iloc[:, -1]
     
     rf_imp = random_forest_importance(X, y)
-    t_test = linear_models(X, y)
 
     print(rf_imp)
 
