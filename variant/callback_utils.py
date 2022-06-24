@@ -52,4 +52,4 @@ def dynamics_scoring():
     with open("training_rewards.txt", "w") as reward_file: 
         reward_file.write("episodeID,episode_reward,number_of_steps\n")
     
-    return action_weight * actions_.mean() + reward_weight * rewards_.mean() + n_steps_weight * number_of_steps_.mean()
+    return action_weight * (1-actions_.mean()) + reward_weight * rewards_.mean() + n_steps_weight * number_of_steps_.mean()
