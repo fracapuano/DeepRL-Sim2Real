@@ -30,7 +30,7 @@ args = parse_args()
 
 def main(): 
     # randomizing only "leg" and "foot" considering the output of dynamics_analysis.py
-    bounds = get_bc(masses = ["leg", "foot"])
+    bounds = get_bc(masses = ["tigh", "foot"])
     
 
     # INIZIALIZZO TRPO CON LA MIGLIOR CONFIGURAZIONE TROVATA IN STEP4
