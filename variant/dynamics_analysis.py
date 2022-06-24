@@ -37,7 +37,6 @@ def main():
     t_test = linear_models(X, y)
 
     print(rf_imp)
-    print(t_test)
 
 if __name__ == "__main__": 
     main()
