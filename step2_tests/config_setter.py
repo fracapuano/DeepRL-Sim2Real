@@ -28,7 +28,7 @@ REINFORCE_PARAMS = {
 
 ACTOR_CRITIC_PARAMS = {
 	'lr':[1e-3, 5e-3],
-	'batch_size':[10, 20]
+	'batch_size':[5, 10]
 }
 
 TRPO_PARAMS = {
