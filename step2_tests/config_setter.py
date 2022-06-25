@@ -21,7 +21,7 @@ REINFORCE_PARAMS = {
 	'n_neurons':[32, 64],
 	'gamma':[0.998, 0.999],
 	'lr':[1e-3, 5e-3],
-	'n_episodes':[20000],
+	'n_episodes':[50000],
 	'sigma':[0.25, 0.5, 1.25],
 	'batch_size':[0]
 }
