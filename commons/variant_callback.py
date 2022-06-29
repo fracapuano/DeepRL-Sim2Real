@@ -66,7 +66,7 @@ class CustomCallback(BaseCallback):
         else:
             episode_reward = self.rewards.sum()
             episode_action_derivative = np.diff(self.actions.reshape(3, -1))
-            episode_action_range = np.abs(episode_action_derivative).max(axis = 1) - np.abs(episode_action_derivative).min(axis = 0)
+            episode_action_range = np.abs(episode_action_derivative).max(axis = 1) - np.abs(episode_action_derivative).min(axis = 1)
             episode_action_range = episode_action_range.max() - episode_action_range.min()
 
             number_of_steps = self.nos
